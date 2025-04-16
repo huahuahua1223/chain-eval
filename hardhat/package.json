@@ -1,0 +1,27 @@
+{
+  "name": "hardhat-project",
+  "version": "1.0.0",
+  "description": "Hardhat项目",
+  "main": "index.js",
+  "scripts": {
+    "test": "hardhat test",
+    "compile": "hardhat compile",
+    "node": "hardhat node --port 8546",
+    "deploy-hardhat": "hardhat run scripts/deploy-hardhat.js --network hardhat",
+    "deploy-geth": "hardhat run scripts/deploy-geth.js --network geth",
+    "accounts": "hardhat accounts",
+    "accounts-geth": "hardhat accounts --network geth"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^3.0.0",
+    "@openzeppelin/contracts": "^4.8.1",
+    "hardhat": "^2.19.0"
+  },
+  "dependencies": {
+    "chai": "^4.3.7",
+    "ethers": "^6.4.0"
+  }
+}
