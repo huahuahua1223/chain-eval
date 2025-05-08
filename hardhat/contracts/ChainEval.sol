@@ -43,6 +43,7 @@ contract ChainEval is Ownable, ReentrancyGuard {
     mapping(uint256 => mapping(address => bool)) public studentCourses; // 学生是否修过某门课
     mapping(uint256 => Evaluation[]) public courseEvaluations; // 课程评价列表
     mapping(address => uint256[]) public studentEvaluationIds; // 学生的评价ID列表
+    mapping(string => bool) public usedUserIds; // 记录已使用的学号/工号
     
     // 事件
     event UserRegistered(address indexed userAddress, string id, Role role);
@@ -79,6 +80,9 @@ contract ChainEval is Ownable, ReentrancyGuard {
         // 将管理员地址添加到用户地址数组
         userAddresses.push(msg.sender);
         
+        // 标记ADMIN ID已被使用
+        usedUserIds["ADMIN"] = true;
+        
         emit UserRegistered(msg.sender, "ADMIN", Role.Admin);
     }
     
@@ -86,6 +90,7 @@ contract ChainEval is Ownable, ReentrancyGuard {
     function register(string memory _id, string memory _email, bytes32 _passwordHash, Role _role) external {
         require(!users[msg.sender].isRegistered, "User already registered");
         require(_role != Role.Admin, "Cannot register as admin");
+        require(!usedUserIds[_id], "User ID already exists");
         
         users[msg.sender] = User({
             id: _id,
@@ -97,6 +102,9 @@ contract ChainEval is Ownable, ReentrancyGuard {
         
         // 将新用户地址添加到数组
         userAddresses.push(msg.sender);
+        
+        // 标记该ID已被使用
+        usedUserIds[_id] = true;
         
         emit UserRegistered(msg.sender, _id, _role);
     }

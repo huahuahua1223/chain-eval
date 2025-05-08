@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { registerUser } from '../utils/contract';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser, faEnvelope, faLock, faExclamationCircle, faGraduationCap, faChalkboardTeacher } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faEnvelope, faLock, faExclamationCircle, faGraduationCap, faChalkboardTeacher, faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 export default function Register() {
   const navigate = useNavigate();
@@ -14,14 +14,57 @@ export default function Register() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [showAnimation, setShowAnimation] = useState(false);
+  const [passwordFocused, setPasswordFocused] = useState(false);
+
+  // 密码强度检查条件
+  const [passwordStrength, setPasswordStrength] = useState({
+    hasLength: false,
+    hasNumber: false,
+    hasLowerCase: false,
+    hasUpperCase: false,
+    hasSpecial: false
+  });
 
   useEffect(() => {
     setShowAnimation(true);
   }, []);
 
+  // 检查密码强度
+  useEffect(() => {
+    setPasswordStrength({
+      hasLength: password.length >= 8,
+      hasNumber: /\d/.test(password),
+      hasLowerCase: /[a-z]/.test(password),
+      hasUpperCase: /[A-Z]/.test(password),
+      hasSpecial: /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)
+    });
+  }, [password]);
+
+  // 计算密码强度评级
+  const calculatePasswordStrengthLevel = () => {
+    const { hasLength, hasNumber, hasLowerCase, hasUpperCase, hasSpecial } = passwordStrength;
+    const criteria = [hasLength, hasNumber, hasLowerCase, hasUpperCase, hasSpecial];
+    const metCriteriaCount = criteria.filter(Boolean).length;
+
+    if (metCriteriaCount === 0) return { level: 0, color: '', text: '' };
+    if (metCriteriaCount === 1) return { level: 1, color: 'bg-red-500', text: '非常弱' };
+    if (metCriteriaCount === 2) return { level: 2, color: 'bg-orange-500', text: '弱' };
+    if (metCriteriaCount === 3) return { level: 3, color: 'bg-yellow-500', text: '中等' };
+    if (metCriteriaCount === 4) return { level: 4, color: 'bg-blue-500', text: '强' };
+    return { level: 5, color: 'bg-green-500', text: '非常强' };
+  };
+
+  const { level, color, text } = calculatePasswordStrengthLevel();
+  const isPasswordStrong = level >= 3; // 至少中等强度才算有效
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
+
+    if (!isPasswordStrong) {
+      setError('密码强度不足，请确保至少满足3项安全条件');
+      return;
+    }
 
     if (password !== confirmPassword) {
       setError('两次输入的密码不一致');
@@ -33,8 +76,13 @@ export default function Register() {
     try {
       await registerUser(id, email, password, role);
       navigate('/login');
-    } catch (err) {
-      setError('注册失败，请确保已连接钱包');
+    } catch (err: any) {
+      console.error(err);
+      if (err.message && err.message.includes("User ID already exists")) {
+        setError('注册失败：该学号/工号已被注册');
+      } else {
+        setError('注册失败，请确保已连接钱包');
+      }
     } finally {
       setLoading(false);
     }
@@ -125,8 +173,66 @@ export default function Register() {
                   placeholder="请设置密码"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
+                  onFocus={() => setPasswordFocused(true)}
+                  onBlur={() => setPasswordFocused(false)}
                 />
               </div>
+              
+              {/* 密码强度指示器 */}
+              {(passwordFocused || password.length > 0) && (
+                <div className="mt-3 bg-white/5 backdrop-blur-sm rounded-lg p-3 border border-indigo-200/20">
+                  <div className="mb-2">
+                    <div className="flex justify-between mb-1">
+                      <span className="text-xs text-indigo-200">密码强度:</span>
+                      <span className={`text-xs font-medium ${level >= 3 ? 'text-green-300' : 'text-red-300'}`}>{text}</span>
+                    </div>
+                    <div className="w-full h-2 bg-gray-700/30 rounded-full overflow-hidden">
+                      <div 
+                        className={`h-full ${color} transition-all duration-300`} 
+                        style={{ width: `${(level / 5) * 100}%` }}
+                      ></div>
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-1">
+                    <div className="flex items-center">
+                      <FontAwesomeIcon 
+                        icon={passwordStrength.hasLength ? faCheck : faTimes} 
+                        className={`h-3 w-3 ${passwordStrength.hasLength ? 'text-green-400' : 'text-red-400'} mr-2`} 
+                      />
+                      <span className="text-xs text-indigo-200">至少8个字符</span>
+                    </div>
+                    <div className="flex items-center">
+                      <FontAwesomeIcon 
+                        icon={passwordStrength.hasNumber ? faCheck : faTimes} 
+                        className={`h-3 w-3 ${passwordStrength.hasNumber ? 'text-green-400' : 'text-red-400'} mr-2`} 
+                      />
+                      <span className="text-xs text-indigo-200">包含数字</span>
+                    </div>
+                    <div className="flex items-center">
+                      <FontAwesomeIcon 
+                        icon={passwordStrength.hasLowerCase ? faCheck : faTimes} 
+                        className={`h-3 w-3 ${passwordStrength.hasLowerCase ? 'text-green-400' : 'text-red-400'} mr-2`} 
+                      />
+                      <span className="text-xs text-indigo-200">包含小写字母</span>
+                    </div>
+                    <div className="flex items-center">
+                      <FontAwesomeIcon 
+                        icon={passwordStrength.hasUpperCase ? faCheck : faTimes} 
+                        className={`h-3 w-3 ${passwordStrength.hasUpperCase ? 'text-green-400' : 'text-red-400'} mr-2`} 
+                      />
+                      <span className="text-xs text-indigo-200">包含大写字母</span>
+                    </div>
+                    <div className="flex items-center">
+                      <FontAwesomeIcon 
+                        icon={passwordStrength.hasSpecial ? faCheck : faTimes} 
+                        className={`h-3 w-3 ${passwordStrength.hasSpecial ? 'text-green-400' : 'text-red-400'} mr-2`} 
+                      />
+                      <span className="text-xs text-indigo-200">包含特殊字符(!@#$%^&*)</span>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
 
             <div className="group">
@@ -148,6 +254,18 @@ export default function Register() {
                   onChange={(e) => setConfirmPassword(e.target.value)}
                 />
               </div>
+              {/* 确认密码匹配指示器 */}
+              {confirmPassword.length > 0 && (
+                <div className="mt-1 flex items-center">
+                  <FontAwesomeIcon 
+                    icon={password === confirmPassword ? faCheck : faTimes} 
+                    className={`h-3 w-3 ${password === confirmPassword ? 'text-green-400' : 'text-red-400'} mr-2`} 
+                  />
+                  <span className={`text-xs ${password === confirmPassword ? 'text-green-300' : 'text-red-300'}`}>
+                    {password === confirmPassword ? '密码匹配' : '密码不匹配'}
+                  </span>
+                </div>
+              )}
             </div>
 
             <div className="group">
