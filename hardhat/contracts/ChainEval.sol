@@ -201,15 +201,9 @@ contract ChainEval is Ownable, ReentrancyGuard {
         emit EvaluationSubmitted(_courseId, msg.sender, _score);
     }
     
-    // 获取课程评价（教师可查看自己课程的评价，管理员可查看所有课程的评价）
+    // 获取课程评价（所有人可查看）
     function getCourseEvaluations(uint256 _courseId) external view returns (Evaluation[] memory) {
         require(_courseId < courses.length, "Course does not exist");
-        require(
-            users[msg.sender].role == Role.Admin || 
-            (users[msg.sender].role == Role.Teacher && courses[_courseId].teacher == msg.sender),
-            "Not authorized to view evaluations"
-        );
-        
         return courseEvaluations[_courseId];
     }
     
@@ -310,5 +304,38 @@ contract ChainEval is Ownable, ReentrancyGuard {
             }
         }
         return takenCourses;
+    }
+
+    // 获取课程的学生名单（所有人可查看）
+    function getCourseStudents(uint256 _courseId) external view returns (address[] memory) {
+        require(_courseId < courses.length, "Course does not exist");
+        
+        // 计算选修该课程的学生数量
+        uint256 studentCount = 0;
+        for (uint256 i = 0; i < userAddresses.length; i++) {
+            if (studentCourses[_courseId][userAddresses[i]]) {
+                studentCount++;
+            }
+        }
+        
+        // 创建结果数组
+        address[] memory courseStudents = new address[](studentCount);
+        uint256 index = 0;
+        
+        // 填充结果数组
+        for (uint256 i = 0; i < userAddresses.length; i++) {
+            if (studentCourses[_courseId][userAddresses[i]]) {
+                courseStudents[index] = userAddresses[i];
+                index++;
+            }
+        }
+        
+        return courseStudents;
+    }
+
+    // 获取单个课程详情（任何人都可以查看）
+    function getCourseDetail(uint256 _courseId) external view returns (Course memory) {
+        require(_courseId < courses.length, "Course does not exist");
+        return courses[_courseId];
     }
 }

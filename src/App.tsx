@@ -12,6 +12,7 @@ import Courses from './pages/Courses';
 import AlreadyCourses from './pages/AlreadyCourses';
 import Evaluations from './pages/Evaluations';
 import CourseEvaluations from './pages/CourseEvaluations';
+import CourseDetail from './pages/CourseDetail';
 import './App.css'
 
 export default function App() {
@@ -31,6 +32,7 @@ export default function App() {
         <Route path="/already-courses" element={<Layout><AlreadyCourses /></Layout>} />
         <Route path="/evaluations" element={<Layout><Evaluations /></Layout>} />
         <Route path="/course-evaluations" element={<Layout><CourseEvaluations /></Layout>} />
+        <Route path="/course/:courseId" element={<Layout><CourseDetail /></Layout>} />
         
         <Route path="*" element={<NotFound />} />
       </Routes>

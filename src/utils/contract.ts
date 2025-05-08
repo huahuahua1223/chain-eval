@@ -1,6 +1,35 @@
 import Web3 from 'web3';
 import abijson from '../../hardhat/artifacts/contracts/ChainEval.sol/ChainEval.json';
 import addressjson from '../../hardhat/deployments/geth-address.json';
+interface CourseData {
+  id: string;
+  name: string;
+  credits: string;
+  teacher: string;
+  isActive: boolean;
+}
+
+interface UserData {
+  id: string;
+  email: string;
+  passwordHash: string;
+  role: string;
+  isRegistered: boolean;
+}
+
+interface StudentData {
+  id: string;
+  email: string;
+  address: string;
+}
+
+interface EvaluationData {
+  score: string;
+  comment: string;
+  timestamp: string;
+  isAnonymous: boolean;
+  student: string;
+}
 
 // 合约ABI
 const contractABI = abijson.abi;
@@ -92,7 +121,7 @@ export const submitEvaluation = async (courseId: number, score: number, comment:
 };
 
 // 获取课程评价（教师可查看自己课程的评价，管理员可查看所有课程的评价）
-export const getCourseEvaluations = async (courseId: number) => {
+export const getCourseEvaluations = async (courseId: number): Promise<EvaluationData[]> => {
   const contract = getContract();
   const account = await getCurrentAccount();
   
@@ -145,4 +174,34 @@ export const getStudentTakenCourses = async () => {
   const account = await getCurrentAccount();
   
   return await contract.methods.getStudentTakenCourses().call({ from: account });
+};
+
+// 获取单个课程详情
+export const getCourseDetail = async (courseId: number): Promise<CourseData> => {
+  const contract = getContract();
+  const account = await getCurrentAccount();
+  
+  return await contract.methods.getCourseDetail(courseId).call({ from: account });
+};
+
+// 获取课程的学生名单
+export const getCourseStudents = async (courseId: number): Promise<StudentData[]> => {
+  const contract = getContract();
+  const account = await getCurrentAccount();
+  
+  const studentAddresses: string[] = await contract.methods.getCourseStudents(courseId).call({ from: account });
+  
+  // 获取每个学生的详细信息
+  const studentDetails = await Promise.all(
+    studentAddresses.map(async (address: string) => {
+      const user: UserData = await contract.methods.users(address).call();
+      return {
+        id: user.id,
+        email: user.email,
+        address: address
+      };
+    })
+  );
+  
+  return studentDetails;
 }; 

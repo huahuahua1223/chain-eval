@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getTeacherCourses } from '../utils/contract';
+import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
   faBook, 
@@ -22,6 +23,7 @@ interface Course {
 }
 
 const TeacherCourses: React.FC = () => {
+  const navigate = useNavigate();
   const [courses, setCourses] = useState<Course[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -45,6 +47,10 @@ const TeacherCourses: React.FC = () => {
 
     fetchCourses();
   }, []);
+
+  const handleCourseClick = (courseId: number | bigint) => {
+    navigate(`/course/${courseId}`);
+  };
 
   if (loading) {
     return (
@@ -116,7 +122,11 @@ const TeacherCourses: React.FC = () => {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {courses.map((course) => (
-            <div key={String(course.id)} className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 hover:shadow-lg transition-shadow duration-300 group relative">
+            <div
+              key={String(course.id)}
+              className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 hover:shadow-lg transition-shadow duration-300 group relative cursor-pointer"
+              onClick={() => handleCourseClick(course.id)}
+            >
               {/* 卡片装饰元素 */}
               <div className="absolute top-0 right-0 bg-gradient-to-br from-green-50 to-teal-50 w-24 h-24 rounded-full -mr-12 -mt-12 opacity-0 group-hover:opacity-70 transition-opacity duration-500"></div>
               
