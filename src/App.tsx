@@ -3,7 +3,6 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Layout from './components/Layout';
 import Dashboard from './pages/Dashboard';
-import EvaluationForm from './pages/EvaluationForm';
 import Profile from './pages/Profile';
 import NotFound from './pages/NotFound';
 import MarkStudentCourses from './pages/MarkStudentCourses';
@@ -25,7 +24,6 @@ export default function App() {
         <Route path="/dashboard" element={<Layout><Dashboard /></Layout>} />
         <Route path="/profile" element={<Layout><Profile /></Layout>} />
         <Route path="/" element={<Layout><Dashboard /></Layout>} />
-        <Route path="/evaluate/:courseId" element={<Layout><EvaluationForm /></Layout>} />
         <Route path="/mark-student-courses" element={<Layout><MarkStudentCourses /></Layout>} />
         <Route path="/users" element={<Layout><Users /></Layout>} />
         <Route path="/my-courses" element={<Layout><TeacherCourses /></Layout>} />

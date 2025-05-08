@@ -451,7 +451,7 @@ export default function Dashboard() {
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                       {Number(user?.role) === 0 && (
                         <button
-                          onClick={() => navigate(`/evaluate/${course.id}`)}
+                          // onClick={() => navigate(`/evaluate/${course.id}`)}
                           className="bg-indigo-50 hover:bg-indigo-100 text-indigo-700 px-3 py-1 rounded-lg transition-colors border border-indigo-200 flex items-center"
                         >
                           <FontAwesomeIcon icon={faEye} className="h-3 w-3 mr-1" />
