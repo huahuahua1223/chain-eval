@@ -50,6 +50,8 @@ contract ChainEval is Ownable, ReentrancyGuard {
     event CourseAdded(uint256 indexed courseId, string name, address teacher);
     event CourseUpdated(uint256 indexed courseId, string name, address teacher);
     event EvaluationSubmitted(uint256 indexed courseId, address student, uint8 score);
+    event UserProfileUpdated(address indexed userAddress, string email);
+    event UserPasswordChanged(address indexed userAddress);
     
     // 修饰器
     modifier onlyAdmin() {
@@ -64,6 +66,11 @@ contract ChainEval is Ownable, ReentrancyGuard {
     
     modifier onlyStudent() {
         require(users[msg.sender].role == Role.Student, "Only student can perform this action");
+        _;
+    }
+    
+    modifier onlyRegistered() {
+        require(users[msg.sender].isRegistered, "User not registered");
         _;
     }
     
@@ -115,6 +122,24 @@ contract ChainEval is Ownable, ReentrancyGuard {
         return user.isRegistered && 
                keccak256(bytes(user.id)) == keccak256(bytes(_id)) && 
                user.passwordHash == _passwordHash;
+    }
+    
+    // 修改个人资料（更新邮箱）
+    function updateUserProfile(string memory _newEmail) external onlyRegistered {
+        User storage user = users[msg.sender];
+        user.email = _newEmail;
+        
+        emit UserProfileUpdated(msg.sender, _newEmail);
+    }
+    
+    // 修改密码
+    function changePassword(bytes32 _oldPasswordHash, bytes32 _newPasswordHash) external onlyRegistered {
+        User storage user = users[msg.sender];
+        require(user.passwordHash == _oldPasswordHash, "Incorrect old password");
+        
+        user.passwordHash = _newPasswordHash;
+        
+        emit UserPasswordChanged(msg.sender);
     }
     
     // 添加课程（仅管理员）

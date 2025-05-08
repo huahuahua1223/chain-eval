@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getCurrentUserInfo } from '../utils/contract';
+import { getCurrentUserInfo, updateUserProfile, changePassword } from '../utils/contract';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
   faGraduationCap, 
@@ -9,7 +9,12 @@ import {
   faEnvelope, 
   faCheckCircle, 
   faExclamationCircle,
-  faIdCard
+  faIdCard,
+  faEdit,
+  faKey,
+  faSave,
+  faTimes,
+  faLock
 } from '@fortawesome/free-solid-svg-icons';
 
 // 定义用户结构体类型
@@ -26,6 +31,16 @@ export default function Profile() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [showAnimation, setShowAnimation] = useState(false);
+  
+  // 编辑相关的状态
+  const [isEditingEmail, setIsEditingEmail] = useState(false);
+  const [isChangingPassword, setIsChangingPassword] = useState(false);
+  const [newEmail, setNewEmail] = useState('');
+  const [oldPassword, setOldPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [updateLoading, setUpdateLoading] = useState(false);
+  const [updateMessage, setUpdateMessage] = useState({ type: '', text: '' });
 
   useEffect(() => {
     setShowAnimation(true);
@@ -34,6 +49,7 @@ export default function Profile() {
       try {
         const userInfo = await getCurrentUserInfo() as unknown as User;
         setUser(userInfo);
+        setNewEmail(userInfo.email);
       } catch (err) {
         console.error('获取用户信息失败:', err);
         setError('获取用户信息失败，请确保已连接钱包');
@@ -75,6 +91,83 @@ export default function Profile() {
     }
   };
 
+  // 处理邮箱更新
+  const handleUpdateEmail = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setUpdateLoading(true);
+    setUpdateMessage({ type: '', text: '' });
+
+    try {
+      await updateUserProfile(newEmail);
+      
+      // 更新本地用户数据
+      if (user) {
+        setUser({
+          ...user,
+          email: newEmail
+        });
+      }
+      
+      setUpdateMessage({ type: 'success', text: '邮箱更新成功！' });
+      setIsEditingEmail(false);
+    } catch (err) {
+      console.error('更新邮箱失败:', err);
+      setUpdateMessage({ type: 'error', text: '更新邮箱失败，请重试' });
+    } finally {
+      setUpdateLoading(false);
+    }
+  };
+
+  // 处理密码更新
+  const handleUpdatePassword = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (newPassword !== confirmPassword) {
+      setUpdateMessage({ type: 'error', text: '两次输入的密码不一致' });
+      return;
+    }
+    
+    setUpdateLoading(true);
+    setUpdateMessage({ type: '', text: '' });
+
+    try {
+      await changePassword(oldPassword, newPassword);
+      
+      setUpdateMessage({ type: 'success', text: '密码更新成功！' });
+      setIsChangingPassword(false);
+      
+      // 清空密码字段
+      setOldPassword('');
+      setNewPassword('');
+      setConfirmPassword('');
+    } catch (err: any) {
+      console.error('更新密码失败:', err);
+      if (err.message && err.message.includes("Incorrect old password")) {
+        setUpdateMessage({ type: 'error', text: '原密码不正确' });
+      } else {
+        setUpdateMessage({ type: 'error', text: '更新密码失败，请重试' });
+      }
+    } finally {
+      setUpdateLoading(false);
+    }
+  };
+
+  // 取消编辑
+  const handleCancelEdit = () => {
+    if (user) {
+      setNewEmail(user.email);
+    }
+    setIsEditingEmail(false);
+  };
+
+  // 取消修改密码
+  const handleCancelPasswordChange = () => {
+    setOldPassword('');
+    setNewPassword('');
+    setConfirmPassword('');
+    setIsChangingPassword(false);
+  };
+
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-[calc(100vh-16rem)]">
@@ -111,6 +204,31 @@ export default function Profile() {
 
   return (
     <div className={`space-y-8 transition-opacity duration-700 ${showAnimation ? 'opacity-100' : 'opacity-0'}`}>
+      {/* 消息提示框 */}
+      {updateMessage.text && (
+        <div className={`fixed top-6 right-6 z-50 max-w-md p-4 rounded-lg shadow-lg border transition-all duration-300 transform ${
+          updateMessage.type === 'success' 
+            ? 'bg-green-50 border-green-200 text-green-700' 
+            : 'bg-red-50 border-red-200 text-red-700'
+        }`}>
+          <div className="flex items-center">
+            <FontAwesomeIcon
+              icon={updateMessage.type === 'success' ? faCheckCircle : faExclamationCircle}
+              className={`h-5 w-5 mr-3 ${
+                updateMessage.type === 'success' ? 'text-green-500' : 'text-red-500'
+              }`}
+            />
+            <p className="text-sm font-medium">{updateMessage.text}</p>
+            <button 
+              onClick={() => setUpdateMessage({ type: '', text: '' })}
+              className="ml-auto text-gray-400 hover:text-gray-500"
+            >
+              <FontAwesomeIcon icon={faTimes} className="h-4 w-4" />
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* 个人信息卡片 */}
       <div className="bg-white rounded-2xl shadow-md p-8 border border-gray-100 overflow-hidden relative transition-all duration-300 hover:shadow-lg">
         {/* 背景装饰元素 */}
@@ -155,13 +273,58 @@ export default function Profile() {
           </div>
 
           <div className="bg-gradient-to-br from-gray-50 to-white p-6 rounded-xl border border-gray-100 shadow-sm transition-all duration-300 hover:shadow hover:border-indigo-100 group">
-            <div className="flex items-center">
-              <div className="bg-gradient-to-br from-indigo-50 to-blue-50 p-4 rounded-lg mr-5 border border-indigo-100 shadow-sm group-hover:shadow-md transition-all duration-300 group-hover:scale-105">
-                <FontAwesomeIcon icon={faEnvelope} className="h-6 w-6 text-indigo-600" />
-              </div>
-              <div>
-                <p className="text-sm text-gray-500 mb-1 group-hover:text-indigo-500 transition-colors duration-300">电子邮箱</p>
-                <p className="text-xl font-semibold text-gray-900 group-hover:text-indigo-700 transition-colors duration-300">{user?.email}</p>
+            <div className="flex items-center justify-between">
+              <div className="flex items-center">
+                <div className="bg-gradient-to-br from-indigo-50 to-blue-50 p-4 rounded-lg mr-5 border border-indigo-100 shadow-sm group-hover:shadow-md transition-all duration-300 group-hover:scale-105">
+                  <FontAwesomeIcon icon={faEnvelope} className="h-6 w-6 text-indigo-600" />
+                </div>
+                <div>
+                  <p className="text-sm text-gray-500 mb-1 group-hover:text-indigo-500 transition-colors duration-300">电子邮箱</p>
+                  {isEditingEmail ? (
+                    <div className="relative">
+                      <form onSubmit={handleUpdateEmail} className="flex space-x-2">
+                        <input
+                          type="email"
+                          value={newEmail}
+                          onChange={(e) => setNewEmail(e.target.value)}
+                          className="text-md font-semibold text-gray-900 border border-indigo-200 rounded-lg px-3 py-1 focus:outline-none focus:ring-2 focus:ring-indigo-300 transition-all duration-300 w-full"
+                          placeholder="输入新邮箱"
+                          required
+                        />
+                        <div className="flex space-x-1">
+                          <button
+                            type="submit"
+                            disabled={updateLoading}
+                            className="bg-indigo-500 hover:bg-indigo-600 text-white p-1 rounded-lg transition-colors duration-300 flex items-center justify-center"
+                          >
+                            {updateLoading ? (
+                              <div className="animate-spin h-5 w-5 border-2 border-white border-t-transparent rounded-full"></div>
+                            ) : (
+                              <FontAwesomeIcon icon={faSave} className="h-4 w-4" />
+                            )}
+                          </button>
+                          <button
+                            type="button"
+                            onClick={handleCancelEdit}
+                            className="bg-gray-200 hover:bg-gray-300 text-gray-700 p-1 rounded-lg transition-colors duration-300"
+                          >
+                            <FontAwesomeIcon icon={faTimes} className="h-4 w-4" />
+                          </button>
+                        </div>
+                      </form>
+                    </div>
+                  ) : (
+                    <div className="flex justify-between items-center">
+                      <p className="text-xl font-semibold text-gray-900 group-hover:text-indigo-700 transition-colors duration-300">{user?.email}</p>
+                      <button
+                        onClick={() => setIsEditingEmail(true)}
+                        className="ml-2 text-indigo-500 hover:text-indigo-700 transition-colors duration-300"
+                      >
+                        <FontAwesomeIcon icon={faEdit} className="h-4 w-4" />
+                      </button>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           </div>
@@ -184,25 +347,108 @@ export default function Profile() {
           </div>
 
           <div className="bg-gradient-to-br from-gray-50 to-white p-6 rounded-xl border border-gray-100 shadow-sm transition-all duration-300 hover:shadow hover:border-indigo-100 group">
-            <div className="flex items-center">
-              <div className="bg-gradient-to-br from-indigo-50 to-blue-50 p-4 rounded-lg mr-5 border border-indigo-100 shadow-sm group-hover:shadow-md transition-all duration-300 group-hover:scale-105">
-                <FontAwesomeIcon icon={faCheckCircle} className="h-6 w-6 text-indigo-600" />
-              </div>
-              <div>
-                <p className="text-sm text-gray-500 mb-1 group-hover:text-indigo-500 transition-colors duration-300">账户状态</p>
-                <p className="text-xl font-semibold text-gray-900 group-hover:text-indigo-700 transition-colors duration-300">
-                  {user?.isRegistered ? '已激活' : '未激活'}
-                </p>
+            <div className="flex items-center justify-between">
+              <div className="flex items-center">
+                <div className="bg-gradient-to-br from-indigo-50 to-blue-50 p-4 rounded-lg mr-5 border border-indigo-100 shadow-sm group-hover:shadow-md transition-all duration-300 group-hover:scale-105">
+                  <FontAwesomeIcon icon={faKey} className="h-6 w-6 text-indigo-600" />
+                </div>
+                <div>
+                  <p className="text-sm text-gray-500 mb-1 group-hover:text-indigo-500 transition-colors duration-300">密码设置</p>
+                  <div className="flex items-center">
+                    <p className="text-xl font-semibold text-gray-900 group-hover:text-indigo-700 transition-colors duration-300">
+                      ••••••••
+                    </p>
+                    {!isChangingPassword && (
+                      <button
+                        onClick={() => setIsChangingPassword(true)}
+                        className="ml-2 text-indigo-500 hover:text-indigo-700 transition-colors duration-300"
+                      >
+                        <FontAwesomeIcon icon={faEdit} className="h-4 w-4" />
+                      </button>
+                    )}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
         
+        {/* 修改密码表单 */}
+        {isChangingPassword && (
+          <div className="mt-6 p-6 bg-indigo-50 rounded-xl border border-indigo-100 shadow-inner">
+            <h3 className="text-lg font-semibold text-indigo-800 mb-4 flex items-center">
+              <FontAwesomeIcon icon={faLock} className="mr-2" />
+              修改密码
+            </h3>
+            <form onSubmit={handleUpdatePassword} className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-indigo-700 mb-1">当前密码</label>
+                <input
+                  type="password"
+                  value={oldPassword}
+                  onChange={(e) => setOldPassword(e.target.value)}
+                  className="w-full px-3 py-2 border border-indigo-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-300 transition-all duration-300"
+                  placeholder="输入当前密码"
+                  required
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-indigo-700 mb-1">新密码</label>
+                <input
+                  type="password"
+                  value={newPassword}
+                  onChange={(e) => setNewPassword(e.target.value)}
+                  className="w-full px-3 py-2 border border-indigo-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-300 transition-all duration-300"
+                  placeholder="输入新密码"
+                  required
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-indigo-700 mb-1">确认新密码</label>
+                <input
+                  type="password"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  className="w-full px-3 py-2 border border-indigo-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-300 transition-all duration-300"
+                  placeholder="再次输入新密码"
+                  required
+                />
+                {newPassword && confirmPassword && newPassword !== confirmPassword && (
+                  <p className="mt-1 text-xs text-red-600">两次输入的密码不一致</p>
+                )}
+              </div>
+              <div className="flex justify-end space-x-3 pt-2">
+                <button
+                  type="button"
+                  onClick={handleCancelPasswordChange}
+                  className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors duration-300"
+                >
+                  取消
+                </button>
+                <button
+                  type="submit"
+                  disabled={updateLoading || (newPassword !== confirmPassword && confirmPassword !== '')}
+                  className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center"
+                >
+                  {updateLoading ? (
+                    <>
+                      <div className="animate-spin mr-2 h-4 w-4 border-2 border-white border-t-transparent rounded-full"></div>
+                      处理中...
+                    </>
+                  ) : (
+                    <>确认修改</>
+                  )}
+                </button>
+              </div>
+            </form>
+          </div>
+        )}
+        
         <div className="mt-8 pt-6 border-t border-gray-100">
           <div className="bg-indigo-50 rounded-xl p-4 border border-indigo-100">
             <p className="text-gray-600 text-sm">
               <strong className="text-indigo-700">提示：</strong> 
-              账户信息来自区块链，确保信息安全和不可篡改。
+              账户信息来自区块链，确保信息安全和不可篡改。您可以随时更新邮箱和密码。
             </p>
           </div>
         </div>

@@ -41,6 +41,24 @@ export const loginUser = async (id: string, password: string) => {
   return await contract.methods.login(id, passwordHash).call({ from: account });
 };
 
+// 更新用户资料（邮箱）
+export const updateUserProfile = async (newEmail: string) => {
+  const contract = getContract();
+  const account = await getCurrentAccount();
+  
+  await contract.methods.updateUserProfile(newEmail).send({ from: account });
+};
+
+// 修改密码
+export const changePassword = async (oldPassword: string, newPassword: string) => {
+  const contract = getContract();
+  const account = await getCurrentAccount();
+  const oldPasswordHash = web3.utils.keccak256(oldPassword);
+  const newPasswordHash = web3.utils.keccak256(newPassword);
+  
+  await contract.methods.changePassword(oldPasswordHash, newPasswordHash).send({ from: account });
+};
+
 // 添加课程（仅管理员）
 export const addCourse = async (name: string, credits: number, teacherAddress: string) => {
   const contract = getContract();
