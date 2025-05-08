@@ -20,7 +20,7 @@
 }
 
 .animate-fadeIn {
-  animation: fadeIn 0.5s ease-out;
+  animation: fadeIn 0.3s ease-out forwards;
 }
 
 /* 美化滚动条 */
@@ -41,4 +41,21 @@
 
 ::-webkit-scrollbar-thumb:hover {
   background: #a0a0a0;
+}
+
+/* 添加背景网格样式 */
+.bg-grid-white\/\[0\.05\] {
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+}
+
+/* 添加星形图标 */
+.icon-star {
+  clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+}
+
+/* 添加用户图标 */
+.icon-users {
+  clip-path: path('M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z');
 }

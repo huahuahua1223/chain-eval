@@ -1,7 +1,18 @@
 import { useState, useEffect } from 'react';
 import { getCurrentUserInfo, getStudentTakenCourses, submitEvaluation } from '../utils/contract';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGraduationCap, faCheckCircle, faExclamationCircle, faStar, faComment } from '@fortawesome/free-solid-svg-icons';
+import { 
+  faGraduationCap, 
+  faCheckCircle, 
+  faExclamationCircle, 
+  faStar, 
+  faComment,
+  faAward,
+  faTimes,
+  faUserSecret,
+  faArrowLeft,
+  faCommentDots
+} from '@fortawesome/free-solid-svg-icons';
 
 // 定义用户结构体类型
 interface User {
@@ -36,6 +47,7 @@ const EvaluationModal: React.FC<EvaluationModalProps> = ({ course, isOpen, onClo
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
+  const [hoveredStar, setHoveredStar] = useState<number | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -62,117 +74,165 @@ const EvaluationModal: React.FC<EvaluationModalProps> = ({ course, isOpen, onClo
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg shadow-xl p-6 max-w-md w-full mx-4">
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-bold text-gray-900">课程评价</h2>
-          <button onClick={onClose} className="text-gray-500 hover:text-gray-700">
-            <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
-        </div>
-
-        {error ? (
-          <div className="rounded-md bg-red-50 p-2 text-xs mb-4">
-            <div className="flex items-center">
-              <FontAwesomeIcon icon={faExclamationCircle} className="h-4 w-4 text-red-400" />
-              <p className="ml-2 font-medium text-red-800">{error}</p>
-            </div>
-          </div>
-        ) : null}
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4 backdrop-blur-sm transition-opacity duration-300">
+      <div className="bg-white rounded-2xl shadow-xl p-6 max-w-lg w-full mx-auto transform transition-all duration-300 ease-out relative overflow-hidden animate-fadeIn">
+        {/* 背景装饰元素 */}
+        <div className="absolute top-0 right-0 bg-gradient-to-br from-yellow-100 to-orange-50 w-40 h-40 rounded-full -mr-20 -mt-20 opacity-30"></div>
+        <div className="absolute bottom-0 left-0 bg-gradient-to-tr from-blue-100 to-indigo-50 w-32 h-32 rounded-full -ml-16 -mb-16 opacity-30"></div>
         
-        {success ? (
-          <div className="rounded-md bg-green-50 p-2 text-xs mb-4">
+        <div className="relative">
+          <div className="flex justify-between items-center mb-6">
             <div className="flex items-center">
-              <FontAwesomeIcon icon={faCheckCircle} className="h-4 w-4 text-green-400" />
-              <p className="ml-2 font-medium text-green-800">评价提交成功！</p>
+              <div className="bg-gradient-to-r from-indigo-500 to-purple-600 p-3 rounded-xl shadow-md mr-3">
+                <FontAwesomeIcon icon={faComment} className="h-5 w-5 text-white" />
+              </div>
+              <h2 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600">课程评价</h2>
             </div>
+            <button 
+              onClick={onClose} 
+              className="text-gray-400 hover:text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-full p-2 transition-colors duration-200"
+            >
+              <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
           </div>
-        ) : null}
 
-        <div className="mb-4">
-          <h3 className="text-lg font-medium text-gray-900">{course.name}</h3>
-          <p className="text-sm text-gray-500">{course.credits} 学分 | 教师: {course.teacher.substring(0, 6)}...{course.teacher.substring(38)}</p>
-        </div>
-        
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label htmlFor="score" className="block text-sm font-medium text-gray-700">
-              评分
-            </label>
-            <div className="mt-1 flex items-center space-x-2">
-              {[1, 2, 3, 4, 5].map((value) => (
-                <button
-                  key={value}
-                  type="button"
-                  onClick={() => setScore(value)}
-                  className="focus:outline-none"
-                >
-                  <FontAwesomeIcon
-                    icon={faStar}
-                    className={`h-6 w-6 ${
-                      value <= score ? 'text-yellow-400' : 'text-gray-300'
-                    }`}
-                  />
-                </button>
-              ))}
+          {error && (
+            <div className="rounded-xl bg-red-50 p-4 text-sm border border-red-200 mb-6 animate-pulse">
+              <div className="flex items-center">
+                <div className="bg-red-100 p-2 rounded-lg">
+                  <FontAwesomeIcon icon={faExclamationCircle} className="h-5 w-5 text-red-500" />
+                </div>
+                <p className="ml-3 font-medium text-red-800">{error}</p>
+              </div>
+            </div>
+          )}
+          
+          {success && (
+            <div className="rounded-xl bg-green-50 p-4 text-sm border border-green-200 mb-6 animate-pulse">
+              <div className="flex items-center">
+                <div className="bg-green-100 p-2 rounded-lg">
+                  <FontAwesomeIcon icon={faCheckCircle} className="h-5 w-5 text-green-500" />
+                </div>
+                <div className="ml-3">
+                  <p className="font-medium text-green-800">评价提交成功！</p>
+                </div>
+              </div>
+            </div>
+          )}
+
+          <div className="bg-gradient-to-br from-gray-50 to-white p-5 rounded-xl border border-gray-100 shadow-sm mb-6">
+            <h3 className="text-lg font-bold text-gray-900 mb-2">{course.name}</h3>
+            <div className="flex flex-wrap gap-2">
+              <span className="bg-indigo-50 text-indigo-700 px-3 py-1 rounded-full text-xs font-medium border border-indigo-100">
+                {course.credits} 学分
+              </span>
+              <span className="bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-xs font-medium border border-blue-100">
+                教师: {course.teacher.substring(0, 6)}...{course.teacher.substring(38)}
+              </span>
             </div>
           </div>
           
-          <div>
-            <label htmlFor="comment" className="block text-sm font-medium text-gray-700">
-              评论
-            </label>
-            <div className="mt-1">
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="bg-gradient-to-br from-gray-50 to-white p-5 rounded-xl border border-gray-100 shadow-sm">
+              <label className="flex items-center text-md font-medium text-gray-800 mb-3">
+                <FontAwesomeIcon icon={faStar} className="h-5 w-5 text-yellow-500 mr-2" />
+                您的评分
+              </label>
+              <div className="flex items-center justify-center space-x-3 py-3">
+                {[1, 2, 3, 4, 5].map((value) => (
+                  <button
+                    key={value}
+                    type="button"
+                    onClick={() => setScore(value)}
+                    onMouseEnter={() => setHoveredStar(value)}
+                    onMouseLeave={() => setHoveredStar(null)}
+                    className="focus:outline-none transform transition-transform duration-200 hover:scale-110"
+                  >
+                    <FontAwesomeIcon
+                      icon={faStar}
+                      className={`h-8 w-8 transition-colors duration-200 ${
+                        value <= (hoveredStar || score) 
+                          ? 'text-yellow-400' 
+                          : 'text-gray-300'
+                      }`}
+                    />
+                  </button>
+                ))}
+              </div>
+              <div className="text-center mt-1 text-sm font-medium text-indigo-600">
+                {score === 1 && "很差"}
+                {score === 2 && "较差"}
+                {score === 3 && "一般"}
+                {score === 4 && "良好"}
+                {score === 5 && "非常好"}
+              </div>
+            </div>
+            
+            <div className="bg-gradient-to-br from-gray-50 to-white p-5 rounded-xl border border-gray-100 shadow-sm">
+              <label className="flex items-center text-md font-medium text-gray-800 mb-3">
+                <FontAwesomeIcon icon={faCommentDots} className="h-5 w-5 text-indigo-500 mr-2" />
+                评价内容
+              </label>
               <textarea
                 id="comment"
                 name="comment"
                 rows={4}
-                className="form-input block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors"
                 placeholder="请输入您对该课程的评价..."
                 value={comment}
                 onChange={(e) => setComment(e.target.value)}
               />
             </div>
-          </div>
-          
-          <div className="flex items-center">
-            <input
-              id="anonymous"
-              name="anonymous"
-              type="checkbox"
-              className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
-              checked={isAnonymous}
-              onChange={(e) => setIsAnonymous(e.target.checked)}
-            />
-            <label htmlFor="anonymous" className="ml-2 block text-sm text-gray-700">
-              匿名评价
-            </label>
-          </div>
-          
-          <div className="flex space-x-4 mt-6">
-            <button
-              type="button"
-              onClick={onClose}
-              className="flex-1 py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-            >
-              取消
-            </button>
-            <button
-              type="submit"
-              disabled={loading}
-              className="flex-1 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-            >
-              {loading ? (
-                <>
-                  <span className="inline-block h-4 w-4 mr-2 animate-spin rounded-full border-2 border-solid border-current border-r-transparent"></span>
-                  提交中...
-                </>
-              ) : '提交评价'}
-            </button>
-          </div>
-        </form>
+            
+            <div className="flex items-center justify-between bg-gradient-to-br from-gray-50 to-white p-4 rounded-xl border border-gray-100 shadow-sm">
+              <div className="flex items-center">
+                <label className="relative inline-flex items-center cursor-pointer">
+                  <input 
+                    type="checkbox"
+                    className="sr-only peer"
+                    checked={isAnonymous}
+                    onChange={(e) => setIsAnonymous(e.target.checked)}
+                  />
+                  <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-indigo-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
+                  <span className="ml-3 text-sm font-medium text-gray-800 flex items-center">
+                    <FontAwesomeIcon icon={faUserSecret} className={`h-4 w-4 mr-2 ${isAnonymous ? 'text-indigo-500' : 'text-gray-400'}`} />
+                    匿名评价
+                  </span>
+                </label>
+              </div>
+              <div className="text-xs text-gray-500">
+                不显示您的身份
+              </div>
+            </div>
+            
+            <div className="flex gap-4 pt-2">
+              <button
+                type="button"
+                onClick={onClose}
+                className="flex-1 py-3 px-4 border border-gray-300 rounded-lg shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 transition-all duration-200"
+              >
+                取消
+              </button>
+              <button
+                type="submit"
+                disabled={loading}
+                className="flex-1 py-3 px-4 rounded-lg shadow-sm text-sm font-medium text-white bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 transition-all duration-200 disabled:opacity-70 transform hover:scale-[1.02]"
+              >
+                {loading ? (
+                  <>
+                    <svg className="animate-spin -ml-1 mr-2 h-5 w-5 text-white inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    提交中...
+                  </>
+                ) : '提交评价'}
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   );
@@ -185,8 +245,11 @@ export default function AlreadyCourses() {
   const [error, setError] = useState('');
   const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [showAnimation, setShowAnimation] = useState(false);
 
   useEffect(() => {
+    setShowAnimation(true);
+    
     const fetchData = async () => {
       try {
         // 获取当前用户信息
@@ -242,10 +305,17 @@ export default function AlreadyCourses() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-[calc(100vh-4rem)]">
+      <div className="flex items-center justify-center min-h-[calc(100vh-16rem)]">
         <div className="text-center">
-          <div className="inline-block h-12 w-12 animate-spin rounded-full border-4 border-solid border-indigo-600 border-r-transparent"></div>
+          <div className="inline-block h-16 w-16 animate-spin rounded-full border-4 border-solid border-indigo-600 border-r-transparent relative">
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="h-10 w-10 rounded-full bg-indigo-100 flex items-center justify-center">
+                <FontAwesomeIcon icon={faGraduationCap} className="h-6 w-6 text-indigo-600" />
+              </div>
+            </div>
+          </div>
           <p className="mt-4 text-xl font-medium text-gray-700">加载中...</p>
+          <p className="text-sm text-gray-500">正在获取已修课程数据</p>
         </div>
       </div>
     );
@@ -253,50 +323,68 @@ export default function AlreadyCourses() {
 
   if (error) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-[calc(100vh-4rem)]">
-        <div className="bg-red-50 border border-red-200 text-red-600 px-6 py-4 rounded-lg mb-6">
-          <p className="text-xl font-medium">{error}</p>
+      <div className="flex flex-col items-center justify-center min-h-[calc(100vh-16rem)]">
+        <div className="bg-red-50 border border-red-200 text-red-600 px-8 py-6 rounded-xl mb-6 shadow-sm max-w-lg">
+          <div className="flex items-center justify-center mb-4">
+            <div className="bg-red-100 p-3 rounded-full">
+              <FontAwesomeIcon icon={faExclamationCircle} className="h-6 w-6 text-red-500" />
+            </div>
+          </div>
+          <h3 className="text-center text-lg font-medium text-red-800 mb-2">访问错误</h3>
+          <p className="text-center">{error}</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="space-y-8">
+    <div className={`space-y-8 transition-opacity duration-700 ${showAnimation ? 'opacity-100' : 'opacity-0'}`}>
       {/* 标题卡片 */}
-      <div className="bg-white rounded-2xl shadow-sm p-6 border border-gray-100">
-        <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-bold text-gray-900">已修课程</h1>
-          <div className="bg-indigo-50 p-3 rounded-full">
-            <FontAwesomeIcon icon={faGraduationCap} className="h-6 w-6 text-indigo-600" />
+      <div className="bg-white rounded-2xl shadow-md p-8 border border-gray-100 overflow-hidden relative transition-all duration-300 hover:shadow-lg">
+        {/* 背景装饰元素 */}
+        <div className="absolute top-0 right-0 bg-gradient-to-br from-green-100 to-blue-50 w-40 h-40 rounded-full -mr-20 -mt-20 opacity-70"></div>
+        <div className="absolute bottom-0 left-0 bg-gradient-to-tr from-indigo-100 to-purple-50 w-32 h-32 rounded-full -ml-16 -mb-16 opacity-70"></div>
+        
+        <div className="flex items-center justify-between relative">
+          <div className="flex items-center">
+            <div className="bg-gradient-to-r from-green-400 to-blue-500 p-4 rounded-xl shadow-md mr-4">
+              <FontAwesomeIcon icon={faAward} className="h-6 w-6 text-white" />
+            </div>
+            <div>
+              <h1 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-green-600 to-blue-600">已修课程</h1>
+              <p className="text-gray-500">查看您已修的所有课程，并进行评价</p>
+            </div>
+          </div>
+          <div className="bg-green-50 px-4 py-2 rounded-full border border-green-100 text-sm font-medium text-green-700 shadow-sm">
+            共 {courses.length} 门课程
           </div>
         </div>
       </div>
 
       {/* 课程列表卡片 */}
-      <div className="bg-white rounded-2xl shadow-sm p-6 border border-gray-100">
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-xl font-semibold text-gray-900">我的已修课程</h2>
+      <div className="bg-white rounded-2xl shadow-md p-8 border border-gray-100 overflow-hidden relative transition-all duration-300 hover:shadow-lg">
+        <div className="flex items-center justify-between mb-6 relative">
+          <h2 className="text-xl font-bold text-gray-900">我的已修课程列表</h2>
         </div>
         
         {courses.length > 0 ? (
           <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-gray-50">
+            <table className="min-w-full divide-y divide-gray-200 rounded-lg overflow-hidden">
+              <thead className="bg-gradient-to-r from-gray-50 to-gray-100">
                 <tr>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th scope="col" className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                     课程名称
                   </th>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th scope="col" className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                     学分
                   </th>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th scope="col" className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                     授课教师
                   </th>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th scope="col" className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                     状态
                   </th>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th scope="col" className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                     操作
                   </th>
                 </tr>
@@ -307,8 +395,8 @@ export default function AlreadyCourses() {
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center">
                         <div className="flex-shrink-0 h-10 w-10">
-                          <div className="bg-indigo-50 p-2 rounded-lg">
-                            <FontAwesomeIcon icon={faGraduationCap} className="h-6 w-6 text-indigo-600" />
+                          <div className="bg-gradient-to-r from-green-400 to-blue-500 p-2 rounded-lg shadow-sm">
+                            <FontAwesomeIcon icon={faGraduationCap} className="h-6 w-6 text-white" />
                           </div>
                         </div>
                         <div className="ml-4">
@@ -317,24 +405,29 @@ export default function AlreadyCourses() {
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">{course.credits}</div>
+                      <div className="text-sm text-gray-900 font-medium">
+                        {Array.from({ length: Number(course.credits) }).map((_, i) => (
+                          <FontAwesomeIcon key={i} icon={faStar} className="text-yellow-400 h-4 w-4 mr-0.5" />
+                        ))}
+                      </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <span className="bg-blue-50 text-blue-700 px-2 py-1 rounded text-xs">
+                      <span className="px-3 py-1.5 bg-gradient-to-r from-blue-50 to-indigo-50 text-blue-700 rounded-full text-xs font-medium border border-blue-100 shadow-sm">
                         {course.teacher.substring(0, 6)}...{course.teacher.substring(38)}
                       </span>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <span className="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                      <span className="px-3 py-1.5 inline-flex text-xs leading-5 font-medium rounded-full bg-green-100 text-green-800 border border-green-200 shadow-sm">
+                        <FontAwesomeIcon icon={faCheckCircle} className="mr-1.5 h-4 w-4" />
                         已修
                       </span>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                       <button
                         onClick={() => handleOpenModal(course)}
-                        className="text-indigo-600 hover:text-indigo-900 flex items-center"
+                        className="bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white py-1.5 px-4 rounded-lg transition-all duration-200 shadow hover:shadow-md transform hover:scale-105 active:scale-100 flex items-center"
                       >
-                        <FontAwesomeIcon icon={faComment} className="mr-1" />
+                        <FontAwesomeIcon icon={faComment} className="mr-1.5 h-3.5 w-3.5" />
                         评价
                       </button>
                     </td>
@@ -344,11 +437,12 @@ export default function AlreadyCourses() {
             </table>
           </div>
         ) : (
-          <div className="text-center py-12">
-            <div className="bg-gray-50 p-8 rounded-lg inline-block">
-              <FontAwesomeIcon icon={faExclamationCircle} className="h-12 w-12 text-gray-400 mb-4" />
-              <p className="text-gray-500 text-lg">暂无已修课程</p>
+          <div className="text-center py-16 bg-gray-50 rounded-xl border border-gray-100">
+            <div className="inline-block bg-white p-6 rounded-full shadow-sm mb-4">
+              <FontAwesomeIcon icon={faExclamationCircle} className="h-12 w-12 text-gray-400" />
             </div>
+            <h3 className="text-xl font-medium text-gray-700 mb-2">暂无已修课程</h3>
+            <p className="text-gray-500 max-w-md mx-auto">您目前没有任何已修课程记录，请联系管理员确认您的课程信息</p>
           </div>
         )}
       </div>
