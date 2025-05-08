@@ -12,7 +12,8 @@ import {
   faBook, 
   faEdit,
   faUniversity,
-  faSearch
+  faSearch,
+  faCheckCircle
 } from '@fortawesome/free-solid-svg-icons';
 
 // 定义用户结构体类型
@@ -58,6 +59,11 @@ export default function Courses() {
   const [editingCourse, setEditingCourse] = useState(false);
   const [editCourseError, setEditCourseError] = useState('');
 
+  // 添加Toast状态
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState('');
+  const [toastType, setToastType] = useState<'success' | 'error'>('success');
+
   useEffect(() => {
     setShowAnimation(true);
     
@@ -81,6 +87,21 @@ export default function Courses() {
 
     fetchData();
   }, []);
+
+  // 添加显示Toast的函数
+  const showSuccessToast = (message: string) => {
+    setToastMessage(message);
+    setToastType('success');
+    setShowToast(true);
+    setTimeout(() => setShowToast(false), 3000);
+  };
+
+  const showErrorToast = (message: string) => {
+    setToastMessage(message);
+    setToastType('error');
+    setShowToast(true);
+    setTimeout(() => setShowToast(false), 3000);
+  };
 
   // 课程添加处理函数
   const handleAddCourse = async (e: React.FormEvent) => {
@@ -110,9 +131,13 @@ export default function Courses() {
       // 重置表单并关闭模态框
       resetAddForm();
       setShowModal(false);
+      
+      // 显示成功提示
+      showSuccessToast('课程添加成功！');
     } catch (err: any) {
       console.error('添加课程失败:', err);
       setAddCourseError(err.message || '添加课程失败，请重试');
+      showErrorToast(err.message || '添加课程失败，请重试');
     } finally {
       setAddingCourse(false);
     }
@@ -156,9 +181,13 @@ export default function Courses() {
       // 重置表单并关闭模态框
       resetEditForm();
       setShowEditModal(false);
+      
+      // 显示成功提示
+      showSuccessToast('课程修改成功！');
     } catch (err: any) {
       console.error('更新课程失败:', err);
       setEditCourseError(err.message || '更新课程失败，请重试');
+      showErrorToast(err.message || '更新课程失败，请重试');
     } finally {
       setEditingCourse(false);
     }
@@ -220,6 +249,23 @@ export default function Courses() {
 
   return (
     <div className={`space-y-8 transition-opacity duration-700 ${showAnimation ? 'opacity-100' : 'opacity-0'}`}>
+      {/* Toast提示 */}
+      {showToast && (
+        <div className="fixed top-4 right-4 z-[100] transform transition-all duration-300 ease-out">
+          <div className={`${
+            toastType === 'success' 
+              ? 'bg-green-50 border-green-200 text-green-800' 
+              : 'bg-red-50 border-red-200 text-red-800'
+          } border px-4 py-3 rounded-lg shadow-lg flex items-center animate-fade-in-down`}>
+            <FontAwesomeIcon 
+              icon={toastType === 'success' ? faCheckCircle : faExclamationCircle} 
+              className={`h-5 w-5 ${toastType === 'success' ? 'text-green-500' : 'text-red-500'} mr-2`} 
+            />
+            <p className="font-medium">{toastMessage}</p>
+          </div>
+        </div>
+      )}
+
       {/* 标题卡片 */}
       <div className="bg-white rounded-2xl shadow-md p-8 border border-gray-100 overflow-hidden relative transition-all duration-300 hover:shadow-lg">
         {/* 背景装饰元素 */}
@@ -373,10 +419,10 @@ export default function Courses() {
 
       {/* 添加课程Modal */}
       {showModal && (
-        <div className="fixed inset-0 z-50 overflow-y-auto backdrop-blur-sm">
-          <div className="fixed inset-0 bg-black bg-opacity-50 transition-opacity"></div>
-          <div className="flex min-h-full items-center justify-center p-4 text-center">
-            <div className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all animate-fadeIn relative">
+        <div className="fixed inset-0 z-50 overflow-y-auto">
+          <div className="fixed inset-0 bg-black bg-opacity-50 transition-opacity backdrop-blur-sm"></div>
+          <div className="flex items-center justify-center min-h-screen p-4 text-center sm:p-0">
+            <div className="relative w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all sm:my-8">
               {/* 装饰背景 */}
               <div className="absolute top-0 right-0 bg-gradient-to-br from-blue-100 to-indigo-50 w-40 h-40 rounded-full -mr-20 -mt-20 opacity-30"></div>
               <div className="absolute bottom-0 left-0 bg-gradient-to-tr from-indigo-100 to-blue-50 w-32 h-32 rounded-full -ml-16 -mb-16 opacity-30"></div>
@@ -495,10 +541,10 @@ export default function Courses() {
 
       {/* 修改课程Modal */}
       {showEditModal && (
-        <div className="fixed inset-0 z-50 overflow-y-auto backdrop-blur-sm">
-          <div className="fixed inset-0 bg-black bg-opacity-50 transition-opacity"></div>
-          <div className="flex min-h-full items-center justify-center p-4 text-center">
-            <div className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all animate-fadeIn relative">
+        <div className="fixed inset-0 z-50 overflow-y-auto">
+          <div className="fixed inset-0 bg-black bg-opacity-50 transition-opacity backdrop-blur-sm"></div>
+          <div className="flex items-center justify-center min-h-screen p-4 text-center sm:p-0">
+            <div className="relative w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all sm:my-8">
               {/* 装饰背景 */}
               <div className="absolute top-0 right-0 bg-gradient-to-br from-indigo-100 to-purple-50 w-40 h-40 rounded-full -mr-20 -mt-20 opacity-30"></div>
               <div className="absolute bottom-0 left-0 bg-gradient-to-tr from-purple-100 to-indigo-50 w-32 h-32 rounded-full -ml-16 -mb-16 opacity-30"></div>
