@@ -11,7 +11,8 @@ import {
   faCalendarAlt, 
   faUserCircle, 
   faEye, 
-  faShieldAlt
+  faShieldAlt,
+  faListAlt
 } from '@fortawesome/free-solid-svg-icons';
 
 // 定义用户结构体类型
@@ -214,9 +215,9 @@ export default function CourseEvaluations() {
   const maxDistribution = Math.max(...scoreDistribution, 1);
 
   return (
-    <div className={`space-y-8 transition-opacity duration-700 ${showAnimation ? 'opacity-100' : 'opacity-0'}`}>
+    <div className={`transition-opacity duration-700 ${showAnimation ? 'opacity-100' : 'opacity-0'}`}>
       {/* 标题卡片 */}
-      <div className="bg-white rounded-2xl shadow-md p-8 border border-gray-100 overflow-hidden relative transition-all duration-300 hover:shadow-lg">
+      <div className="bg-white rounded-2xl shadow-md p-8 border border-gray-100 overflow-hidden relative transition-all duration-300 hover:shadow-lg mb-8">
         {/* 背景装饰元素 */}
         <div className="absolute top-0 right-0 bg-gradient-to-br from-purple-100 to-blue-50 w-40 h-40 rounded-full -mr-20 -mt-20 opacity-70"></div>
         <div className="absolute bottom-0 left-0 bg-gradient-to-tr from-indigo-100 to-blue-50 w-32 h-32 rounded-full -ml-16 -mb-16 opacity-70"></div>
@@ -237,205 +238,213 @@ export default function CourseEvaluations() {
         </div>
       </div>
 
-      {/* 课程选择 */}
-      <div className="bg-white rounded-2xl shadow-md p-8 border border-gray-100 overflow-hidden relative transition-all duration-300 hover:shadow-lg">
-        <h2 className="text-xl font-bold text-gray-900 mb-6 flex items-center">
-          <FontAwesomeIcon icon={faBook} className="h-5 w-5 text-indigo-500 mr-2" />
-          选择课程
-        </h2>
-        
-        {courses.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {courses.map((course) => (
-              <div 
-                key={String(course.id)} 
-                className={`p-5 rounded-xl cursor-pointer transition-all duration-300 border ${
-                  selectedCourseId === course.id 
-                    ? 'bg-gradient-to-br from-indigo-50 to-purple-50 border-indigo-200 shadow' 
-                    : 'bg-white border-gray-100 hover:bg-gray-50'
-                }`}
-                onClick={() => setSelectedCourseId(course.id)}
-              >
-                <div className="flex items-start">
-                  <div className={`p-3 rounded-lg mr-3 ${
-                    selectedCourseId === course.id
-                      ? 'bg-gradient-to-r from-indigo-500 to-purple-600 text-white'
-                      : 'bg-gray-100 text-gray-500'
-                  }`}>
-                    <FontAwesomeIcon icon={faBook} className="h-5 w-5" />
+      {/* 主体内容：左右布局 */}
+      <div className="flex flex-col lg:flex-row gap-6">
+        {/* 左侧：课程选择和评价统计 */}
+        <div className="lg:w-1/3 space-y-6">
+          {/* 课程选择卡片 */}
+          <div className="bg-white rounded-2xl shadow-md p-6 border border-gray-100 overflow-hidden relative transition-all duration-300 hover:shadow-lg">
+            <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center">
+              <FontAwesomeIcon icon={faBook} className="h-5 w-5 text-indigo-500 mr-2" />
+              选择课程
+            </h2>
+            
+            {courses.length > 0 ? (
+              <div className="space-y-3">
+                {courses.map((course) => (
+                  <div 
+                    key={String(course.id)} 
+                    className={`p-4 rounded-xl cursor-pointer transition-all duration-300 border ${
+                      selectedCourseId === course.id 
+                        ? 'bg-gradient-to-br from-indigo-50 to-purple-50 border-indigo-200 shadow' 
+                        : 'bg-white border-gray-100 hover:bg-gray-50'
+                    }`}
+                    onClick={() => setSelectedCourseId(course.id)}
+                  >
+                    <div className="flex items-start">
+                      <div className={`p-3 rounded-lg mr-3 ${
+                        selectedCourseId === course.id
+                          ? 'bg-gradient-to-r from-indigo-500 to-purple-600 text-white'
+                          : 'bg-gray-100 text-gray-500'
+                      }`}>
+                        <FontAwesomeIcon icon={faBook} className="h-5 w-5" />
+                      </div>
+                      <div className="flex-1">
+                        <h3 className={`font-semibold ${selectedCourseId === course.id ? 'text-indigo-700' : 'text-gray-800'}`}>
+                          {course.name}
+                        </h3>
+                        <div className="flex flex-wrap items-center gap-2 mt-2">
+                          <span className="bg-blue-50 text-blue-700 px-2 py-0.5 rounded-full text-xs font-medium border border-blue-100">
+                            ID: {String(course.id)}
+                          </span>
+                          <span className="bg-yellow-50 text-yellow-700 px-2 py-0.5 rounded-full text-xs font-medium border border-yellow-100">
+                            {String(course.credits)} 学分
+                          </span>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <div>
-                    <h3 className={`font-semibold ${selectedCourseId === course.id ? 'text-indigo-700' : 'text-gray-800'}`}>
-                      {course.name}
-                    </h3>
-                    <div className="flex items-center mt-2">
-                      <span className="bg-blue-50 text-blue-700 px-2 py-0.5 rounded-full text-xs font-medium border border-blue-100">
-                        ID: {String(course.id)}
-                      </span>
-                      <span className="ml-2 bg-yellow-50 text-yellow-700 px-2 py-0.5 rounded-full text-xs font-medium border border-yellow-100">
-                        {String(course.credits)} 学分
-                      </span>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-8 bg-gray-50 rounded-xl border border-gray-100">
+                <FontAwesomeIcon icon={faExclamationCircle} className="h-10 w-10 text-gray-400 mb-3" />
+                <p className="text-gray-500 font-medium">暂无课程</p>
+              </div>
+            )}
+          </div>
+
+          {/* 评价统计卡片 */}
+          {evaluations.length > 0 && (
+            <div className="bg-white rounded-2xl shadow-md p-6 border border-gray-100 overflow-hidden relative transition-all duration-300 hover:shadow-lg">
+              <h2 className="text-lg font-bold text-gray-900 mb-4 flex items-center">
+                <FontAwesomeIcon icon={faChartPie} className="h-5 w-5 text-indigo-500 mr-2" />
+                《{getSelectedCourseName()}》统计
+              </h2>
+              
+              <div className="space-y-4 mb-6">
+                <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-4 border border-blue-100 shadow-sm">
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <span className="text-blue-500 text-sm font-medium">平均评分</span>
+                      <div className="mt-2 flex items-baseline">
+                        <span className="text-3xl font-bold text-blue-700">{getAverageScore()}</span>
+                        <span className="text-base text-blue-500 ml-1">/5.0</span>
+                      </div>
+                    </div>
+                    <div className="bg-blue-100 p-2 rounded-lg">
+                      <FontAwesomeIcon icon={faStar} className="h-5 w-5 text-blue-500" />
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl p-4 border border-purple-100 shadow-sm">
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <span className="text-purple-500 text-sm font-medium">评价数量</span>
+                      <div className="mt-2 flex items-baseline">
+                        <span className="text-3xl font-bold text-purple-700">{evaluations.length}</span>
+                        <span className="text-base text-purple-500 ml-1">条</span>
+                      </div>
+                    </div>
+                    <div className="bg-purple-100 p-2 rounded-lg">
+                      <FontAwesomeIcon icon={faCommentAlt} className="h-5 w-5 text-purple-500" />
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="bg-gradient-to-br from-green-50 to-teal-50 rounded-xl p-4 border border-green-100 shadow-sm">
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <span className="text-green-500 text-sm font-medium">匿名评价</span>
+                      <div className="mt-2 flex items-baseline">
+                        <span className="text-3xl font-bold text-green-700">{getAnonymousPercentage()}%</span>
+                      </div>
+                    </div>
+                    <div className="bg-green-100 p-2 rounded-lg">
+                      <FontAwesomeIcon icon={faShieldAlt} className="h-5 w-5 text-green-500" />
                     </div>
                   </div>
                 </div>
               </div>
-            ))}
-          </div>
-        ) : (
-          <div className="text-center py-8 bg-gray-50 rounded-xl border border-gray-100">
-            <FontAwesomeIcon icon={faExclamationCircle} className="h-10 w-10 text-gray-400 mb-3" />
-            <p className="text-gray-500 font-medium">暂无课程</p>
-          </div>
-        )}
-      </div>
+              
+              <div className="bg-gray-50 rounded-xl p-4 border border-gray-100">
+                <h3 className="text-md font-semibold text-gray-800 mb-3">评分分布</h3>
+                <div className="space-y-2">
+                  {[5, 4, 3, 2, 1].map((score) => (
+                    <div key={score} className="flex items-center">
+                      <div className="w-5 text-gray-600 text-xs font-medium">{score}星</div>
+                      <div className="flex-1 mx-2 h-4 bg-gray-200 rounded-full overflow-hidden">
+                        <div 
+                          className={`h-full rounded-full ${
+                            score >= 4 ? 'bg-green-500' : 
+                            score >= 3 ? 'bg-blue-500' : 
+                            score >= 2 ? 'bg-yellow-500' : 'bg-red-500'
+                          }`}
+                          style={{ width: `${(scoreDistribution[score-1] / maxDistribution) * 100}%` }}
+                        ></div>
+                      </div>
+                      <div className="w-6 text-right text-gray-600 text-xs font-medium">
+                        {scoreDistribution[score-1]}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
 
-      {/* 评价统计卡片 */}
-      {evaluations.length > 0 && (
-        <div className="bg-white rounded-2xl shadow-md p-8 border border-gray-100">
-          <h2 className="text-xl font-bold text-gray-900 mb-6 flex items-center">
-            <FontAwesomeIcon icon={faChartPie} className="h-5 w-5 text-indigo-500 mr-2" />
-            《{getSelectedCourseName()}》评价统计
-          </h2>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-6 border border-blue-100 shadow-sm">
-              <div className="flex justify-between items-start">
-                <div>
-                  <span className="text-blue-500 text-sm font-medium">平均评分</span>
-                  <div className="mt-2 flex items-baseline">
-                    <span className="text-4xl font-bold text-blue-700">{getAverageScore()}</span>
-                    <span className="text-lg text-blue-500 ml-1">/5.0</span>
-                  </div>
-                </div>
-                <div className="bg-blue-100 p-3 rounded-lg">
-                  <FontAwesomeIcon icon={faStar} className="h-6 w-6 text-blue-500" />
-                </div>
-              </div>
-            </div>
+        {/* 右侧：评价列表 */}
+        <div className="lg:w-2/3">
+          <div className="bg-white rounded-2xl shadow-md p-6 border border-gray-100 overflow-hidden relative transition-all duration-300 hover:shadow-lg min-h-[600px]">
+            <h2 className="text-xl font-bold text-gray-900 mb-6 flex items-center">
+              <FontAwesomeIcon icon={faListAlt} className="h-5 w-5 text-indigo-500 mr-2" />
+              《{getSelectedCourseName()}》评价列表
+            </h2>
             
-            <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl p-6 border border-purple-100 shadow-sm">
-              <div className="flex justify-between items-start">
-                <div>
-                  <span className="text-purple-500 text-sm font-medium">评价数量</span>
-                  <div className="mt-2 flex items-baseline">
-                    <span className="text-4xl font-bold text-purple-700">{evaluations.length}</span>
-                    <span className="text-lg text-purple-500 ml-1">条</span>
-                  </div>
-                </div>
-                <div className="bg-purple-100 p-3 rounded-lg">
-                  <FontAwesomeIcon icon={faCommentAlt} className="h-6 w-6 text-purple-500" />
-                </div>
+            {loadingEvaluations ? (
+              <div className="text-center py-12">
+                <div className="inline-block h-10 w-10 animate-spin rounded-full border-4 border-solid border-indigo-600 border-r-transparent relative mb-4"></div>
+                <p className="text-gray-600">加载评价数据中...</p>
               </div>
-            </div>
-            
-            <div className="bg-gradient-to-br from-green-50 to-teal-50 rounded-xl p-6 border border-green-100 shadow-sm">
-              <div className="flex justify-between items-start">
-                <div>
-                  <span className="text-green-500 text-sm font-medium">匿名评价</span>
-                  <div className="mt-2 flex items-baseline">
-                    <span className="text-4xl font-bold text-green-700">{getAnonymousPercentage()}%</span>
+            ) : evaluations.length > 0 ? (
+              <div className="space-y-5 overflow-y-auto max-h-[800px] pr-2">
+                {evaluations.map((evaluation, index) => (
+                  <div 
+                    key={index} 
+                    className="bg-gradient-to-br from-gray-50 to-white p-5 rounded-xl border border-gray-100 shadow-sm transition-all duration-300 hover:shadow hover:border-indigo-100"
+                  >
+                    <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-3">
+                      <div className="flex items-center mb-3 md:mb-0">
+                        <div className="bg-indigo-100 p-2 rounded-full mr-3">
+                          <FontAwesomeIcon 
+                            icon={faUserCircle} 
+                            className="h-5 w-5 text-indigo-600" 
+                          />
+                        </div>
+                        <span className={`px-3 py-1 rounded-full text-sm font-medium ${
+                          evaluation.isAnonymous 
+                            ? 'bg-green-100 text-green-700 border border-green-200' 
+                            : 'bg-blue-100 text-blue-700 border border-blue-200'
+                        }`}>
+                          {evaluation.isAnonymous ? '匿名学生' : evaluation.student.substr(0, 6) + '...' + evaluation.student.substr(-4)}
+                        </span>
+                      </div>
+                      <div className="flex items-center">
+                        <div className="bg-blue-100 p-2 rounded-full mr-3">
+                          <FontAwesomeIcon 
+                            icon={faCalendarAlt} 
+                            className="h-4 w-4 text-blue-600" 
+                          />
+                        </div>
+                        <span className="text-sm text-gray-500">
+                          {evaluation && evaluation.timestamp ? formatDate(evaluation.timestamp) : '未知时间'}
+                        </span>
+                      </div>
+                    </div>
+                    
+                    <div className="mb-3">
+                      {renderStars(Number(evaluation.score))}
+                    </div>
+                    
+                    <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                      <p className="text-gray-800">{evaluation.comment}</p>
+                    </div>
                   </div>
-                </div>
-                <div className="bg-green-100 p-3 rounded-lg">
-                  <FontAwesomeIcon icon={faShieldAlt} className="h-6 w-6 text-green-500" />
-                </div>
+                ))}
               </div>
-            </div>
-          </div>
-          
-          <div className="bg-gray-50 rounded-xl p-6 border border-gray-100 mb-4">
-            <h3 className="text-lg font-semibold text-gray-800 mb-4">评分分布</h3>
-            <div className="space-y-3">
-              {[5, 4, 3, 2, 1].map((score) => (
-                <div key={score} className="flex items-center">
-                  <div className="w-6 text-gray-600 text-sm font-medium">{score}星</div>
-                  <div className="flex-1 mx-3 h-5 bg-gray-200 rounded-full overflow-hidden">
-                    <div 
-                      className={`h-full rounded-full ${
-                        score >= 4 ? 'bg-green-500' : 
-                        score >= 3 ? 'bg-blue-500' : 
-                        score >= 2 ? 'bg-yellow-500' : 'bg-red-500'
-                      }`}
-                      style={{ width: `${(scoreDistribution[score-1] / maxDistribution) * 100}%` }}
-                    ></div>
-                  </div>
-                  <div className="w-10 text-right text-gray-600 text-sm font-medium">
-                    {scoreDistribution[score-1]}
-                  </div>
+            ) : (
+              <div className="flex flex-col items-center justify-center h-full py-16 bg-gray-50 rounded-xl border border-gray-100">
+                <div className="inline-block bg-white p-6 rounded-full shadow-sm mb-4">
+                  <FontAwesomeIcon icon={faExclamationCircle} className="h-12 w-12 text-gray-400" />
                 </div>
-              ))}
-            </div>
+                <h3 className="text-xl font-medium text-gray-700 mb-2">该课程暂无评价记录</h3>
+                <p className="text-gray-500 max-w-md text-center">学生尚未对此课程提交评价，请等待学生评价后查看</p>
+              </div>
+            )}
           </div>
         </div>
-      )}
-
-      {/* 评价列表卡片 */}
-      <div className="bg-white rounded-2xl shadow-md p-8 border border-gray-100 overflow-hidden relative transition-all duration-300 hover:shadow-lg">
-        <h2 className="text-xl font-bold text-gray-900 mb-6 flex items-center">
-          <FontAwesomeIcon icon={faEye} className="h-5 w-5 text-indigo-500 mr-2" />
-          《{getSelectedCourseName()}》评价列表
-        </h2>
-        
-        {loadingEvaluations ? (
-          <div className="text-center py-12">
-            <div className="inline-block h-10 w-10 animate-spin rounded-full border-4 border-solid border-indigo-600 border-r-transparent relative mb-4"></div>
-            <p className="text-gray-600">加载评价数据中...</p>
-          </div>
-        ) : evaluations.length > 0 ? (
-          <div className="space-y-6">
-            {evaluations.map((evaluation, index) => (
-              <div 
-                key={index} 
-                className="bg-gradient-to-br from-gray-50 to-white p-6 rounded-xl border border-gray-100 shadow-sm transition-all duration-300 hover:shadow hover:border-indigo-100"
-              >
-                <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
-                  <div className="flex items-center mb-3 md:mb-0">
-                    <div className="bg-indigo-100 p-2 rounded-full mr-3">
-                      <FontAwesomeIcon 
-                        icon={faUserCircle} 
-                        className="h-5 w-5 text-indigo-600" 
-                      />
-                    </div>
-                    <span className={`px-3 py-1 rounded-full text-sm font-medium ${
-                      evaluation.isAnonymous 
-                        ? 'bg-green-100 text-green-700 border border-green-200' 
-                        : 'bg-blue-100 text-blue-700 border border-blue-200'
-                    }`}>
-                      {evaluation.isAnonymous ? '匿名学生' : evaluation.student.substr(0, 6) + '...' + evaluation.student.substr(-4)}
-                    </span>
-                  </div>
-                  <div className="flex items-center">
-                    <div className="bg-blue-100 p-2 rounded-full mr-3">
-                      <FontAwesomeIcon 
-                        icon={faCalendarAlt} 
-                        className="h-4 w-4 text-blue-600" 
-                      />
-                    </div>
-                    <span className="text-sm text-gray-500">
-                      {evaluation && evaluation.timestamp ? formatDate(evaluation.timestamp) : '未知时间'}
-                    </span>
-                  </div>
-                </div>
-                
-                <div className="mb-4">
-                  {renderStars(Number(evaluation.score))}
-                </div>
-                
-                <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
-                  <p className="text-gray-800">{evaluation.comment}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        ) : (
-          <div className="text-center py-16 bg-gray-50 rounded-xl border border-gray-100">
-            <div className="inline-block bg-white p-6 rounded-full shadow-sm mb-4">
-              <FontAwesomeIcon icon={faExclamationCircle} className="h-12 w-12 text-gray-400" />
-            </div>
-            <h3 className="text-xl font-medium text-gray-700 mb-2">该课程暂无评价记录</h3>
-            <p className="text-gray-500 max-w-md mx-auto">学生尚未对此课程提交评价，请等待学生评价后查看</p>
-          </div>
-        )}
       </div>
     </div>
   );
