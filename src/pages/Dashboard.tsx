@@ -1,23 +1,24 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getCurrentAccount, getCurrentUserInfo, getAllCourses, getStudentEvaluations, addCourse, updateCourse, getAllUsers, getCourseEvaluations } from '../utils/contract';
+import { getCurrentAccount, getCurrentUserInfo, getAllCourses, getStudentEvaluations, getAllUsers, getCourseEvaluations } from '../utils/contract';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
   faGraduationCap, 
   faChalkboardTeacher, 
   faShieldAlt, 
   faExclamationCircle, 
-  faTimes, 
   faBook,
   faLightbulb,
   faChartLine,
   faBookOpen,
-  faAward,
-  faPlus,
-  faPencilAlt,
-  faEye,
   faStar,
-  faUsers
+  faUsers,
+  faPieChart,
+  faChartBar,
+  faChartArea,
+  faPercentage,
+  faClipboardList,
+  faCalendarAlt,
 } from '@fortawesome/free-solid-svg-icons';
 
 // 定义用户结构体类型
@@ -53,28 +54,11 @@ export default function Dashboard() {
   const [users, setUsers] = useState<User[]>([]);
   const [user, setUser] = useState<User | null>(null);
   const [courses, setCourses] = useState<Course[]>([]);
-  const [evaluations, setEvaluations] = useState<number[]>([]);
+  const [evaluations, setEvaluations] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [showAnimation, setShowAnimation] = useState(false);
   const [courseEvaluations, setCourseEvaluations] = useState<Evaluation[]>([]);
-
-  // 添加课程Modal状态
-  const [showModal, setShowModal] = useState(false);
-  const [courseName, setCourseName] = useState('');
-  const [courseCredits, setCourseCredits] = useState<number>(0);
-  const [teacherAddress, setTeacherAddress] = useState('');
-  const [addingCourse, setAddingCourse] = useState(false);
-  const [addCourseError, setAddCourseError] = useState('');
-  
-  // 修改课程Modal状态
-  const [showEditModal, setShowEditModal] = useState(false);
-  const [currentCourseId, setCurrentCourseId] = useState<number>(-1);
-  const [editCourseName, setEditCourseName] = useState('');
-  const [editCourseCredits, setEditCourseCredits] = useState<number>(0);
-  const [editTeacherAddress, setEditTeacherAddress] = useState('');
-  const [editingCourse, setEditingCourse] = useState(false);
-  const [editCourseError, setEditCourseError] = useState('');
 
   useEffect(() => {
     // 添加进入动画
@@ -110,7 +94,7 @@ export default function Dashboard() {
 
         // 如果是学生，获取评价历史
         if (Number(userInfo?.role) === 0) {
-          const studentEvals = await getStudentEvaluations() as unknown as number[];
+          const studentEvals = await getStudentEvaluations() as unknown as any[];
           setEvaluations(studentEvals);
         }
       } catch (err) {
@@ -146,8 +130,11 @@ export default function Dashboard() {
 
   // 获取平均评分
   const getAverageScore = () => {
-    if (courseEvaluations.length === 0) return 0;
-    const totalScore = courseEvaluations.reduce((sum, evaluation) => sum + Number(evaluation.score), 0);
+    if (!courseEvaluations || courseEvaluations.length === 0) return 0;
+    const totalScore = courseEvaluations.reduce((sum, evaluation) => {
+      const score = Number(evaluation.score || 0);
+      return sum + score;
+    }, 0);
     return (totalScore / courseEvaluations.length).toFixed(1);
   };
 
@@ -163,7 +150,7 @@ export default function Dashboard() {
         ];
       } else if (role === 1) {
         return [
-          { title: '我的课程', value: courses.filter(c => Number(c.teacher) === Number(currentAccount)).length, icon: faChalkboardTeacher, color: 'from-indigo-400 to-indigo-600' },
+          { title: '我的课程', value: courses.filter(c => c.teacher.toLowerCase() === currentAccount.toLowerCase()).length, icon: faChalkboardTeacher, color: 'from-indigo-400 to-indigo-600' },
           { title: '学生反馈', value: courseEvaluations.length, icon: faChartLine, color: 'from-orange-400 to-orange-600' },
           { title: '平均评分', value: getAverageScore(), icon: faStar, color: 'from-yellow-400 to-yellow-600' } 
         ];
@@ -176,103 +163,6 @@ export default function Dashboard() {
       }
     }
     return [];
-  };
-
-  // 课程添加处理函数
-  const handleAddCourse = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setAddingCourse(true);
-    setAddCourseError('');
-
-    try {
-      if (!courseName.trim()) {
-        throw new Error('课程名称不能为空');
-      }
-      
-      if (courseCredits <= 0 || courseCredits > 10) {
-        throw new Error('学分必须在1-10之间');
-      }
-      
-      if (!teacherAddress || !teacherAddress.startsWith('0x') || teacherAddress.length !== 42) {
-        throw new Error('请输入有效的教师地址');
-      }
-      
-      await addCourse(courseName, courseCredits, teacherAddress);
-      
-      // 添加成功后刷新课程列表
-      const updatedCourses = await getAllCourses() as unknown as Course[];
-      setCourses(updatedCourses);
-      
-      // 重置表单并关闭模态框
-      resetAddForm();
-      setShowModal(false);
-    } catch (err: any) {
-      console.error('添加课程失败:', err);
-      setAddCourseError(err.message || '添加课程失败，请重试');
-    } finally {
-      setAddingCourse(false);
-    }
-  };
-
-  // 打开编辑课程弹窗
-  const openEditModal = (course: Course) => {
-    setCurrentCourseId(course.id);
-    setEditCourseName(course.name);
-    setEditCourseCredits(course.credits);
-    setEditTeacherAddress(course.teacher);
-    setEditCourseError('');
-    setShowEditModal(true);
-  };
-
-  // 处理课程更新
-  const handleUpdateCourse = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setEditingCourse(true);
-    setEditCourseError('');
-
-    try {
-      if (!editCourseName.trim()) {
-        throw new Error('课程名称不能为空');
-      }
-      
-      if (editCourseCredits <= 0 || editCourseCredits > 10) {
-        throw new Error('学分必须在1-10之间');
-      }
-      
-      if (!editTeacherAddress || !editTeacherAddress.startsWith('0x') || editTeacherAddress.length !== 42) {
-        throw new Error('请输入有效的教师地址');
-      }
-      
-      await updateCourse(currentCourseId, editCourseName, editCourseCredits, editTeacherAddress);
-      
-      // 更新成功后刷新课程列表
-      const updatedCourses = await getAllCourses() as unknown as Course[];
-      setCourses(updatedCourses);
-      
-      // 重置表单并关闭模态框
-      resetEditForm();
-      setShowEditModal(false);
-    } catch (err: any) {
-      console.error('更新课程失败:', err);
-      setEditCourseError(err.message || '更新课程失败，请重试');
-    } finally {
-      setEditingCourse(false);
-    }
-  };
-
-  const resetAddForm = () => {
-    setCourseName('');
-    setCourseCredits(0);
-    setTeacherAddress('');
-    setAddCourseError('');
-  };
-
-  const resetEditForm = () => {
-    setCurrentCourseId(-1);
-    setEditCourseName('');
-    setEditCourseCredits(0);
-    setEditTeacherAddress('');
-    setEditCourseError('');
   };
 
   if (loading) {
@@ -370,351 +260,534 @@ export default function Dashboard() {
         </div>
       </div>
 
-      {/* 课程列表卡片 */}
-      <div className="bg-white rounded-2xl shadow-md p-8 border border-gray-100 transition-all duration-300 hover:shadow-lg">
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8">
-          <div>
-            <h2 className="text-xl font-bold text-gray-900 mb-1 flex items-center">
-              <FontAwesomeIcon icon={faBookOpen} className="h-5 w-5 text-indigo-500 mr-2" />
-              课程列表
-            </h2>
-            <p className="text-sm text-gray-500">{courses.length > 0 ? `共 ${courses.length} 门课程` : '暂无课程数据'}</p>
-          </div>
-          {Number(user?.role) === 2 && (
-            <button
-              onClick={() => setShowModal(true)}
-              className="mt-4 sm:mt-0 px-4 py-2 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-lg hover:from-indigo-600 hover:to-purple-700 transition-all shadow hover:shadow-md transform hover:scale-105 active:scale-100 flex items-center text-sm"
-            >
-              <FontAwesomeIcon icon={faPlus} className="h-4 w-4 mr-2" />
-              添加课程
-            </button>
-          )}
-        </div>
-        
-        {courses.length > 0 ? (
-          <div className="overflow-x-auto border border-gray-100 rounded-xl shadow-sm">
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-gray-50">
-                <tr>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    课程名称
-                  </th>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    学分
-                  </th>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    授课教师
-                  </th>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    状态
-                  </th>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    操作
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
-                {courses.map((course, index) => (
-                  <tr key={index} className="hover:bg-gray-50 transition-colors">
-                    <td className="px-6 py-4 whitespace-nowrap">
+      {/* 数据分析卡片 - 根据角色显示不同的统计图表 */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* 学生角色的统计图表 */}
+        {Number(user?.role) === 0 && (
+          <>
+            {/* 已选课程分布图 */}
+            <div className="bg-white rounded-2xl shadow-md p-6 border border-gray-100 transition-all duration-300 hover:shadow-lg">
+              <h2 className="text-lg font-bold text-gray-900 mb-4 flex items-center">
+                <FontAwesomeIcon icon={faPieChart} className="h-5 w-5 text-blue-500 mr-2" />
+                已选课程学分分布
+              </h2>
+              
+              <div className="relative h-64 w-full">
+                {courses.length > 0 ? (
+                  <div className="flex items-center justify-center h-full">
+                    {/* 这里是课程学分分布的图表 */}
+                    <div className="w-48 h-48 relative rounded-full border-8 border-blue-100 overflow-hidden flex items-center justify-center">
+                      <div className="absolute inset-0">
+                        <div className="absolute top-0 left-0 w-1/2 h-1/2 bg-blue-500 origin-bottom-right transform rotate-0"></div>
+                        <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-indigo-500 origin-bottom-left transform rotate-0"></div>
+                        <div className="absolute bottom-0 right-0 w-1/2 h-1/2 bg-purple-500 origin-top-left transform rotate-0"></div>
+                        <div className="absolute bottom-0 left-0 w-1/2 h-1/2 bg-pink-500 origin-top-right transform rotate-0"></div>
+                      </div>
+                      <div className="z-10 bg-white rounded-full w-2/3 h-2/3 flex flex-col items-center justify-center shadow-inner">
+                        <span className="text-xl font-bold text-gray-800">{courses.length}</span>
+                        <span className="text-xs text-gray-500">总课程数</span>
+                      </div>
+                    </div>
+                    
+                    <div className="ml-4 space-y-2">
                       <div className="flex items-center">
-                        <div className="flex-shrink-0 h-10 w-10">
-                          <div className="bg-gradient-to-br from-indigo-100 to-blue-100 p-2 rounded-lg border border-indigo-200 shadow-sm">
-                            <FontAwesomeIcon icon={faBook} className="h-6 w-6 text-indigo-600" />
+                        <div className="w-3 h-3 bg-blue-500 rounded-full mr-2"></div>
+                        <span className="text-xs text-gray-600">2学分课程</span>
+                      </div>
+                      <div className="flex items-center">
+                        <div className="w-3 h-3 bg-indigo-500 rounded-full mr-2"></div>
+                        <span className="text-xs text-gray-600">3学分课程</span>
+                      </div>
+                      <div className="flex items-center">
+                        <div className="w-3 h-3 bg-purple-500 rounded-full mr-2"></div>
+                        <span className="text-xs text-gray-600">4学分课程</span>
+                      </div>
+                      <div className="flex items-center">
+                        <div className="w-3 h-3 bg-pink-500 rounded-full mr-2"></div>
+                        <span className="text-xs text-gray-600">5学分课程</span>
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="flex flex-col items-center justify-center h-full bg-gray-50 rounded-xl">
+                    <FontAwesomeIcon icon={faExclamationCircle} className="h-10 w-10 text-gray-300 mb-2" />
+                    <p className="text-gray-500">暂无课程数据</p>
+                  </div>
+                )}
+              </div>
+            </div>
+            
+            {/* 评价历史统计 */}
+            <div className="bg-white rounded-2xl shadow-md p-6 border border-gray-100 transition-all duration-300 hover:shadow-lg">
+              <h2 className="text-lg font-bold text-gray-900 mb-4 flex items-center">
+                <FontAwesomeIcon icon={faChartLine} className="h-5 w-5 text-purple-500 mr-2" />
+                评价历史统计
+              </h2>
+              
+              <div className="relative h-64 w-full">
+                {evaluations.length > 0 ? (
+                  <div className="space-y-4">
+                    <div className="bg-purple-50 rounded-lg p-4 border border-purple-100">
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-sm font-medium text-purple-700">您的平均评分</span>
+                        <span className="flex items-center bg-purple-100 px-2 py-1 rounded-full text-xs font-bold text-purple-700">
+                          <FontAwesomeIcon icon={faStar} className="h-3 w-3 text-yellow-500 mr-1" />
+                          4.5
+                        </span>
+                      </div>
+                      <div className="w-full bg-gray-200 h-2 rounded-full overflow-hidden">
+                        <div className="bg-gradient-to-r from-purple-400 to-pink-500 h-full rounded-full" style={{width: '90%'}}></div>
+                      </div>
+                    </div>
+                    
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="bg-indigo-50 rounded-lg p-4 border border-indigo-100 flex flex-col items-center justify-center">
+                        <div className="text-2xl font-bold text-indigo-700">{evaluations.length}</div>
+                        <div className="text-xs text-indigo-500">已提交评价</div>
+                      </div>
+                      <div className="bg-pink-50 rounded-lg p-4 border border-pink-100 flex flex-col items-center justify-center">
+                        <div className="text-2xl font-bold text-pink-700">50%</div>
+                        <div className="text-xs text-pink-500">匿名评价比例</div>
+                      </div>
+                    </div>
+                    
+                    <div className="space-y-2">
+                      <h3 className="text-sm font-medium text-gray-700">最近评价分布</h3>
+                      <div className="flex items-center">
+                        <div className="w-6 text-xs text-gray-600">5星</div>
+                        <div className="flex-1 mx-2 h-3 bg-gray-200 rounded-full overflow-hidden">
+                          <div className="bg-green-500 h-full rounded-full" style={{width: '60%'}}></div>
+                        </div>
+                      </div>
+                      <div className="flex items-center">
+                        <div className="w-6 text-xs text-gray-600">4星</div>
+                        <div className="flex-1 mx-2 h-3 bg-gray-200 rounded-full overflow-hidden">
+                          <div className="bg-lime-500 h-full rounded-full" style={{width: '25%'}}></div>
+                        </div>
+                      </div>
+                      <div className="flex items-center">
+                        <div className="w-6 text-xs text-gray-600">3星</div>
+                        <div className="flex-1 mx-2 h-3 bg-gray-200 rounded-full overflow-hidden">
+                          <div className="bg-yellow-500 h-full rounded-full" style={{width: '10%'}}></div>
+                        </div>
+                      </div>
+                      <div className="flex items-center">
+                        <div className="w-6 text-xs text-gray-600">2星</div>
+                        <div className="flex-1 mx-2 h-3 bg-gray-200 rounded-full overflow-hidden">
+                          <div className="bg-orange-500 h-full rounded-full" style={{width: '5%'}}></div>
+                        </div>
+                      </div>
+                      <div className="flex items-center">
+                        <div className="w-6 text-xs text-gray-600">1星</div>
+                        <div className="flex-1 mx-2 h-3 bg-gray-200 rounded-full overflow-hidden">
+                          <div className="bg-red-500 h-full rounded-full" style={{width: '0%'}}></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="flex flex-col items-center justify-center h-full bg-gray-50 rounded-xl">
+                    <FontAwesomeIcon icon={faExclamationCircle} className="h-10 w-10 text-gray-300 mb-2" />
+                    <p className="text-gray-500">暂无评价数据</p>
+                  </div>
+                )}
+              </div>
+            </div>
+          </>
+        )}
+
+        {/* 教师角色的统计图表 */}
+        {Number(user?.role) === 1 && (
+          <>
+            {/* 课程评价概况 */}
+            <div className="bg-white rounded-2xl shadow-md p-6 border border-gray-100 transition-all duration-300 hover:shadow-lg">
+              <h2 className="text-lg font-bold text-gray-900 mb-4 flex items-center">
+                <FontAwesomeIcon icon={faChartBar} className="h-5 w-5 text-indigo-500 mr-2" />
+                课程评价概况
+              </h2>
+              
+              <div className="relative h-64 w-full">
+                {courseEvaluations.length > 0 ? (
+                  <div className="space-y-4">
+                    <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+                      <div className="bg-indigo-50 rounded-lg p-4 border border-indigo-100 flex-1 flex flex-col items-center justify-center">
+                        <div className="flex items-center text-2xl font-bold text-indigo-700">
+                          {getAverageScore()}
+                          <span className="text-sm text-indigo-400 ml-1">/5.0</span>
+                        </div>
+                        <div className="text-xs text-indigo-500">平均评分</div>
+                        <div className="flex mt-1">
+                          {[1, 2, 3, 4, 5].map((value) => (
+                            <FontAwesomeIcon
+                              key={value}
+                              icon={faStar}
+                              className={`h-3 w-3 ${
+                                value <= Number(getAverageScore()) ? 'text-yellow-400' : 'text-gray-300'
+                              }`}
+                            />
+                          ))}
+                        </div>
+                      </div>
+                      
+                      <div className="bg-orange-50 rounded-lg p-4 border border-orange-100 flex-1 flex flex-col items-center justify-center">
+                        <div className="text-2xl font-bold text-orange-700">{courseEvaluations.length}</div>
+                        <div className="text-xs text-orange-500">总评价数</div>
+                      </div>
+                      
+                      <div className="bg-green-50 rounded-lg p-4 border border-green-100 flex-1 flex flex-col items-center justify-center">
+                        <div className="text-2xl font-bold text-green-700">
+                          <FontAwesomeIcon icon={faPercentage} className="h-4 w-4 mr-1" />
+                          75
+                        </div>
+                        <div className="text-xs text-green-500">好评率</div>
+                      </div>
+                    </div>
+                    
+                    <div className="space-y-3">
+                      <h3 className="text-sm font-medium text-gray-700">课程评分对比</h3>
+                      <div className="space-y-3">
+                        <div className="flex items-center">
+                          <div className="w-20 text-xs text-gray-600 truncate">数据结构</div>
+                          <div className="flex-1 mx-2 h-4 bg-gray-200 rounded-full overflow-hidden">
+                            <div className="bg-gradient-to-r from-indigo-500 to-purple-600 h-full rounded-full" style={{width: '90%'}}></div>
+                          </div>
+                          <div className="w-8 text-xs font-medium text-indigo-700">4.5</div>
+                        </div>
+                        <div className="flex items-center">
+                          <div className="w-20 text-xs text-gray-600 truncate">算法分析</div>
+                          <div className="flex-1 mx-2 h-4 bg-gray-200 rounded-full overflow-hidden">
+                            <div className="bg-gradient-to-r from-indigo-500 to-purple-600 h-full rounded-full" style={{width: '80%'}}></div>
+                          </div>
+                          <div className="w-8 text-xs font-medium text-indigo-700">4.0</div>
+                        </div>
+                        <div className="flex items-center">
+                          <div className="w-20 text-xs text-gray-600 truncate">计算机网络</div>
+                          <div className="flex-1 mx-2 h-4 bg-gray-200 rounded-full overflow-hidden">
+                            <div className="bg-gradient-to-r from-indigo-500 to-purple-600 h-full rounded-full" style={{width: '85%'}}></div>
+                          </div>
+                          <div className="w-8 text-xs font-medium text-indigo-700">4.3</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="flex flex-col items-center justify-center h-full bg-gray-50 rounded-xl">
+                    <FontAwesomeIcon icon={faExclamationCircle} className="h-10 w-10 text-gray-300 mb-2" />
+                    <p className="text-gray-500">暂无评价数据</p>
+                  </div>
+                )}
+              </div>
+            </div>
+            
+            {/* 最近评价趋势 */}
+            <div className="bg-white rounded-2xl shadow-md p-6 border border-gray-100 transition-all duration-300 hover:shadow-lg">
+              <h2 className="text-lg font-bold text-gray-900 mb-4 flex items-center">
+                <FontAwesomeIcon icon={faChartArea} className="h-5 w-5 text-blue-500 mr-2" />
+                最近评价趋势
+              </h2>
+              
+              <div className="relative h-64 w-full">
+                {courseEvaluations.length > 0 ? (
+                  <div className="space-y-4">
+                    <div className="w-full h-40 relative">
+                      <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gray-200"></div>
+                      <div className="absolute bottom-0 left-0 h-full w-0.5 bg-gray-200"></div>
+                      
+                      {/* 模拟评分趋势图 */}
+                      <div className="absolute inset-0 flex items-end justify-between px-1">
+                        <div className="w-12 h-36 mx-1 bg-gradient-to-b from-blue-400 to-indigo-600 rounded-t-lg opacity-70"></div>
+                        <div className="w-12 h-28 mx-1 bg-gradient-to-b from-blue-400 to-indigo-600 rounded-t-lg opacity-70"></div>
+                        <div className="w-12 h-32 mx-1 bg-gradient-to-b from-blue-400 to-indigo-600 rounded-t-lg opacity-70"></div>
+                        <div className="w-12 h-24 mx-1 bg-gradient-to-b from-blue-400 to-indigo-600 rounded-t-lg opacity-70"></div>
+                        <div className="w-12 h-30 mx-1 bg-gradient-to-b from-blue-400 to-indigo-600 rounded-t-lg opacity-70"></div>
+                        <div className="w-12 h-38 mx-1 bg-gradient-to-b from-blue-400 to-indigo-600 rounded-t-lg opacity-70"></div>
+                      </div>
+                      
+                      {/* X轴标签 */}
+                      <div className="absolute bottom-[-20px] left-0 right-0 flex justify-between px-1 text-xs text-gray-500">
+                        <div className="w-12 text-center">一月</div>
+                        <div className="w-12 text-center">二月</div>
+                        <div className="w-12 text-center">三月</div>
+                        <div className="w-12 text-center">四月</div>
+                        <div className="w-12 text-center">五月</div>
+                        <div className="w-12 text-center">六月</div>
+                      </div>
+                    </div>
+                    
+                    <div className="bg-blue-50 rounded-lg p-4 border border-blue-100">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center">
+                          <FontAwesomeIcon icon={faClipboardList} className="h-4 w-4 text-blue-500 mr-2" />
+                          <span className="text-sm font-medium text-gray-700">最新评价</span>
+                        </div>
+                        <span className="text-xs text-gray-500">
+                          <FontAwesomeIcon icon={faCalendarAlt} className="h-3 w-3 mr-1" />
+                          今天
+                        </span>
+                      </div>
+                      <p className="mt-2 text-sm text-gray-600 italic">
+                        "课程内容丰富，老师讲解非常清晰，对我的学习帮助很大..."
+                      </p>
+                      <div className="mt-2 flex justify-between items-center">
+                        <div className="flex">
+                          {[1, 2, 3, 4, 5].map((value) => (
+                            <FontAwesomeIcon
+                              key={value}
+                              icon={faStar}
+                              className="h-3 w-3 text-yellow-400"
+                            />
+                          ))}
+                        </div>
+                        <span className="text-xs text-blue-600">
+                          匿名学生
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="flex flex-col items-center justify-center h-full bg-gray-50 rounded-xl">
+                    <FontAwesomeIcon icon={faExclamationCircle} className="h-10 w-10 text-gray-300 mb-2" />
+                    <p className="text-gray-500">暂无评价趋势数据</p>
+                  </div>
+                )}
+              </div>
+            </div>
+          </>
+        )}
+
+        {/* 管理员角色的统计图表 */}
+        {Number(user?.role) === 2 && (
+          <>
+            {/* 系统用户分布 */}
+            <div className="bg-white rounded-2xl shadow-md p-6 border border-gray-100 transition-all duration-300 hover:shadow-lg">
+              <h2 className="text-lg font-bold text-gray-900 mb-4 flex items-center">
+                <FontAwesomeIcon icon={faUsers} className="h-5 w-5 text-purple-500 mr-2" />
+                系统用户分布
+              </h2>
+              
+              <div className="relative h-64 w-full">
+                {users.length > 0 ? (
+                  <div className="flex flex-col items-center justify-center h-full">
+                    <div className="relative w-48 h-48">
+                      {/* 模拟饼图 */}
+                      <svg className="w-full h-full" viewBox="0 0 100 100">
+                        <circle cx="50" cy="50" r="40" fill="transparent" stroke="#c4b5fd" strokeWidth="20" strokeDasharray="100 150" />
+                        <circle cx="50" cy="50" r="40" fill="transparent" stroke="#818cf8" strokeWidth="20" strokeDasharray="60 200" strokeDashoffset="-100" />
+                        <circle cx="50" cy="50" r="40" fill="transparent" stroke="#4f46e5" strokeWidth="20" strokeDasharray="20 250" strokeDashoffset="-160" />
+                      </svg>
+                      
+                      <div className="absolute inset-0 flex items-center justify-center flex-col">
+                        <span className="text-xl font-bold text-purple-700">{users.length}</span>
+                        <span className="text-xs text-purple-500">总用户数</span>
+                      </div>
+                    </div>
+                    
+                    <div className="mt-4 grid grid-cols-3 gap-6 w-full">
+                      <div className="flex flex-col items-center">
+                        <div className="w-4 h-4 bg-purple-200 rounded-full mb-1"></div>
+                        <div className="text-sm font-medium text-gray-800">
+                          60%
+                        </div>
+                        <div className="text-xs text-gray-500">学生</div>
+                      </div>
+                      <div className="flex flex-col items-center">
+                        <div className="w-4 h-4 bg-indigo-400 rounded-full mb-1"></div>
+                        <div className="text-sm font-medium text-gray-800">
+                          30%
+                        </div>
+                        <div className="text-xs text-gray-500">教师</div>
+                      </div>
+                      <div className="flex flex-col items-center">
+                        <div className="w-4 h-4 bg-indigo-700 rounded-full mb-1"></div>
+                        <div className="text-sm font-medium text-gray-800">
+                          10%
+                        </div>
+                        <div className="text-xs text-gray-500">管理员</div>
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="flex flex-col items-center justify-center h-full bg-gray-50 rounded-xl">
+                    <FontAwesomeIcon icon={faExclamationCircle} className="h-10 w-10 text-gray-300 mb-2" />
+                    <p className="text-gray-500">暂无用户数据</p>
+                  </div>
+                )}
+              </div>
+            </div>
+            
+            {/* 课程活跃状态 */}
+            <div className="bg-white rounded-2xl shadow-md p-6 border border-gray-100 transition-all duration-300 hover:shadow-lg">
+              <h2 className="text-lg font-bold text-gray-900 mb-4 flex items-center">
+                <FontAwesomeIcon icon={faBook} className="h-5 w-5 text-green-500 mr-2" />
+                课程活跃状态
+              </h2>
+              
+              <div className="relative h-64 w-full">
+                {courses.length > 0 ? (
+                  <div className="space-y-4">
+                    <div className="flex justify-center">
+                      <div className="flex items-center space-x-4">
+                        <div className="flex flex-col items-center">
+                          <div className="w-24 h-24 rounded-full flex items-center justify-center relative">
+                            <div className="absolute inset-0 rounded-full border-8 border-green-100"></div>
+                            <div 
+                              className="absolute top-0 left-0 w-24 h-24 rounded-full border-8 border-transparent border-t-green-500 border-r-green-500" 
+                              style={{transform: 'rotate(45deg)'}}
+                            ></div>
+                            <div className="z-10 text-xl font-bold text-green-700">
+                              75%
+                            </div>
+                          </div>
+                          <div className="mt-2 text-sm text-green-700">
+                            活跃课程
                           </div>
                         </div>
-                        <div className="ml-4">
-                          <div className="text-sm font-medium text-gray-900">{course.name}</div>
-                          <div className="text-xs text-gray-500">ID: {course.id}</div>
+                        
+                        <div className="flex flex-col items-center">
+                          <div className="w-24 h-24 rounded-full flex items-center justify-center relative">
+                            <div className="absolute inset-0 rounded-full border-8 border-red-100"></div>
+                            <div 
+                              className="absolute top-0 left-0 w-24 h-24 rounded-full border-8 border-transparent border-t-red-500" 
+                              style={{transform: 'rotate(90deg)'}}
+                            ></div>
+                            <div className="z-10 text-xl font-bold text-red-700">
+                              25%
+                            </div>
+                          </div>
+                          <div className="mt-2 text-sm text-red-700">
+                            未激活课程
+                          </div>
                         </div>
                       </div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-900 bg-amber-50 w-8 h-8 rounded-full flex items-center justify-center border border-amber-100">
-                        {course.credits}
+                    </div>
+                    
+                    <div className="space-y-3">
+                      <h3 className="text-sm font-medium text-gray-700">按学科分布</h3>
+                      <div className="space-y-1.5">
+                        <div className="flex items-center">
+                          <div className="w-28 text-xs text-gray-600">计算机科学</div>
+                          <div className="flex-1 mx-2 h-3 bg-gray-200 rounded-full overflow-hidden">
+                            <div className="bg-gradient-to-r from-blue-500 to-indigo-600 h-full rounded-full" style={{width: '45%'}}></div>
+                          </div>
+                          <div className="w-8 text-xs font-medium text-gray-700">45%</div>
+                        </div>
+                        <div className="flex items-center">
+                          <div className="w-28 text-xs text-gray-600">数学</div>
+                          <div className="flex-1 mx-2 h-3 bg-gray-200 rounded-full overflow-hidden">
+                            <div className="bg-gradient-to-r from-blue-500 to-indigo-600 h-full rounded-full" style={{width: '30%'}}></div>
+                          </div>
+                          <div className="w-8 text-xs font-medium text-gray-700">30%</div>
+                        </div>
+                        <div className="flex items-center">
+                          <div className="w-28 text-xs text-gray-600">物理</div>
+                          <div className="flex-1 mx-2 h-3 bg-gray-200 rounded-full overflow-hidden">
+                            <div className="bg-gradient-to-r from-blue-500 to-indigo-600 h-full rounded-full" style={{width: '15%'}}></div>
+                          </div>
+                          <div className="w-8 text-xs font-medium text-gray-700">15%</div>
+                        </div>
+                        <div className="flex items-center">
+                          <div className="w-28 text-xs text-gray-600">其他</div>
+                          <div className="flex-1 mx-2 h-3 bg-gray-200 rounded-full overflow-hidden">
+                            <div className="bg-gradient-to-r from-blue-500 to-indigo-600 h-full rounded-full" style={{width: '10%'}}></div>
+                          </div>
+                          <div className="w-8 text-xs font-medium text-gray-700">10%</div>
+                        </div>
                       </div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <span className="bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-xs font-medium border border-blue-100">
-                        {course.teacher.substring(0, 6)}...{course.teacher.substring(38)}
-                      </span>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <span className={`px-3 py-1 inline-flex text-xs leading-5 font-medium rounded-full ${
-                        course.isActive 
-                          ? 'bg-green-50 text-green-700 border border-green-200' 
-                          : 'bg-red-50 text-red-700 border border-red-200'
-                      }`}>
-                        {course.isActive ? '激活' : '未激活'}
-                      </span>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                      {Number(user?.role) === 0 && (
-                        <button
-                          // onClick={() => navigate(`/evaluate/${course.id}`)}
-                          className="bg-indigo-50 hover:bg-indigo-100 text-indigo-700 px-3 py-1 rounded-lg transition-colors border border-indigo-200 flex items-center"
-                        >
-                          <FontAwesomeIcon icon={faEye} className="h-3 w-3 mr-1" />
-                          查看
-                        </button>
-                      )}
-                      {Number(user?.role) === 2 && (
-                        <button
-                          onClick={() => openEditModal(course)}
-                          className="bg-blue-50 hover:bg-blue-100 text-blue-700 px-3 py-1 rounded-lg transition-colors border border-blue-200 flex items-center"
-                        >
-                          <FontAwesomeIcon icon={faPencilAlt} className="h-3 w-3 mr-1" />
-                          修改
-                        </button>
-                      )}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        ) : (
-          <div className="text-center py-16 bg-gray-50 rounded-xl border border-gray-100">
-            <div className="inline-block bg-white p-6 rounded-full shadow-sm mb-4 border border-gray-100">
-              <FontAwesomeIcon icon={faBook} className="h-10 w-10 text-gray-300" />
+                    </div>
+                  </div>
+                ) : (
+                  <div className="flex flex-col items-center justify-center h-full bg-gray-50 rounded-xl">
+                    <FontAwesomeIcon icon={faExclamationCircle} className="h-10 w-10 text-gray-300 mb-2" />
+                    <p className="text-gray-500">暂无课程数据</p>
+                  </div>
+                )}
+              </div>
             </div>
-            <p className="text-gray-500 text-lg">暂无课程数据</p>
-            <p className="text-gray-400 text-sm mt-2">课程将在这里显示</p>
-          </div>
+          </>
         )}
       </div>
-
-      {/* 添加课程Modal */}
-      {showModal && (
-        <div className="fixed inset-0 z-50 overflow-y-auto">
-          <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm transition-opacity"></div>
-          <div className="flex min-h-full items-center justify-center p-4 text-center">
-            <div className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all animate-fadeIn border border-gray-100">
-              <div className="flex justify-between items-center mb-5">
-                <h3 className="text-lg font-medium leading-6 text-gray-900 flex items-center">
-                  <div className="bg-indigo-100 p-2 rounded-lg mr-3">
-                    <FontAwesomeIcon icon={faPlus} className="h-4 w-4 text-indigo-600" />
-                  </div>
-                  添加新课程
-                </h3>
-                <button
-                  type="button"
-                  className="text-gray-400 hover:text-gray-500 bg-gray-50 hover:bg-gray-100 rounded-full p-2 transition-colors"
-                  onClick={() => {
-                    setShowModal(false);
-                    resetAddForm();
-                  }}
-                >
-                  <FontAwesomeIcon icon={faTimes} className="h-4 w-4" />
-                </button>
+      
+      {/* 根据角色显示的快捷功能区 */}
+      <div className="bg-white rounded-2xl shadow-md p-6 border border-gray-100 overflow-hidden relative transition-all duration-300 hover:shadow-lg">
+        <h2 className="text-lg font-bold text-gray-900 mb-4 flex items-center">
+          <FontAwesomeIcon icon={faLightbulb} className="h-5 w-5 text-amber-500 mr-2" />
+          快捷功能
+        </h2>
+        
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+          {Number(user?.role) === 0 && (
+            <>
+              <div 
+                className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-4 border border-blue-100 hover:shadow-md transition-all cursor-pointer flex flex-col items-center justify-center"
+                onClick={() => navigate('/already-courses')}
+              >
+                <div className="bg-gradient-to-r from-blue-400 to-indigo-500 p-3 rounded-lg shadow-sm mb-2">
+                  <FontAwesomeIcon icon={faBookOpen} className="h-5 w-5 text-white" />
+                </div>
+                <p className="text-sm font-medium text-gray-800">已修课程</p>
               </div>
               
-              {addCourseError && (
-                <div className="mb-5 bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-lg animate-pulse">
-                  <div className="flex items-center">
-                    <FontAwesomeIcon icon={faExclamationCircle} className="h-4 w-4 text-red-500 mr-2" />
-                    <p className="text-sm">{addCourseError}</p>
-                  </div>
+              <div 
+                className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl p-4 border border-purple-100 hover:shadow-md transition-all cursor-pointer flex flex-col items-center justify-center"
+                onClick={() => navigate('/evaluations')}
+              >
+                <div className="bg-gradient-to-r from-purple-400 to-pink-500 p-3 rounded-lg shadow-sm mb-2">
+                  <FontAwesomeIcon icon={faClipboardList} className="h-5 w-5 text-white" />
                 </div>
-              )}
-              
-              <form onSubmit={handleAddCourse}>
-                <div className="mb-4">
-                  <label htmlFor="courseName" className="block text-sm font-medium text-gray-700 mb-2">
-                    课程名称
-                  </label>
-                  <input
-                    type="text"
-                    id="courseName"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors"
-                    value={courseName}
-                    onChange={(e) => setCourseName(e.target.value)}
-                    placeholder="请输入课程名称"
-                    required
-                  />
+                <p className="text-sm font-medium text-gray-800">评价历史</p>
+              </div>
+            </>
+          )}
+          
+          {Number(user?.role) === 1 && (
+            <>
+              <div 
+                className="bg-gradient-to-br from-indigo-50 to-blue-50 rounded-xl p-4 border border-indigo-100 hover:shadow-md transition-all cursor-pointer flex flex-col items-center justify-center"
+                onClick={() => navigate('/my-courses')}
+              >
+                <div className="bg-gradient-to-r from-indigo-400 to-blue-500 p-3 rounded-lg shadow-sm mb-2">
+                  <FontAwesomeIcon icon={faChalkboardTeacher} className="h-5 w-5 text-white" />
                 </div>
-                
-                <div className="mb-4">
-                  <label htmlFor="courseCredits" className="block text-sm font-medium text-gray-700 mb-2">
-                    学分
-                  </label>
-                  <input
-                    type="number"
-                    id="courseCredits"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors"
-                    value={courseCredits}
-                    onChange={(e) => setCourseCredits(Number(e.target.value))}
-                    min="1"
-                    max="10"
-                    placeholder="1-10"
-                    required
-                  />
-                </div>
-                
-                <div className="mb-6">
-                  <label htmlFor="teacherAddress" className="block text-sm font-medium text-gray-700 mb-2">
-                    教师地址
-                  </label>
-                  <input
-                    type="text"
-                    id="teacherAddress"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors"
-                    value={teacherAddress}
-                    onChange={(e) => setTeacherAddress(e.target.value)}
-                    placeholder="0x..."
-                    required
-                  />
-                </div>
-                
-                <div className="flex justify-end gap-4">
-                  <button
-                    type="button"
-                    className="px-4 py-2 border border-gray-300 rounded-lg shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-colors"
-                    onClick={() => {
-                      setShowModal(false);
-                      resetAddForm();
-                    }}
-                    disabled={addingCourse}
-                  >
-                    取消
-                  </button>
-                  <button
-                    type="submit"
-                    className="px-4 py-2 bg-gradient-to-r from-indigo-500 to-purple-600 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white hover:from-indigo-600 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-75 transition-all transform hover:scale-105 active:scale-100"
-                    disabled={addingCourse}
-                  >
-                    {addingCourse ? (
-                      <span className="flex items-center">
-                        <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                        </svg>
-                        提交中...
-                      </span>
-                    ) : "添加课程"}
-                  </button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* 修改课程Modal */}
-      {showEditModal && (
-        <div className="fixed inset-0 z-50 overflow-y-auto">
-          <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm transition-opacity"></div>
-          <div className="flex min-h-full items-center justify-center p-4 text-center">
-            <div className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all animate-fadeIn border border-gray-100">
-              <div className="flex justify-between items-center mb-5">
-                <h3 className="text-lg font-medium leading-6 text-gray-900 flex items-center">
-                  <div className="bg-blue-100 p-2 rounded-lg mr-3">
-                    <FontAwesomeIcon icon={faPencilAlt} className="h-4 w-4 text-blue-600" />
-                  </div>
-                  修改课程
-                </h3>
-                <button
-                  type="button"
-                  className="text-gray-400 hover:text-gray-500 bg-gray-50 hover:bg-gray-100 rounded-full p-2 transition-colors"
-                  onClick={() => {
-                    setShowEditModal(false);
-                    resetEditForm();
-                  }}
-                >
-                  <FontAwesomeIcon icon={faTimes} className="h-4 w-4" />
-                </button>
+                <p className="text-sm font-medium text-gray-800">我的课程</p>
               </div>
               
-              {editCourseError && (
-                <div className="mb-5 bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-lg animate-pulse">
-                  <div className="flex items-center">
-                    <FontAwesomeIcon icon={faExclamationCircle} className="h-4 w-4 text-red-500 mr-2" />
-                    <p className="text-sm">{editCourseError}</p>
-                  </div>
+              <div 
+                className="bg-gradient-to-br from-orange-50 to-amber-50 rounded-xl p-4 border border-orange-100 hover:shadow-md transition-all cursor-pointer flex flex-col items-center justify-center"
+                onClick={() => navigate('/course-evaluations')}
+              >
+                <div className="bg-gradient-to-r from-orange-400 to-amber-500 p-3 rounded-lg shadow-sm mb-2">
+                  <FontAwesomeIcon icon={faChartLine} className="h-5 w-5 text-white" />
                 </div>
-              )}
+                <p className="text-sm font-medium text-gray-800">评价统计</p>
+              </div>
+            </>
+          )}
+          
+          {Number(user?.role) === 2 && (
+            <>
+              <div 
+                className="bg-gradient-to-br from-purple-50 to-indigo-50 rounded-xl p-4 border border-purple-100 hover:shadow-md transition-all cursor-pointer flex flex-col items-center justify-center"
+                onClick={() => navigate('/users')}
+              >
+                <div className="bg-gradient-to-r from-purple-400 to-indigo-500 p-3 rounded-lg shadow-sm mb-2">
+                  <FontAwesomeIcon icon={faUsers} className="h-5 w-5 text-white" />
+                </div>
+                <p className="text-sm font-medium text-gray-800">用户管理</p>
+              </div>
               
-              <form onSubmit={handleUpdateCourse}>
-                <div className="mb-4">
-                  <label htmlFor="editCourseName" className="block text-sm font-medium text-gray-700 mb-2">
-                    课程名称
-                  </label>
-                  <input
-                    type="text"
-                    id="editCourseName"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-                    value={editCourseName}
-                    onChange={(e) => setEditCourseName(e.target.value)}
-                    placeholder="请输入课程名称"
-                    required
-                  />
+              <div 
+                className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl p-4 border border-green-100 hover:shadow-md transition-all cursor-pointer flex flex-col items-center justify-center"
+                onClick={() => navigate('/courses')}
+              >
+                <div className="bg-gradient-to-r from-green-400 to-emerald-500 p-3 rounded-lg shadow-sm mb-2">
+                  <FontAwesomeIcon icon={faBook} className="h-5 w-5 text-white" />
                 </div>
-                
-                <div className="mb-4">
-                  <label htmlFor="editCourseCredits" className="block text-sm font-medium text-gray-700 mb-2">
-                    学分
-                  </label>
-                  <input
-                    type="number"
-                    id="editCourseCredits"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-                    value={editCourseCredits}
-                    onChange={(e) => setEditCourseCredits(Number(e.target.value))}
-                    min="1"
-                    max="10"
-                    placeholder="1-10"
-                    required
-                  />
-                </div>
-                
-                <div className="mb-6">
-                  <label htmlFor="editTeacherAddress" className="block text-sm font-medium text-gray-700 mb-2">
-                    教师地址
-                  </label>
-                  <input
-                    type="text"
-                    id="editTeacherAddress"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-                    value={editTeacherAddress}
-                    onChange={(e) => setEditTeacherAddress(e.target.value)}
-                    placeholder="0x..."
-                    required
-                  />
-                </div>
-                
-                <div className="flex justify-end gap-4">
-                  <button
-                    type="button"
-                    className="px-4 py-2 border border-gray-300 rounded-lg shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors"
-                    onClick={() => {
-                      setShowEditModal(false);
-                      resetEditForm();
-                    }}
-                    disabled={editingCourse}
-                  >
-                    取消
-                  </button>
-                  <button
-                    type="submit"
-                    className="px-4 py-2 bg-gradient-to-r from-blue-500 to-indigo-600 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white hover:from-blue-600 hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-75 transition-all transform hover:scale-105 active:scale-100"
-                    disabled={editingCourse}
-                  >
-                    {editingCourse ? (
-                      <span className="flex items-center">
-                        <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                        </svg>
-                        提交中...
-                      </span>
-                    ) : "保存修改"}
-                  </button>
-                </div>
-              </form>
-            </div>
-          </div>
+                <p className="text-sm font-medium text-gray-800">课程管理</p>
+              </div>
+            </>
+          )}
         </div>
-      )}
+      </div>
     </div>
   );
 }

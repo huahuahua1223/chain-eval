@@ -444,7 +444,7 @@ export default function Evaluations() {
             </div>
           </div>
         </div>
-
+                
         {/* 右侧：评价列表 */}
         <div className="lg:w-2/3">
           <div className="bg-white rounded-2xl shadow-md p-6 border border-gray-100 overflow-hidden relative transition-all duration-300 hover:shadow-lg min-h-[600px]">
@@ -503,8 +503,8 @@ export default function Evaluations() {
                     )}
                   </div>
                 ))}
-              </div>
-            ) : (
+          </div>
+        ) : (
               <div className="flex flex-col items-center justify-center h-full py-16 bg-gray-50 rounded-xl border border-gray-100">
                 <div className="inline-block bg-white p-6 rounded-full shadow-sm mb-4">
                   <FontAwesomeIcon icon={faExclamationCircle} className="h-12 w-12 text-gray-400" />
@@ -523,7 +523,7 @@ export default function Evaluations() {
                     清除筛选条件
                   </button>
                 )}
-              </div>
+            </div>
             )}
           </div>
         </div>
