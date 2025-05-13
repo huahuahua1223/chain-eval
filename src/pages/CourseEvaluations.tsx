@@ -11,7 +11,10 @@ import {
   faCalendarAlt, 
   faUserCircle,
   faShieldAlt,
-  faListAlt
+  faListAlt,
+  faSortAmountDown,
+  faSortAmountUp,
+  faSort
 } from '@fortawesome/free-solid-svg-icons';
 
 // 定义用户结构体类型
@@ -50,6 +53,7 @@ export default function CourseEvaluations() {
   const [loadingEvaluations, setLoadingEvaluations] = useState(false);
   const [error, setError] = useState('');
   const [showAnimation, setShowAnimation] = useState(false);
+  const [sortOrder, setSortOrder] = useState<'asc' | 'desc' | 'none'>('none');
 
   console.log("user", user);
 
@@ -176,6 +180,61 @@ export default function CourseEvaluations() {
     if (!evaluations || evaluations.length === 0) return 0;
     const anonymousCount = evaluations.filter(e => e.isAnonymous).length;
     return Math.round((anonymousCount / evaluations.length) * 100);
+  };
+
+  // 处理排序
+  const handleSort = () => {
+    const nextOrder = sortOrder === 'none' ? 'desc' : sortOrder === 'desc' ? 'asc' : 'none';
+    setSortOrder(nextOrder);
+
+    if (nextOrder === 'none') {
+      // 恢复原始顺序
+      const fetchEvaluations = async () => {
+        if (selectedCourseId === null) return;
+        setLoadingEvaluations(true);
+        try {
+          const courseEvaluations = await getCourseEvaluations(Number(selectedCourseId)) as unknown as Evaluation[];
+          setEvaluations(courseEvaluations);
+        } catch (err) {
+          console.error('获取评价失败:', err);
+        } finally {
+          setLoadingEvaluations(false);
+        }
+      };
+      fetchEvaluations();
+      return;
+    }
+
+    const sortedEvaluations = [...evaluations].sort((a, b) => {
+      const timeA = Number(a.timestamp);
+      const timeB = Number(b.timestamp);
+      return nextOrder === 'asc' ? timeA - timeB : timeB - timeA;
+    });
+    setEvaluations(sortedEvaluations);
+  };
+
+  // 获取排序图标
+  const getSortIcon = () => {
+    switch (sortOrder) {
+      case 'asc':
+        return faSortAmountUp;
+      case 'desc':
+        return faSortAmountDown;
+      default:
+        return faSort;
+    }
+  };
+
+  // 获取排序文本
+  const getSortText = () => {
+    switch (sortOrder) {
+      case 'asc':
+        return '时间升序';
+      case 'desc':
+        return '时间降序';
+      default:
+        return '默认排序';
+    }
   };
 
   if (loading) {
@@ -379,10 +438,21 @@ export default function CourseEvaluations() {
         {/* 右侧：评价列表 */}
         <div className="lg:w-2/3">
           <div className="bg-white rounded-2xl shadow-md p-6 border border-gray-100 overflow-hidden relative transition-all duration-300 hover:shadow-lg min-h-[600px]">
-            <h2 className="text-xl font-bold text-gray-900 mb-6 flex items-center">
-              <FontAwesomeIcon icon={faListAlt} className="h-5 w-5 text-indigo-500 mr-2" />
-              《{getSelectedCourseName()}》评价列表
-            </h2>
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-xl font-bold text-gray-900 flex items-center">
+                <FontAwesomeIcon icon={faListAlt} className="h-5 w-5 text-indigo-500 mr-2" />
+                《{getSelectedCourseName()}》评价列表
+              </h2>
+              {evaluations.length > 0 && (
+                <button
+                  onClick={handleSort}
+                  className="flex items-center px-4 py-2 bg-gradient-to-r from-gray-50 to-gray-100 hover:from-gray-100 hover:to-gray-200 border border-gray-200 rounded-lg text-sm font-medium text-gray-700 transition-all duration-200"
+                >
+                  <FontAwesomeIcon icon={getSortIcon()} className="h-4 w-4 mr-2" />
+                  {getSortText()}
+                </button>
+              )}
+            </div>
             
             {loadingEvaluations ? (
               <div className="text-center py-12">
