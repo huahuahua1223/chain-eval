@@ -784,6 +784,15 @@ export default function Dashboard() {
                 </div>
                 <p className="text-sm font-medium text-gray-800">课程管理</p>
               </div>
+              <div 
+                className="bg-gradient-to-br from-orange-50 to-amber-50 rounded-xl p-4 border border-orange-100 hover:shadow-md transition-all cursor-pointer flex flex-col items-center justify-center"
+                onClick={() => navigate('/mark-student-courses')}
+              >
+                <div className="bg-gradient-to-r from-orange-400 to-amber-500 p-3 rounded-lg shadow-sm mb-2">
+                  <FontAwesomeIcon icon={faChartLine} className="h-5 w-5 text-white" />
+                </div>
+                <p className="text-sm font-medium text-gray-800">分配课程</p>
+              </div>
             </>
           )}
         </div>
