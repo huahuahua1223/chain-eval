@@ -1,5 +1,6 @@
 require("@nomicfoundation/hardhat-toolbox");
 require("./tasks/accounts");
+require("dotenv").config();
 
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
@@ -20,6 +21,11 @@ module.exports = {
       },
       gas: 2100000,
       gasPrice: 8000000000
+    },
+    sepolia: {
+      url: `https://sepolia.infura.io/v3/${process.env.INFURA_API_KEY}`,
+      accounts: [process.env.PRIVATE_KEY],
+      chainId: 11155111
     }
   },
   paths: {

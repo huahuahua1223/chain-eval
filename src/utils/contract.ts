@@ -1,6 +1,6 @@
 import Web3 from 'web3';
-import abijson from '../../hardhat/artifacts/contracts/ChainEval.sol/ChainEval.json';
-import addressjson from '../../hardhat/deployments/geth-address.json';
+import abijson from '../assets/ChainEval.json';
+import addressjson from '../assets/sepolia-address.json';
 interface CourseData {
   id: string;
   name: string;
