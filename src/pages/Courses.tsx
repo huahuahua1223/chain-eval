@@ -4,8 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
   faGraduationCap, 
   faStar, 
-  faExclamationCircle, 
-  faTimes,
+  faExclamationCircle,
   faPlus, 
   faBook, 
   faEdit,
@@ -13,6 +12,8 @@ import {
   faSearch,
   faCheckCircle
 } from '@fortawesome/free-solid-svg-icons';
+import AddCourseModal from '../components/AddCourseModal';
+import EditCourseModal from '../components/EditCourseModal';
 
 // 定义用户结构体类型
 interface User {
@@ -40,22 +41,10 @@ export default function Courses() {
   const [searchTerm, setSearchTerm] = useState('');
   const [showAnimation, setShowAnimation] = useState(false);
   
-  // 添加课程Modal状态
-  const [showModal, setShowModal] = useState(false);
-  const [courseName, setCourseName] = useState('');
-  const [courseCredits, setCourseCredits] = useState<number>(0);
-  const [teacherAddress, setTeacherAddress] = useState('');
-  const [addingCourse, setAddingCourse] = useState(false);
-  const [addCourseError, setAddCourseError] = useState('');
-  
-  // 修改课程Modal状态
+  // Modal状态
+  const [showAddModal, setShowAddModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
-  const [currentCourseId, setCurrentCourseId] = useState<number>(-1);
-  const [editCourseName, setEditCourseName] = useState('');
-  const [editCourseCredits, setEditCourseCredits] = useState<number>(0);
-  const [editTeacherAddress, setEditTeacherAddress] = useState('');
-  const [editingCourse, setEditingCourse] = useState(false);
-  const [editCourseError, setEditCourseError] = useState('');
+  const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
 
   // 添加Toast状态
   const [showToast, setShowToast] = useState(false);
@@ -102,108 +91,45 @@ export default function Courses() {
   };
 
   // 课程添加处理函数
-  const handleAddCourse = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setAddingCourse(true);
-    setAddCourseError('');
-
+  const handleAddCourse = async (courseName: string, courseCredits: number, teacherAddress: string) => {
     try {
-      if (!courseName.trim()) {
-        throw new Error('课程名称不能为空');
-      }
-      
-      if (courseCredits <= 0 || courseCredits > 10) {
-        throw new Error('学分必须在1-10之间');
-      }
-      
-      if (!teacherAddress || !teacherAddress.startsWith('0x') || teacherAddress.length !== 42) {
-        throw new Error('请输入有效的教师地址');
-      }
-      
       await addCourse(courseName, courseCredits, teacherAddress);
       
       // 添加成功后刷新课程列表
       const updatedCourses = await getAllCourses() as unknown as Course[];
       setCourses(updatedCourses);
       
-      // 重置表单并关闭模态框
-      resetAddForm();
-      setShowModal(false);
-      
       // 显示成功提示
       showSuccessToast('课程添加成功！');
     } catch (err: any) {
       console.error('添加课程失败:', err);
-      setAddCourseError(err.message || '添加课程失败，请重试');
       showErrorToast(err.message || '添加课程失败，请重试');
-    } finally {
-      setAddingCourse(false);
+      throw err;
     }
   };
 
   // 打开编辑课程弹窗
   const openEditModal = (course: Course) => {
-    setCurrentCourseId(course.id);
-    setEditCourseName(course.name);
-    setEditCourseCredits(course.credits);
-    setEditTeacherAddress(course.teacher);
-    setEditCourseError('');
+    setSelectedCourse(course);
     setShowEditModal(true);
   };
 
   // 处理课程更新
-  const handleUpdateCourse = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setEditingCourse(true);
-    setEditCourseError('');
-
+  const handleUpdateCourse = async (courseId: number, courseName: string, courseCredits: number, teacherAddress: string) => {
     try {
-      if (!editCourseName.trim()) {
-        throw new Error('课程名称不能为空');
-      }
-      
-      if (editCourseCredits <= 0 || editCourseCredits > 10) {
-        throw new Error('学分必须在1-10之间');
-      }
-      
-      if (!editTeacherAddress || !editTeacherAddress.startsWith('0x') || editTeacherAddress.length !== 42) {
-        throw new Error('请输入有效的教师地址');
-      }
-      
-      await updateCourse(currentCourseId, editCourseName, editCourseCredits, editTeacherAddress);
+      await updateCourse(courseId, courseName, courseCredits, teacherAddress);
       
       // 更新成功后刷新课程列表
       const updatedCourses = await getAllCourses() as unknown as Course[];
       setCourses(updatedCourses);
       
-      // 重置表单并关闭模态框
-      resetEditForm();
-      setShowEditModal(false);
-      
       // 显示成功提示
       showSuccessToast('课程修改成功！');
     } catch (err: any) {
       console.error('更新课程失败:', err);
-      setEditCourseError(err.message || '更新课程失败，请重试');
       showErrorToast(err.message || '更新课程失败，请重试');
-    } finally {
-      setEditingCourse(false);
+      throw err;
     }
-  };
-
-  const resetAddForm = () => {
-    setCourseName('');
-    setCourseCredits(0);
-    setTeacherAddress('');
-    setAddCourseError('');
-  };
-
-  const resetEditForm = () => {
-    setCurrentCourseId(-1);
-    setEditCourseName('');
-    setEditCourseCredits(0);
-    setEditTeacherAddress('');
-    setEditCourseError('');
   };
   
   // 筛选课程
@@ -304,7 +230,7 @@ export default function Courses() {
           
           {Number(user?.role) === 2 && (
             <button
-              onClick={() => setShowModal(true)}
+              onClick={() => setShowAddModal(true)}
               className="flex items-center bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white py-2.5 px-4 rounded-lg transition-all duration-200 shadow hover:shadow-md transform hover:scale-105"
             >
               <FontAwesomeIcon icon={faPlus} className="h-4 w-4 mr-2" />
@@ -416,248 +342,22 @@ export default function Courses() {
       </div>
 
       {/* 添加课程Modal */}
-      {showModal && (
-        <div className="fixed inset-0 z-50 overflow-y-auto">
-          <div className="fixed inset-0 bg-black bg-opacity-50 transition-opacity backdrop-blur-sm"></div>
-          <div className="flex items-center justify-center min-h-screen p-4 text-center sm:p-0">
-            <div className="relative w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all sm:my-8">
-              {/* 装饰背景 */}
-              <div className="absolute top-0 right-0 bg-gradient-to-br from-blue-100 to-indigo-50 w-40 h-40 rounded-full -mr-20 -mt-20 opacity-30"></div>
-              <div className="absolute bottom-0 left-0 bg-gradient-to-tr from-indigo-100 to-blue-50 w-32 h-32 rounded-full -ml-16 -mb-16 opacity-30"></div>
-              
-              <div className="relative">
-                <div className="flex justify-between items-center mb-6">
-                  <div className="flex items-center">
-                    <div className="bg-gradient-to-r from-blue-500 to-indigo-600 p-3 rounded-xl shadow-md mr-3">
-                      <FontAwesomeIcon icon={faPlus} className="h-5 w-5 text-white" />
-                    </div>
-                    <h3 className="text-xl font-bold text-gray-900">添加新课程</h3>
-                  </div>
-                  <button
-                    type="button"
-                    className="text-gray-400 hover:text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-full p-2 transition-colors duration-200"
-                    onClick={() => {
-                      setShowModal(false);
-                      resetAddForm();
-                    }}
-                  >
-                    <FontAwesomeIcon icon={faTimes} className="h-5 w-5" />
-                  </button>
-                </div>
-                
-                {addCourseError && (
-                  <div className="mb-6 bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-lg animate-pulse">
-                    <div className="flex items-center">
-                      <FontAwesomeIcon icon={faExclamationCircle} className="h-5 w-5 mr-2 text-red-500" />
-                      <p>{addCourseError}</p>
-                    </div>
-                  </div>
-                )}
-                
-                <form onSubmit={handleAddCourse} className="space-y-5">
-                  <div className="bg-gray-50 p-4 rounded-xl border border-gray-100">
-                    <label htmlFor="courseName" className="block text-sm font-medium text-gray-700 mb-2">
-                      课程名称
-                    </label>
-                    <input
-                      type="text"
-                      id="courseName"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                      value={courseName}
-                      onChange={(e) => setCourseName(e.target.value)}
-                      placeholder="请输入课程名称"
-                      required
-                    />
-                  </div>
-                  
-                  <div className="bg-gray-50 p-4 rounded-xl border border-gray-100">
-                    <label htmlFor="courseCredits" className="block text-sm font-medium text-gray-700 mb-2">
-                      学分
-                    </label>
-                    <input
-                      type="number"
-                      id="courseCredits"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                      value={courseCredits}
-                      onChange={(e) => setCourseCredits(Number(e.target.value))}
-                      min="1"
-                      max="10"
-                      placeholder="1-10"
-                      required
-                    />
-                  </div>
-                  
-                  <div className="bg-gray-50 p-4 rounded-xl border border-gray-100">
-                    <label htmlFor="teacherAddress" className="block text-sm font-medium text-gray-700 mb-2">
-                      教师地址
-                    </label>
-                    <input
-                      type="text"
-                      id="teacherAddress"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                      value={teacherAddress}
-                      onChange={(e) => setTeacherAddress(e.target.value)}
-                      placeholder="0x..."
-                      required
-                    />
-                  </div>
-                  
-                  <div className="flex justify-end gap-4 pt-2">
-                    <button
-                      type="button"
-                      className="px-4 py-2 border border-gray-300 rounded-lg shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 transition-all duration-200"
-                      onClick={() => {
-                        setShowModal(false);
-                        resetAddForm();
-                      }}
-                      disabled={addingCourse}
-                    >
-                      取消
-                    </button>
-                    <button
-                      type="submit"
-                      className="px-4 py-2 rounded-lg shadow-sm text-sm font-medium text-white bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 transition-all duration-200 disabled:opacity-70 transform hover:scale-[1.02]"
-                      disabled={addingCourse}
-                    >
-                      {addingCourse ? (
-                        <span className="flex items-center">
-                          <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                          </svg>
-                          提交中...
-                        </span>
-                      ) : "添加课程"}
-                    </button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+      <AddCourseModal
+        isOpen={showAddModal}
+        onClose={() => setShowAddModal(false)}
+        onSubmit={handleAddCourse}
+      />
 
       {/* 修改课程Modal */}
-      {showEditModal && (
-        <div className="fixed inset-0 z-50 overflow-y-auto">
-          <div className="fixed inset-0 bg-black bg-opacity-50 transition-opacity backdrop-blur-sm"></div>
-          <div className="flex items-center justify-center min-h-screen p-4 text-center sm:p-0">
-            <div className="relative w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all sm:my-8">
-              {/* 装饰背景 */}
-              <div className="absolute top-0 right-0 bg-gradient-to-br from-indigo-100 to-purple-50 w-40 h-40 rounded-full -mr-20 -mt-20 opacity-30"></div>
-              <div className="absolute bottom-0 left-0 bg-gradient-to-tr from-purple-100 to-indigo-50 w-32 h-32 rounded-full -ml-16 -mb-16 opacity-30"></div>
-              
-              <div className="relative">
-                <div className="flex justify-between items-center mb-6">
-                  <div className="flex items-center">
-                    <div className="bg-gradient-to-r from-indigo-500 to-purple-600 p-3 rounded-xl shadow-md mr-3">
-                      <FontAwesomeIcon icon={faEdit} className="h-5 w-5 text-white" />
-                    </div>
-                    <h3 className="text-xl font-bold text-gray-900">修改课程</h3>
-                  </div>
-                  <button
-                    type="button"
-                    className="text-gray-400 hover:text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-full p-2 transition-colors duration-200"
-                    onClick={() => {
-                      setShowEditModal(false);
-                      resetEditForm();
-                    }}
-                  >
-                    <FontAwesomeIcon icon={faTimes} className="h-5 w-5" />
-                  </button>
-                </div>
-                
-                {editCourseError && (
-                  <div className="mb-6 bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-lg animate-pulse">
-                    <div className="flex items-center">
-                      <FontAwesomeIcon icon={faExclamationCircle} className="h-5 w-5 mr-2 text-red-500" />
-                      <p>{editCourseError}</p>
-                    </div>
-                  </div>
-                )}
-                
-                <form onSubmit={handleUpdateCourse} className="space-y-5">
-                  <div className="bg-gray-50 p-4 rounded-xl border border-gray-100">
-                    <label htmlFor="editCourseName" className="block text-sm font-medium text-gray-700 mb-2">
-                      课程名称
-                    </label>
-                    <input
-                      type="text"
-                      id="editCourseName"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
-                      value={editCourseName}
-                      onChange={(e) => setEditCourseName(e.target.value)}
-                      placeholder="请输入课程名称"
-                      required
-                    />
-                  </div>
-                  
-                  <div className="bg-gray-50 p-4 rounded-xl border border-gray-100">
-                    <label htmlFor="editCourseCredits" className="block text-sm font-medium text-gray-700 mb-2">
-                      学分
-                    </label>
-                    <input
-                      type="number"
-                      id="editCourseCredits"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
-                      value={editCourseCredits}
-                      onChange={(e) => setEditCourseCredits(Number(e.target.value))}
-                      min="1"
-                      max="10"
-                      placeholder="1-10"
-                      required
-                    />
-                  </div>
-                  
-                  <div className="bg-gray-50 p-4 rounded-xl border border-gray-100">
-                    <label htmlFor="editTeacherAddress" className="block text-sm font-medium text-gray-700 mb-2">
-                      教师地址
-                    </label>
-                    <input
-                      type="text"
-                      id="editTeacherAddress"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
-                      value={editTeacherAddress}
-                      onChange={(e) => setEditTeacherAddress(e.target.value)}
-                      placeholder="0x..."
-                      required
-                    />
-                  </div>
-                  
-                  <div className="flex justify-end gap-4 pt-2">
-                    <button
-                      type="button"
-                      className="px-4 py-2 border border-gray-300 rounded-lg shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 transition-all duration-200"
-                      onClick={() => {
-                        setShowEditModal(false);
-                        resetEditForm();
-                      }}
-                      disabled={editingCourse}
-                    >
-                      取消
-                    </button>
-                    <button
-                      type="submit"
-                      className="px-4 py-2 rounded-lg shadow-sm text-sm font-medium text-white bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 transition-all duration-200 disabled:opacity-70 transform hover:scale-[1.02]"
-                      disabled={editingCourse}
-                    >
-                      {editingCourse ? (
-                        <span className="flex items-center">
-                          <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                          </svg>
-                          提交中...
-                        </span>
-                      ) : "保存修改"}
-                    </button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+      <EditCourseModal
+        isOpen={showEditModal}
+        onClose={() => {
+          setShowEditModal(false);
+          setSelectedCourse(null);
+        }}
+        onSubmit={handleUpdateCourse}
+        course={selectedCourse}
+      />
     </div>
   );
 } 
