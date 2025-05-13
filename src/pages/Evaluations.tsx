@@ -46,6 +46,8 @@ export default function Evaluations() {
   const [filterOption, setFilterOption] = useState('all'); // 'all', 'anonymous', 'named'
   const [sortOption, setSortOption] = useState('newest'); // 'newest', 'oldest', 'highest', 'lowest'
 
+  console.log("user", user);
+
   useEffect(() => {
     setShowAnimation(true);
     

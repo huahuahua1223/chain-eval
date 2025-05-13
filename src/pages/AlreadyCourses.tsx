@@ -8,9 +8,7 @@ import {
   faStar, 
   faComment,
   faAward,
-  faTimes,
   faUserSecret,
-  faArrowLeft,
   faCommentDots,
   faSearch,
   faFilter,
@@ -253,6 +251,8 @@ export default function AlreadyCourses() {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchField, setSearchField] = useState<'name' | 'teacher' | 'all'>('all');
   const [showSearchOptions, setShowSearchOptions] = useState(false);
+
+  console.log("user", user);
 
   useEffect(() => {
     setShowAnimation(true);

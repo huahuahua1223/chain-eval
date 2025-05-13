@@ -3,11 +3,9 @@ import { getCurrentUserInfo, getAllCourses, addCourse, updateCourse } from '../u
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
   faGraduationCap, 
-  faChalkboardTeacher, 
   faStar, 
   faExclamationCircle, 
-  faTimes, 
-  faPencilAlt, 
+  faTimes,
   faPlus, 
   faBook, 
   faEdit,

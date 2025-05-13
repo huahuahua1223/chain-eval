@@ -7,7 +7,6 @@ import {
   faChevronDown,
   faGraduationCap,
   faChalkboardTeacher,
-  faStar,
   faHome,
   faList,
   faClipboardList,

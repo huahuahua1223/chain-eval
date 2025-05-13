@@ -9,8 +9,7 @@ import {
   faChartPie, 
   faCommentAlt, 
   faCalendarAlt, 
-  faUserCircle, 
-  faEye, 
+  faUserCircle,
   faShieldAlt,
   faListAlt
 } from '@fortawesome/free-solid-svg-icons';
@@ -51,6 +50,8 @@ export default function CourseEvaluations() {
   const [loadingEvaluations, setLoadingEvaluations] = useState(false);
   const [error, setError] = useState('');
   const [showAnimation, setShowAnimation] = useState(false);
+
+  console.log("user", user);
 
   // 获取教师课程
   useEffect(() => {

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -10,7 +10,6 @@ import {
   faChalkboardTeacher,
   faUserGraduate,
   faCalendarAlt,
-  faLayerGroup,
   faArrowLeft
 } from '@fortawesome/free-solid-svg-icons';
 import { getCourseDetail, getCourseStudents, getCourseEvaluations } from '../utils/contract';
