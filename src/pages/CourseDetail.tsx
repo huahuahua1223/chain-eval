@@ -10,9 +10,19 @@ import {
   faChalkboardTeacher,
   faUserGraduate,
   faCalendarAlt,
-  faArrowLeft
+  faArrowLeft,
+  faEdit,
 } from '@fortawesome/free-solid-svg-icons';
-import { getCourseDetail, getCourseStudents, getCourseEvaluations } from '../utils/contract';
+import { getCourseDetail, getCourseStudents, getCourseEvaluations, submitEvaluation, getCurrentUserInfo } from '../utils/contract';
+import EvaluationModal from '../components/EvaluationModal';
+
+interface User {
+  id: string;
+  email: string;
+  passwordHash: string;
+  role: number;
+  isRegistered: boolean;
+}
 
 interface Course {
   id: number;
@@ -48,6 +58,42 @@ export default function CourseDetail() {
   const [error, setError] = useState('');
   const [showAnimation, setShowAnimation] = useState(false);
   const [activeTab, setActiveTab] = useState<'students' | 'evaluations'>('students');
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [user, setUser] = useState<User | null>(null);
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleSubmitEvaluation = async (score: number, comment: string, isAnonymous: boolean) => {
+    if (!courseId) return;
+    
+    try {
+      await submitEvaluation(Number(courseId), score, comment, isAnonymous);
+      
+      // 刷新评价列表
+      const evaluationList: any[] = await getCourseEvaluations(Number(courseId));
+      setEvaluations(evaluationList.map((evaluation) => ({
+        id: Math.random(),
+        studentId: evaluation.student,
+        courseId: Number(courseId),
+        rating: Number(evaluation.score),
+        comment: evaluation.comment,
+        isAnonymous: evaluation.isAnonymous,
+        timestamp: new Date(Number(evaluation.timestamp) * 1000).toLocaleDateString()
+      })));
+      
+      // 切换到评价标签页
+      setActiveTab('evaluations');
+    } catch (err) {
+      console.error('评价提交失败:', err);
+      throw err;
+    }
+  };
 
   useEffect(() => {
     setShowAnimation(true);
@@ -55,6 +101,10 @@ export default function CourseDetail() {
       if (!courseId) return;
       
       try {
+        // 获取当前用户信息
+        const userInfo = await getCurrentUserInfo() as unknown as User;
+        setUser(userInfo);
+
         // 获取课程详情
         const courseData = await getCourseDetail(Number(courseId));
         setCourse({
@@ -148,14 +198,25 @@ export default function CourseDetail() {
         <div className="absolute bottom-0 left-0 bg-gradient-to-tr from-teal-100 to-green-50 w-32 h-32 rounded-full -ml-16 -mb-16 opacity-70"></div>
         
         <div className="relative">
-          <div className="flex items-center mb-6">
-            <div className="bg-gradient-to-r from-green-500 to-teal-600 p-4 rounded-xl shadow-md mr-4">
-              <FontAwesomeIcon icon={faBook} className="h-6 w-6 text-white" />
+          <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center">
+              <div className="bg-gradient-to-r from-green-500 to-teal-600 p-4 rounded-xl shadow-md mr-4">
+                <FontAwesomeIcon icon={faBook} className="h-6 w-6 text-white" />
+              </div>
+              <div>
+                <h1 className="text-2xl font-bold text-gray-900">{course.name}</h1>
+                <p className="text-gray-500">课程 ID: {course.id}</p>
+              </div>
             </div>
-            <div>
-              <h1 className="text-2xl font-bold text-gray-900">{course.name}</h1>
-              <p className="text-gray-500">课程 ID: {course.id}</p>
-            </div>
+            {user && user.role === 0 && (
+              <button
+                onClick={handleOpenModal}
+                className="bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white py-2 px-5 rounded-lg transition-all duration-200 shadow hover:shadow-md transform hover:scale-105 active:scale-100 flex items-center"
+              >
+                <FontAwesomeIcon icon={faEdit} className="mr-2 h-4 w-4" />
+                我要评价
+              </button>
+            )}
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -294,6 +355,16 @@ export default function CourseDetail() {
           )}
         </div>
       </div>
+
+      {/* 评价模态框 */}
+      {course && (
+        <EvaluationModal
+          course={course}
+          isOpen={isModalOpen}
+          onClose={handleCloseModal}
+          onSubmit={handleSubmitEvaluation}
+        />
+      )}
     </div>
   );
 } 
