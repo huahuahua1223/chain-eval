@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { getCurrentUserInfo, getAllCourses, addCourse, updateCourse } from '../utils/contract';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
@@ -10,7 +11,8 @@ import {
   faEdit,
   faUniversity,
   faSearch,
-  faCheckCircle
+  faCheckCircle,
+  faEye
 } from '@fortawesome/free-solid-svg-icons';
 import AddCourseModal from '../components/AddCourseModal';
 import EditCourseModal from '../components/EditCourseModal';
@@ -34,6 +36,7 @@ interface Course {
 }
 
 export default function Courses() {
+  const navigate = useNavigate();
   const [user, setUser] = useState<User | null>(null);
   const [courses, setCourses] = useState<Course[]>([]);
   const [loading, setLoading] = useState(true);
@@ -307,15 +310,25 @@ export default function Courses() {
                       </span>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                      {Number(user?.role) === 2 && (
+                      <div className="flex space-x-2">
                         <button
-                          onClick={() => openEditModal(course)}
-                          className="bg-gradient-to-r from-indigo-400 to-purple-500 hover:from-indigo-500 hover:to-purple-600 text-white py-1.5 px-4 rounded-lg transition-all duration-200 shadow hover:shadow-md flex items-center"
+                          onClick={() => navigate(`/course/${course.id}`)}
+                          className="bg-gradient-to-r from-blue-500 to-cyan-600 hover:from-blue-600 hover:to-cyan-700 text-white py-1.5 px-4 rounded-lg transition-all duration-200 shadow hover:shadow-md flex items-center"
                         >
-                          <FontAwesomeIcon icon={faEdit} className="h-3.5 w-3.5 mr-1.5" />
-                          修改
+                          <FontAwesomeIcon icon={faEye} className="h-3.5 w-3.5 mr-1.5" />
+                          查看
                         </button>
-                      )}
+                        
+                        {Number(user?.role) === 2 && (
+                          <button
+                            onClick={() => openEditModal(course)}
+                            className="bg-gradient-to-r from-indigo-400 to-purple-500 hover:from-indigo-500 hover:to-purple-600 text-white py-1.5 px-4 rounded-lg transition-all duration-200 shadow hover:shadow-md flex items-center"
+                          >
+                            <FontAwesomeIcon icon={faEdit} className="h-3.5 w-3.5 mr-1.5" />
+                            修改
+                          </button>
+                        )}
+                      </div>
                     </td>
                   </tr>
                 ))}

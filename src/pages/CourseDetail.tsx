@@ -13,8 +13,9 @@ import {
   faArrowLeft,
   faEdit,
 } from '@fortawesome/free-solid-svg-icons';
-import { getCourseDetail, getCourseStudents, getCourseEvaluations, submitEvaluation, getCurrentUserInfo } from '../utils/contract';
+import { getCourseDetail, getCourseStudents, getCourseEvaluations, submitEvaluation, getCurrentUserInfo, updateCourse } from '../utils/contract';
 import EvaluationModal from '../components/EvaluationModal';
+import EditCourseModal from '../components/EditCourseModal';
 
 interface User {
   id: string;
@@ -59,14 +60,23 @@ export default function CourseDetail() {
   const [showAnimation, setShowAnimation] = useState(false);
   const [activeTab, setActiveTab] = useState<'students' | 'evaluations'>('students');
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [user, setUser] = useState<User | null>(null);
 
   const handleOpenModal = () => {
-    setIsModalOpen(true);
+    if (user && Number(user.role) === 2) {
+      setIsEditModalOpen(true);
+    } else {
+      setIsModalOpen(true);
+    }
   };
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
+  };
+
+  const handleCloseEditModal = () => {
+    setIsEditModalOpen(false);
   };
 
   const handleSubmitEvaluation = async (score: number, comment: string, isAnonymous: boolean) => {
@@ -91,6 +101,28 @@ export default function CourseDetail() {
       setActiveTab('evaluations');
     } catch (err) {
       console.error('评价提交失败:', err);
+      throw err;
+    }
+  };
+
+  const handleUpdateCourse = async (courseId: number, courseName: string, courseCredits: number, teacherAddress: string) => {
+    if (!courseId) return;
+    
+    try {
+      await updateCourse(courseId, courseName, courseCredits, teacherAddress);
+      
+      // 更新课程详情
+      const courseData = await getCourseDetail(Number(courseId));
+      setCourse({
+        id: Number(courseData.id),
+        name: courseData.name,
+        credits: Number(courseData.credits),
+        teacher: courseData.teacher,
+        isActive: courseData.isActive
+      });
+      
+    } catch (err) {
+      console.error('更新课程失败:', err);
       throw err;
     }
   };
@@ -208,13 +240,13 @@ export default function CourseDetail() {
                 <p className="text-gray-500">课程 ID: {course.id}</p>
               </div>
             </div>
-            {user && Number(user.role) === 0 && (
+            {user && (Number(user.role) === 0 || Number(user.role) === 2) && (
               <button
                 onClick={handleOpenModal}
                 className="bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white py-2 px-5 rounded-lg transition-all duration-200 shadow hover:shadow-md transform hover:scale-105 active:scale-100 flex items-center"
               >
                 <FontAwesomeIcon icon={faEdit} className="mr-2 h-4 w-4" />
-                我要评价
+                {Number(user.role) === 0 ? '我要评价' : '修改课程'}
               </button>
             )}
           </div>
@@ -363,6 +395,16 @@ export default function CourseDetail() {
           isOpen={isModalOpen}
           onClose={handleCloseModal}
           onSubmit={handleSubmitEvaluation}
+        />
+      )}
+
+      {/* 修改课程模态框 */}
+      {course && (
+        <EditCourseModal
+          isOpen={isEditModalOpen}
+          onClose={handleCloseEditModal}
+          onSubmit={handleUpdateCourse}
+          course={course}
         />
       )}
     </div>
