@@ -208,7 +208,7 @@ export default function CourseDetail() {
                 <p className="text-gray-500">课程 ID: {course.id}</p>
               </div>
             </div>
-            {user && user.role === 0 && (
+            {user && Number(user.role) === 0 && (
               <button
                 onClick={handleOpenModal}
                 className="bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white py-2 px-5 rounded-lg transition-all duration-200 shadow hover:shadow-md transform hover:scale-105 active:scale-100 flex items-center"
