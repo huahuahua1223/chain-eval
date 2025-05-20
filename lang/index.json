@@ -1,0 +1,2210 @@
+{
+	"3ddnwy1j": {
+		"zh-cn": "D:/hjy/study/复杂软件系统实践学习/workspace/ChainEval/src/App.tsx",
+		"en": "D: /hjy/study/practical learning of complex software systems/workspace/ChainEval/src/App.tsx",
+		"ko": "D:/hjy/study/복잡한 소프트웨어 시스템 실습 학습/workspace/ChainEval/src/App.tsx",
+		"ja": "D：/HJY/Study/Complex Software Systems/Workspace/Chaineval/Src/App.tsxの実用的な学習"
+	},
+	"emi44r1r": {
+		"zh-cn": "D:/hjy/study/复杂软件系统实践学习/workspace/ChainEval/src/pages/Login.tsx",
+		"en": "D: /hjy/study/practical learning of complex software systems/workspace/ChainEval/src/pages/Login.tsx",
+		"ko": "D:/hjy/study/복잡한 소프트웨어 시스템 실습 학습/workspace/ChainEval/src/pages/Login.tsx",
+		"ja": "D：/HJY/Study/複雑なソフトウェアシステム/Workspace/Chaineval/Src/Pages/login.tsxの実用的な学習"
+	},
+	"gmy0h6c": {
+		"zh-cn": "登录失败，请检查账号密码",
+		"en": "Login failed, please check account password",
+		"ko": "로그인 실패, 계정 비밀번호 확인",
+		"ja": "ログインに失敗しました。アカ​​ウントのパスワードを確認してください"
+	},
+	"epglmtd": {
+		"zh-cn": "登录失败，请确保已连接钱包",
+		"en": "Login failed, please ensure that the wallet is connected",
+		"ko": "로그인에 실패했습니다. 지갑이 연결되어 있는지 확인하십시오.",
+		"ja": "ログインに失敗しました。ウォレットが接続されていることを確認してください"
+	},
+	"wtlbp7c": {
+		"zh-cn": "基于区块链的课程评价系统",
+		"en": "Blockchain based Course Evaluation System",
+		"ko": "블록체인 기반 과정 평가 시스템",
+		"ja": "ブロックチェーンベースのコース評価システム"
+	},
+	"e3xsmr4": {
+		"zh-cn": "欢迎回来",
+		"en": "welcome back",
+		"ko": "어서 오세요",
+		"ja": "おかえり"
+	},
+	"lrehu0d": {
+		"zh-cn": "登录您的账户，访问更多功能",
+		"en": "Log in to your account to access more features",
+		"ko": "계정에 로그인하여 추가 기능에 액세스",
+		"ja": "アカウントにログインして、より多くの機能にアクセスします"
+	},
+	"d7uk4d4": {
+		"zh-cn": "数据透明",
+		"en": "Data Transparency",
+		"ko": "데이터 투명도",
+		"ja": "透明なデータ"
+	},
+	"u6idovg": {
+		"zh-cn": "所有评价数据公开可查，确保透明性",
+		"en": "All evaluation data is publicly available to ensure transparency",
+		"ko": "모든 평가 데이터 공개, 투명성 확보",
+		"ja": "すべての評価データは、透明性を確保するために公開されています"
+	},
+	"i3tclc5": {
+		"zh-cn": "区块链安全",
+		"en": "Blockchain Security",
+		"ko": "블록체인 보안",
+		"ja": "ブロックチェーンセキュリティ"
+	},
+	"swko60f": {
+		"zh-cn": "利用区块链技术确保数据不可篡改",
+		"en": "Using blockchain technology to ensure data is tamper proof",
+		"ko": "블록체인 기술을 이용하여 데이터를 변조할 수 없도록 확보하다",
+		"ja": "ブロックチェーンテクノロジーを使用して、データが改ざんされないようにします"
+	},
+	"ic1uq74": {
+		"zh-cn": "身份认证",
+		"en": "identity authentication",
+		"ko": "인증",
+		"ja": "ID認証"
+	},
+	"8t3pucg": {
+		"zh-cn": "确保评价来源可靠，提高系统公信力",
+		"en": "Ensure reliable evaluation sources and enhance system credibility",
+		"ko": "평가원의 신뢰성을 확보하고 시스템의 공신력을 높이다",
+		"ja": "信頼できる評価源を確保し、システムの信頼性を向上させます"
+	},
+	"auz00x4": {
+		"zh-cn": "匿名评价",
+		"en": "Anonymous evaluation",
+		"ko": "익명 평가",
+		"ja": "匿名のレビュー"
+	},
+	"hm0q68d": {
+		"zh-cn": "支持匿名评价，保护用户隐私",
+		"en": "Support anonymous evaluation and protect user privacy",
+		"ko": "익명 평가를 지원하여 사용자 개인 정보 보호",
+		"ja": "ユーザーのプライバシーを保護するための匿名のレビューをサポートします"
+	},
+	"bvywls4": {
+		"zh-cn": "安全可靠",
+		"en": "Safe and reliable",
+		"ko": "안정성",
+		"ja": "安全で信頼性があります"
+	},
+	"aobegj4": {
+		"zh-cn": "公开透明",
+		"en": "open and transparent",
+		"ko": "공개 투명",
+		"ja": "オープンで透明"
+	},
+	"f6x6rt4": {
+		"zh-cn": "用户登录",
+		"en": "log in",
+		"ko": "사용자 로그인",
+		"ja": "ユーザーログイン"
+	},
+	"5is8909": {
+		"zh-cn": "请输入您的账户信息",
+		"en": "Please enter your account information",
+		"ko": "계정 정보를 입력하십시오.",
+		"ja": "アカウント情報を入力してください"
+	},
+	"j04gx17": {
+		"zh-cn": "管理员登录信息",
+		"en": "Administrator login information",
+		"ko": "관리자 로그인 정보",
+		"ja": "管理者ログイン情報"
+	},
+	"vyco8p7": {
+		"zh-cn": "密码: 任意值",
+		"en": "Password: Any value",
+		"ko": "암호: 모든 값",
+		"ja": "パスワード：任意の値"
+	},
+	"f6ck8a4": {
+		"zh-cn": "用户ID",
+		"en": "user id",
+		"ko": "사용자 ID",
+		"ja": "ユーザーID"
+	},
+	"icqgml7": {
+		"zh-cn": "请输入用户ID",
+		"en": "Please enter user ID",
+		"ko": "사용자 ID를 입력하십시오.",
+		"ja": "ユーザーIDを入力してください"
+	},
+	"g9ob2": {
+		"zh-cn": "密码",
+		"en": "password",
+		"ko": "암호",
+		"ja": "パスワード"
+	},
+	"2j9vj05": {
+		"zh-cn": "请输入密码",
+		"en": "Please input a password",
+		"ko": "암호를 입력하십시오.",
+		"ja": "パスワードを入力してください"
+	},
+	"uvxwv96": {
+		"zh-cn": "登录中...",
+		"en": "Logging in ..",
+		"ko": "로그인 중...",
+		"ja": "ログイン..."
+	},
+	"koca2": {
+		"zh-cn": "登录",
+		"en": "log on",
+		"ko": "로그인",
+		"ja": "ログイン"
+	},
+	"c4skdi5": {
+		"zh-cn": "没有账号？",
+		"en": "Don't have an account?",
+		"ko": "계좌번호 없어요?",
+		"ja": "アカウントを持っていませんか？"
+	},
+	"fub0ks4": {
+		"zh-cn": "立即注册",
+		"en": "Register Now",
+		"ko": "지금 등록",
+		"ja": "今すぐ登録してください"
+	},
+	"sjzpg01x": {
+		"zh-cn": "D:/hjy/study/复杂软件系统实践学习/workspace/ChainEval/src/components/Layout.tsx",
+		"en": "D: /hjy/study/practical learning of complex software systems/workspace/ChainEval/src/components/Layout.tsx",
+		"ko": "D:/hjy/study/복잡한 소프트웨어 시스템 실습 학습/workspace/ChainEval/src/components/Layout.tsx",
+		"ja": "D：/HJY/Study/複雑なソフトウェアシステム/Workspace/ChainEval/SRC/Components/Layout.tsxの実用的な学習"
+	},
+	"i9z9sa4": {
+		"zh-cn": "课链智评",
+		"en": "Course Chain Intelligent Evaluation",
+		"ko": "과연지평",
+		"ja": "コースリンクスマートレビュー"
+	},
+	"9g3abif": {
+		"zh-cn": "安全、透明、不可篡改的评价记录",
+		"en": "Secure, transparent, and tamper proof evaluation records",
+		"ko": "안전하고 투명하며 변조 불가능한 평가 기록",
+		"ja": "安全で、透明性があり、改ざんフリーの評価記録"
+	},
+	"ailoc94": {
+		"zh-cn": "使用指南",
+		"en": "Usage Guide",
+		"ko": "사용 설명서",
+		"ja": "ユーザーガイド"
+	},
+	"alt7ee4": {
+		"zh-cn": "关于我们",
+		"en": "About Us",
+		"ko": "우리에 대해",
+		"ja": "私たちについて"
+	},
+	"jhz6y04": {
+		"zh-cn": "隐私政策",
+		"en": "Privacy Policy",
+		"ko": "개인 정보 보호 정책",
+		"ja": "プライバシーポリシー"
+	},
+	"sy0cb7b": {
+		"zh-cn": "课链智评 - 版权所有",
+		"en": "Course Chain Intelligent Evaluation - All Rights Reserved",
+		"ko": "과연, 지평. - 저작권 소유.",
+		"ja": "コースリンクスマートレビュー-All Rights Reserved"
+	},
+	"8lyxgj1u": {
+		"zh-cn": "D:/hjy/study/复杂软件系统实践学习/workspace/ChainEval/src/pages/NotFound.tsx",
+		"en": "D: /hjy/study/practical learning of complex software systems/workspace/ChainEval/src/pages/NotFound.tsx",
+		"ko": "D:/hjy/study/복잡한 소프트웨어 시스템 실습 학습/workspace/ChainEval/src/pages/NotFound.tsx",
+		"ja": "D：/HJY/Study/複雑なソフトウェアシステム/Workspace/Chaineval/Src/Pages/notfound.tsxの実用的な学習"
+	},
+	"nnbr0x5": {
+		"zh-cn": "页面未找到",
+		"en": "PAGE NOT FOUND",
+		"ko": "페이지를 찾을 수 없음",
+		"ja": "ページが見つかりません"
+	},
+	"2i0bfzj": {
+		"zh-cn": "抱歉，您尝试访问的页面不存在或已被移除",
+		"en": "Sorry, the page you are trying to access does not exist or has been removed",
+		"ko": "죄송합니다. 액세스하려는 페이지가 없거나 제거되었습니다.",
+		"ja": "申し訳ありませんが、アクセスしようとしているページは存在しないか、削除されています"
+	},
+	"5ehbud5": {
+		"zh-cn": "返回上一页",
+		"en": "Return to the previous page",
+		"ko": "이전 페이지로 돌아가기",
+		"ja": "前のページに戻ります"
+	},
+	"iijhd54": {
+		"zh-cn": "返回首页",
+		"en": "homepage",
+		"ko": "첫 페이지로 돌아가기",
+		"ja": "ホームページに戻ります"
+	},
+	"eqluva1t": {
+		"zh-cn": "D:/hjy/study/复杂软件系统实践学习/workspace/ChainEval/src/pages/Courses.tsx",
+		"en": "D: /hjy/study/practical learning of complex software systems/workspace/ChainEval/src/pages/Curses.tsx",
+		"ko": "D:/hjy/study/복잡한 소프트웨어 시스템 실습 학습/workspace/ChainEval/src/pages/Courses.tsx",
+		"ja": "D：/HJY/Study/複雑なソフトウェアシステム/Workspace/Chaineval/Src/Pages/Courses.tsxの実用的な学習"
+	},
+	"12m2eaf": {
+		"zh-cn": "获取数据失败，请确保已连接钱包",
+		"en": "Failed to retrieve data, please ensure that the wallet is connected",
+		"ko": "데이터를 가져오지 못했습니다. 지갑이 연결되어 있는지 확인하십시오.",
+		"ja": "データの取得に失敗しました、ウォレットが接続されていることを確認してください"
+	},
+	"2x4zgg7": {
+		"zh-cn": "课程添加成功！",
+		"en": "Course added successfully!",
+		"ko": "과정 추가 성공!",
+		"ja": "コースの追加が成功しました！"
+	},
+	"8zf0c9a": {
+		"zh-cn": "添加课程失败，请重试",
+		"en": "Adding course failed, please try again",
+		"ko": "코스 추가에 실패했습니다. 다시 시도하십시오.",
+		"ja": "コースを追加できなかったので、もう一度やり直してください"
+	},
+	"nzlwai7": {
+		"zh-cn": "课程修改成功！",
+		"en": "Course modification successful!",
+		"ko": "과정 수정 성공!",
+		"ja": "コースは正常に改訂されました！"
+	},
+	"fbg9jka": {
+		"zh-cn": "更新课程失败，请重试",
+		"en": "Updating course failed, please try again",
+		"ko": "코스 업데이트에 실패했습니다. 다시 시도하십시오.",
+		"ja": "コースの更新に失敗しました。もう一度やり直してください"
+	},
+	"27k1ha6": {
+		"zh-cn": "加载中...",
+		"en": "Loading in progress ..",
+		"ko": "로드 중...",
+		"ja": "読み込み..."
+	},
+	"ui8ar38": {
+		"zh-cn": "正在获取课程数据",
+		"en": "Obtaining course data",
+		"ko": "코스 데이터 가져오기",
+		"ja": "コースデータを取得します"
+	},
+	"i97x394": {
+		"zh-cn": "访问错误",
+		"en": "ACCESS ERROR",
+		"ko": "액세스 오류",
+		"ja": "アクセスエラー"
+	},
+	"i64mxe4": {
+		"zh-cn": "课程管理",
+		"en": "course management",
+		"ko": "과정 관리",
+		"ja": "コース管理"
+	},
+	"jnqkrgd": {
+		"zh-cn": "查看和管理系统中的所有课程",
+		"en": "View and manage all courses in the system",
+		"ko": "시스템의 모든 과정 보기 및 관리",
+		"ja": "システム内のすべてのコースを表示および管理します"
+	},
+	"g351": {
+		"zh-cn": "共",
+		"en": "common",
+		"ko": "총",
+		"ja": "一般"
+	},
+	"mmxmd3": {
+		"zh-cn": "门课程",
+		"en": "Door courses",
+		"ko": "과목",
+		"ja": "コース"
+	},
+	"kkhdlk9": {
+		"zh-cn": "搜索课程名称...",
+		"en": "Search for course name ..",
+		"ko": "코스 이름을 검색합니다...",
+		"ja": "コースタイトルを検索してください..."
+	},
+	"e85thu4": {
+		"zh-cn": "添加课程",
+		"en": "Add course",
+		"ko": "코스 추가",
+		"ja": "コースを追加します"
+	},
+	"i5xola4": {
+		"zh-cn": "课程列表",
+		"en": "Course List",
+		"ko": "강좌 목록",
+		"ja": "コースリスト"
+	},
+	"i5xxqo4": {
+		"zh-cn": "课程名称",
+		"en": "Course Name",
+		"ko": "코스 이름",
+		"ja": "コース名"
+	},
+	"fzvk2": {
+		"zh-cn": "学分",
+		"en": "credit",
+		"ko": "학점",
+		"ja": "クレジット"
+	},
+	"d4xj9h4": {
+		"zh-cn": "授课教师",
+		"en": "Lecturer",
+		"ko": "수업 교사",
+		"ja": "教師を教える"
+	},
+	"k1e32": {
+		"zh-cn": "状态",
+		"en": "state",
+		"ko": "상태",
+		"ja": "州"
+	},
+	"hkxb2": {
+		"zh-cn": "操作",
+		"en": "operate",
+		"ko": "작업",
+		"ja": "動作します"
+	},
+	"jlvf2": {
+		"zh-cn": "激活",
+		"en": "activation",
+		"ko": "활성화",
+		"ja": "活性化"
+	},
+	"fnl7p3": {
+		"zh-cn": "未激活",
+		"en": "not active",
+		"ko": "비활성화",
+		"ja": "アクティブ化されていません"
+	},
+	"ibpi2": {
+		"zh-cn": "查看",
+		"en": "view",
+		"ko": "보기",
+		"ja": "チェック"
+	},
+	"e5fv2": {
+		"zh-cn": "修改",
+		"en": "modify",
+		"ko": "수정",
+		"ja": "改訂"
+	},
+	"4db57h7": {
+		"zh-cn": "未找到匹配课程",
+		"en": "No matching courses found",
+		"ko": "일치하는 강좌를 찾을 수 없습니다.",
+		"ja": "一致するコースは見つかりません"
+	},
+	"uziub6j": {
+		"zh-cn": "尝试使用不同的搜索词或浏览完整课程列表",
+		"en": "Try using different search terms or browsing the complete course list",
+		"ko": "다른 검색어를 사용하거나 전체 과정 목록을 찾아보십시오.",
+		"ja": "別の検索用語を使用してみてください。または、フルコースリストを閲覧してみてください"
+	},
+	"f74nvb6": {
+		"zh-cn": "暂无课程数据",
+		"en": "No course data available at the moment",
+		"ko": "코스 데이터 없음",
+		"ja": "まだコースデータはありません"
+	},
+	"jcjo9rs": {
+		"zh-cn": "系统中还没有任何课程，点击\"添加课程\"按钮创建第一个课程",
+		"en": "There are no courses in the system yet. Click the \"Add Course\" button to create the first course",
+		"ko": "시스템에 코스가 없습니다. \"코스 추가\" 버튼을 클릭하여 첫 번째 코스를 만듭니다.",
+		"ja": "システムにはまだコースがありません。「コースの追加」ボタンをクリックして、最初のコースを作成します"
+	},
+	"hs63fi24": {
+		"zh-cn": "D:/hjy/study/复杂软件系统实践学习/workspace/ChainEval/src/pages/MarkStudentCourses.tsx",
+		"en": "D: /hjy/study/practical learning of complex software systems/workspace/ChainEval/src/pages/MarkStudentCourses.tsx",
+		"ko": "D:/hjy/study/복잡한 소프트웨어 시스템 실습 학습/workspace/ChainEval/src/pages/MarkStudentCourses.tsx",
+		"ja": "D：/HJY/Study/Complex Software System Practical Learning/Workspace/Chaineval/Src/Pages/MarkstudentCourses.tsx"
+	},
+	"zd8d6wc": {
+		"zh-cn": "只有管理员可以访问此页面",
+		"en": "Only administrators can access this page",
+		"ko": "관리자만 이 페이지에 액세스할 수 있습니다.",
+		"ja": "管理者のみがこのページにアクセスできます"
+	},
+	"cpkor7c": {
+		"zh-cn": "请选择课程并输入学生地址",
+		"en": "Please select a course and enter the student's address",
+		"ko": "강좌를 선택하고 학생 주소를 입력하십시오.",
+		"ja": "コースを選択して、学生アドレスを入力してください"
+	},
+	"nlhaxu8": {
+		"zh-cn": "成功标记学生课程",
+		"en": "Successfully marked student course",
+		"ko": "학생 과정 표시 성공",
+		"ja": "サクセスタグ学生コース"
+	},
+	"98vs8jl": {
+		"zh-cn": "标记学生课程失败，请确保输入正确的学生地址",
+		"en": "Marking student course failed, please make sure to enter the correct student address",
+		"ko": "학생 과정 표시 실패, 올바른 학생 주소를 입력하십시오.",
+		"ja": "学生コースの失敗をマークして、必ず正しい学生アドレスを入力してください"
+	},
+	"q1vkyv9": {
+		"zh-cn": "只有管理员可以访问",
+		"en": "Only administrators can access it",
+		"ko": "관리자만 액세스 가능",
+		"ja": "管理者のみがアクセスできます"
+	},
+	"qk80sv6": {
+		"zh-cn": "标记学生课程",
+		"en": "Mark student courses",
+		"ko": "학생 과정 표시",
+		"ja": "学生コースにタグを付けます"
+	},
+	"kc4zcyf": {
+		"zh-cn": "将课程分配给学生，记录已修课程",
+		"en": "Assign courses to students and record completed courses",
+		"ko": "학생에게 교과 과정 배정, 이수 과정 기록",
+		"ja": "受講したコースを記録するために、学生にコースを割り当てます"
+	},
+	"15p4355": {
+		"zh-cn": "管理员功能",
+		"en": "Administrator function",
+		"ko": "관리자 기능",
+		"ja": "管理者機能"
+	},
+	"h3wcjj6": {
+		"zh-cn": "课程分配表单",
+		"en": "Course Allocation Form",
+		"ko": "과정 할당 양식",
+		"ja": "コース割り当てフォーム"
+	},
+	"il6ci54": {
+		"zh-cn": "选择课程",
+		"en": "Select courses",
+		"ko": "코스 선택",
+		"ja": "コースを選択してください"
+	},
+	"2edygs5": {
+		"zh-cn": "请选择课程",
+		"en": "Please choose a course",
+		"ko": "강좌를 선택하십시오.",
+		"ja": "コースを選択してください"
+	},
+	"hhgbbbb": {
+		"zh-cn": "选择要分配给学生的课程",
+		"en": "Select the courses to be assigned to students",
+		"ko": "학생에게 배정할 강좌 선택",
+		"ja": "生徒に割り当てたいコースを選択します"
+	},
+	"mni3cz6": {
+		"zh-cn": "学生钱包地址",
+		"en": "Student wallet address",
+		"ko": "학생 지갑 주소",
+		"ja": "学生ウォレットアドレス"
+	},
+	"93kihbi": {
+		"zh-cn": "请输入学生的钱包地址 (0x...)",
+		"en": "Please enter the student's wallet address (0x...)",
+		"ko": "학생의 지갑 주소 (0x...) 를 입력하십시오.",
+		"ja": "学生のウォレットアドレスを入力してください（0x ...）"
+	},
+	"2dfva3f": {
+		"zh-cn": "输入要分配课程的学生以太坊地址",
+		"en": "Enter the Ethereum address of the student to be assigned the course",
+		"ko": "강좌를 지정할 학생 이더리움 주소 입력",
+		"ja": "コースを割り当てるために学生のイーサリアムアドレスを入力してください"
+	},
+	"oedjca6": {
+		"zh-cn": "标记中...",
+		"en": "In the mark ..",
+		"ko": "표기 중...",
+		"ja": "タグ付き..."
+	},
+	"dphlhy4": {
+		"zh-cn": "标记课程",
+		"en": "Mark courses",
+		"ko": "코스 표시",
+		"ja": "コースにタグを付けます"
+	},
+	"f8bu83": {
+		"zh-cn": "提示：",
+		"en": "Tips:",
+		"ko": "팁:",
+		"ja": "ヒント："
+	},
+	"fmhzf9z": {
+		"zh-cn": "标记学生课程后，该学生将能够对该课程进行评价。请确保学生已修过此课程。",
+		"en": "After marking a student's course, the student will be able to evaluate the course. Please ensure that the student has taken this course.",
+		"ko": "학생 커리큘럼을 표시하면 해당 커리큘럼을 평가할 수 있습니다.학생들이 이 과정을 이수했는지 확인하십시오.",
+		"ja": "学生のコースをマークした後、学生はコースを評価できるようになります。学生がこのコースを受講していることを確認してください。"
+	},
+	"e4l6sq20": {
+		"zh-cn": "D:/hjy/study/复杂软件系统实践学习/workspace/ChainEval/src/pages/TeacherCourses.tsx",
+		"en": "D: /hjy/study/practical learning of complex software systems/workspace/ChainEval/src/pages/TeacherCourses.tsx",
+		"ko": "D:/hjy/study/복잡한 소프트웨어 시스템 실습 학습/workspace/ChainEval/src/pages/TeacherCourses.tsx",
+		"ja": "d：/hjy/勉強/複雑なソフトウェアシステム/workspace/chaineval/src/pages/teachercourses.tsxの実用的な学習"
+	},
+	"1s5inkp": {
+		"zh-cn": "获取课程列表失败，请确保您已连接钱包并且是教师角色",
+		"en": "Failed to retrieve the course list, please ensure that you have connected your wallet and are in the role of a teacher",
+		"ko": "코스 목록을 가져오지 못했습니다. 지갑이 연결되어 있고 교사 역할인지 확인하십시오.",
+		"ja": "コースリストを取得できませんでした、あなたがあなたの財布に接続されていることを確認し、教師の役割にあることを確認してください"
+	},
+	"od5os5a": {
+		"zh-cn": "正在获取您的课程数据",
+		"en": "Getting your course data",
+		"ko": "코스 데이터를 가져오는 중",
+		"ja": "コースデータを取得します"
+	},
+	"3s61db6": {
+		"zh-cn": "我的教授课程",
+		"en": "My professor's course",
+		"ko": "내 교수과정",
+		"ja": "私の指導コース"
+	},
+	"pvkdfac": {
+		"zh-cn": "查看您负责教授的课程信息",
+		"en": "View the course information of your responsible professor",
+		"ko": "담당 교수 과정 정보 보기",
+		"ja": "教える責任があるコース情報を表示します"
+	},
+	"kraae7k": {
+		"zh-cn": "您目前没有任何课程，请联系管理员分配课程",
+		"en": "You currently do not have any courses. Please contact the administrator to assign courses",
+		"ko": "현재 강좌가 없습니다. 관리자에게 문의하여 강좌를 지정하십시오.",
+		"ja": "現在、コースはありません。管理者に連絡してコースを割り当ててください"
+	},
+	"eaz8t3": {
+		"zh-cn": "已激活",
+		"en": "Active",
+		"ko": "활성화됨",
+		"ja": "アクティブ化"
+	},
+	"i67ar04": {
+		"zh-cn": "课程详情",
+		"en": "Course Details",
+		"ko": "강좌 상세 정보",
+		"ja": "コースの詳細"
+	},
+	"5hiru65": {
+		"zh-cn": "课程ID:",
+		"en": "Course ID:",
+		"ko": "과정 ID:",
+		"ja": "コースID："
+	},
+	"drw7u3": {
+		"zh-cn": "学分:",
+		"en": "Credit:",
+		"ko": "학점:",
+		"ja": "クレジット："
+	},
+	"h97673": {
+		"zh-cn": "状态:",
+		"en": "Status:",
+		"ko": "상태:",
+		"ja": "州："
+	},
+	"dl90wd4": {
+		"zh-cn": "最近更新",
+		"en": "Recent updates",
+		"ko": "최근 업데이트",
+		"ja": "最後に更新されました"
+	},
+	"dluvhh4": {
+		"zh-cn": "查看详情",
+		"en": "View details",
+		"ko": "자세히 보기",
+		"ja": "詳細を確認してください"
+	},
+	"sgopsc20": {
+		"zh-cn": "D:/hjy/study/复杂软件系统实践学习/workspace/ChainEval/src/pages/AlreadyCourses.tsx",
+		"en": "D: /hjy/study/practical learning of complex software systems/workspace/ChainEval/src/pages/ReadyCourses.tsx",
+		"ko": "D:/hjy/study/복잡한 소프트웨어 시스템 실습 학습/workspace/ChainEval/src/pages/AlreadyCourses.tsx",
+		"ja": "D：/HJY/Study/複雑なソフトウェアシステム/Workspace/Chaineval/Src/Pages/lesalcourses.tsxの実用的な学習"
+	},
+	"71otrgb": {
+		"zh-cn": "只有学生可以访问此页面",
+		"en": "Only students can access this page",
+		"ko": "학생만 이 페이지에 액세스할 수 있습니다.",
+		"ja": "学生のみがこのページにアクセスできます"
+	},
+	"6lypuda": {
+		"zh-cn": "正在获取已修课程数据",
+		"en": "Obtaining data on completed courses",
+		"ko": "이수 과정 데이터 가져오는 중",
+		"ja": "取ったコースのデータを取得します"
+	},
+	"c6ygp54": {
+		"zh-cn": "已修课程",
+		"en": "Completed courses",
+		"ko": "이수 과정",
+		"ja": "撮影したコース"
+	},
+	"82c7meg": {
+		"zh-cn": "查看您已修的所有课程，并进行评价",
+		"en": "View all the courses you have taken and evaluate them",
+		"ko": "이수한 모든 과정을 검토하고 평가",
+		"ja": "あなたが撮ったすべてのコースを表示して、レビューを行います"
+	},
+	"5zdd4fe": {
+		"zh-cn": "搜索课程名称或教师地址...",
+		"en": "Search for course name or teacher address ..",
+		"ko": "코스 이름 또는 교사 주소를 검색합니다...",
+		"ja": "コース名または教師の住所を検索してください..."
+	},
+	"phz52": {
+		"zh-cn": "重置",
+		"en": "reset",
+		"ko": "재설정",
+		"ja": "リセット"
+	},
+	"ifkx8d5": {
+		"zh-cn": "搜索范围:",
+		"en": "Search scope:",
+		"ko": "검색 범위:",
+		"ja": "検索範囲："
+	},
+	"en402": {
+		"zh-cn": "全部",
+		"en": "all",
+		"ko": "모두",
+		"ja": "全て"
+	},
+	"t032y35": {
+		"zh-cn": "仅课程名称",
+		"en": "Only course name",
+		"ko": "코스 이름만",
+		"ja": "コース名のみ"
+	},
+	"xznd7g5": {
+		"zh-cn": "仅教师地址",
+		"en": "Only teacher address",
+		"ko": "교사 주소만",
+		"ja": "先生の住所のみ"
+	},
+	"wwxu198": {
+		"zh-cn": "我的已修课程列表",
+		"en": "My list of completed courses",
+		"ko": "내 이수 과정 목록",
+		"ja": "私のコースのリスト"
+	},
+	"3moui36": {
+		"zh-cn": "搜索结果: ",
+		"en": "Search results:",
+		"ko": "검색 결과:",
+		"ja": "検索結果："
+	},
+	"n7d794": {
+		"zh-cn": " 门课程",
+		"en": "Door courses",
+		"ko": "과목",
+		"ja": "コース"
+	},
+	"gf242": {
+		"zh-cn": "已修",
+		"en": "Already repaired",
+		"ko": "수리됨",
+		"ja": "修理"
+	},
+	"o7g32": {
+		"zh-cn": "评价",
+		"en": "evaluate",
+		"ko": "평가",
+		"ja": "評価する"
+	},
+	"vlrwjb9": {
+		"zh-cn": "没有匹配的搜索结果",
+		"en": "No matching search results",
+		"ko": "일치하는 검색 결과가 없습니다.",
+		"ja": "一致する検索結果はありません"
+	},
+	"l66yxl6": {
+		"zh-cn": "暂无已修课程",
+		"en": "There are currently no courses taken",
+		"ko": "이수 과정 없음",
+		"ja": "まだコースが取られていません"
+	},
+	"kpucvkj": {
+		"zh-cn": "请尝试使用不同的搜索条件或清除筛选条件",
+		"en": "Please try using different search criteria or clearing filter criteria",
+		"ko": "다른 검색 조건을 사용하거나 필터 기준을 지우십시오.",
+		"ja": "別の検索基準またはクリアフィルター基準を使用してみてください"
+	},
+	"jzttqvs": {
+		"zh-cn": "您目前没有任何已修课程记录，请联系管理员确认您的课程信息",
+		"en": "You currently have no records of any courses taken. Please contact the administrator to confirm your course information",
+		"ko": "현재 이수한 강좌 기록이 없습니다. 관리자에게 문의하여 강좌 정보를 확인하십시오.",
+		"ja": "現時点で撮影したコースはありません。管理者に連絡してコース情報を確認してください"
+	},
+	"ei2rid4": {
+		"zh-cn": "清除搜索",
+		"en": "Clear Search",
+		"ko": "검색 지우기",
+		"ja": "クリア検索"
+	},
+	"m2f2pi1r": {
+		"zh-cn": "D:/hjy/study/复杂软件系统实践学习/workspace/ChainEval/src/pages/Users.tsx",
+		"en": "D: /hjy/study/practical learning of complex software systems/workspace/ChainEval/src/pages/Users.tsx",
+		"ko": "D:/hjy/study/복잡한 소프트웨어 시스템 실습 학습/workspace/ChainEval/src/pages/Users.tsx",
+		"ja": "D：/HJY/Study/複雑なソフトウェアシステム/Workspace/ChainEval/SRC/Pages/users.tsxの実用的な学習"
+	},
+	"c52zsd8": {
+		"zh-cn": "获取用户列表失败",
+		"en": "Failed to retrieve user list",
+		"ko": "사용자 목록 가져오기 실패",
+		"ja": "ユーザーリストを取得できませんでした"
+	},
+	"g6t52": {
+		"zh-cn": "学生",
+		"en": "student",
+		"ko": "학생",
+		"ja": "学生"
+	},
+	"hr672": {
+		"zh-cn": "教师",
+		"en": "teacher",
+		"ko": "교사",
+		"ja": "教師"
+	},
+	"io38z3": {
+		"zh-cn": "管理员",
+		"en": "administrators",
+		"ko": "관리자",
+		"ja": "管理者"
+	},
+	"i7ej2": {
+		"zh-cn": "未知",
+		"en": "unknown",
+		"ko": "알 수 없음",
+		"ja": "未知"
+	},
+	"rj1u7l8": {
+		"zh-cn": "正在获取用户数据",
+		"en": "Obtaining user data",
+		"ko": "사용자 데이터 가져오는 중",
+		"ja": "ユーザーデータの取得"
+	},
+	"v1celr6": {
+		"zh-cn": "获取数据失败",
+		"en": "Failed to retrieve data",
+		"ko": "데이터 가져오기 실패",
+		"ja": "データの取得に失敗しました"
+	},
+	"f6y6dw4": {
+		"zh-cn": "用户管理",
+		"en": "User Management",
+		"ko": "사용자 관리",
+		"ja": "ユーザー管理"
+	},
+	"390yp5c": {
+		"zh-cn": "管理系统中的所有用户账户",
+		"en": "All user accounts in the management system",
+		"ko": "시스템의 모든 사용자 계정 관리",
+		"ja": "システム内のすべてのユーザーアカウントを管理します"
+	},
+	"c6m8s3": {
+		"zh-cn": "位用户",
+		"en": "The user",
+		"ko": "비트 사용자",
+		"ja": "親愛なるユーザー"
+	},
+	"ldys9nc": {
+		"zh-cn": "搜索用户ID或邮箱...",
+		"en": "Search for user ID or email ..",
+		"ko": "사용자 ID 또는 사서함 검색...",
+		"ja": "ユーザーIDまたは電子メールを検索してください..."
+	},
+	"f6qmm54": {
+		"zh-cn": "用户信息",
+		"en": "user information",
+		"ko": "사용자 정보",
+		"ja": "ユーザー情報"
+	},
+	"padf2": {
+		"zh-cn": "邮箱",
+		"en": "email",
+		"ko": "메일박스",
+		"ja": "郵便"
+	},
+	"c2p7jz4": {
+		"zh-cn": "密码哈希",
+		"en": "Password hash",
+		"ko": "암호 해시",
+		"ja": "パスワードハッシュ"
+	},
+	"o5pc2": {
+		"zh-cn": "角色",
+		"en": "role",
+		"ko": "역할",
+		"ja": "役割"
+	},
+	"eacd23": {
+		"zh-cn": "已注册",
+		"en": "registered",
+		"ko": "등록됨",
+		"ja": "登録済み"
+	},
+	"fmyby3": {
+		"zh-cn": "未注册",
+		"en": "unregistered",
+		"ko": "미등록",
+		"ja": "登録されていません"
+	},
+	"6os5vh8": {
+		"zh-cn": "未找到匹配的用户",
+		"en": "No matching user found",
+		"ko": "일치하는 사용자가 없습니다.",
+		"ja": "一致するユーザーは見つかりません"
+	},
+	"i6b4et6": {
+		"zh-cn": "暂无用户数据",
+		"en": "No user data available at the moment",
+		"ko": "사용자 데이터 없음",
+		"ja": "まだユーザーデータはありません"
+	},
+	"th3rlkb": {
+		"zh-cn": "系统中还没有注册的用户",
+		"en": "Unregistered users in the system",
+		"ko": "시스템에 등록되지 않은 사용자",
+		"ja": "まだ登録していないユーザー"
+	},
+	"4nndmo1y": {
+		"zh-cn": "D:/hjy/study/复杂软件系统实践学习/workspace/ChainEval/src/pages/CourseDetail.tsx",
+		"en": "D: /hjy/study/practical learning of complex software systems/workspace/ChainEval/src/pages/CourseDetail. tsx",
+		"ko": "D:/hjy/study/복잡한 소프트웨어 시스템 실습 학습/workspace/ChainEval/src/pages/CourseDetail.tsx",
+		"ja": "D：/HJY/Study/複雑なソフトウェアシステム/Workspace/Chaineval/Src/Pages/Coursedetail.tsxの実用的な学習"
+	},
+	"euiwhr8": {
+		"zh-cn": "获取课程详情失败",
+		"en": "Failed to obtain course details",
+		"ko": "강좌 상세 정보 가져오기 실패",
+		"ja": "コースの詳細を取得できませんでした"
+	},
+	"uietqo8": {
+		"zh-cn": "正在获取课程详情",
+		"en": "Obtaining course details",
+		"ko": "강좌 상세 정보 보기",
+		"ja": "コースの詳細を取得します"
+	},
+	"s1nxhw6": {
+		"zh-cn": "课程 ID:",
+		"en": "Course ID:",
+		"ko": "과정 ID:",
+		"ja": "コースID："
+	},
+	"cy3f434": {
+		"zh-cn": "我要评价",
+		"en": "I want to evaluate",
+		"ko": "평가하겠습니다.",
+		"ja": "評価したい"
+	},
+	"aifpqw4": {
+		"zh-cn": "修改课程",
+		"en": "modify course",
+		"ko": "코스 수정",
+		"ja": "コースを変更します"
+	},
+	"d6dnhb4": {
+		"zh-cn": "教师地址",
+		"en": "Teacher's address",
+		"ko": "교사 주소",
+		"ja": "教師の住所"
+	},
+	"c0jpyn4": {
+		"zh-cn": "学生人数",
+		"en": "Number of students",
+		"ko": "학생 수",
+		"ja": "学生数"
+	},
+	"c0kizl4": {
+		"zh-cn": "学生名单",
+		"en": "Student list",
+		"ko": "학생 명단",
+		"ja": "学生のリスト"
+	},
+	"hyv2jc4": {
+		"zh-cn": "评价记录",
+		"en": "Evaluation Record",
+		"ko": "평가 기록",
+		"ja": "評価記録"
+	},
+	"aalm1h9": {
+		"zh-cn": "暂无学生选修此课程",
+		"en": "No students are currently enrolled in this course",
+		"ko": "이 과정을 수강할 학생이 없습니다.",
+		"ja": "まだこのコースを受講する学生はいません"
+	},
+	"tb7ibe6": {
+		"zh-cn": "学生ID: ",
+		"en": "Student ID:",
+		"ko": "학생 ID:",
+		"ja": "学生ID："
+	},
+	"fead3e6": {
+		"zh-cn": "暂无评价记录",
+		"en": "No evaluation records available at the moment",
+		"ko": "평가 기록 없음",
+		"ja": "まだ評価記録はありません"
+	},
+	"5frd5u23": {
+		"zh-cn": "D:/hjy/study/复杂软件系统实践学习/workspace/ChainEval/src/pages/CourseEvaluations.tsx",
+		"en": "D: /hjy/study/practical learning of complex software systems/workspace/ChainEval/src/pages/CourseEvaluation. tsx",
+		"ko": "D:/hjy/study/복잡한 소프트웨어 시스템 실습 학습/workspace/ChainEval/src/pages/CourseEvaluations.tsx",
+		"ja": "D：/HJY/Study/Complex Software System Practical Learning/Workspace/Chaineval/Src/Pages/CourseValuations.tsx"
+	},
+	"y6mgqmb": {
+		"zh-cn": "只有教师可以访问此页面",
+		"en": "Only teachers can access this page",
+		"ko": "교사만 이 페이지에 액세스할 수 있습니다.",
+		"ja": "このページにアクセスできるのは教師だけです"
+	},
+	"487kll5": {
+		"zh-cn": "未选择课程",
+		"en": "No courses selected",
+		"ko": "코스가 선택되지 않았습니다.",
+		"ja": "コースは選択されていません"
+	},
+	"dio45k4": {
+		"zh-cn": "未知课程",
+		"en": "Unknown courses",
+		"ko": "알 수 없는 코스",
+		"ja": "不明なコース"
+	},
+	"dhc5eu4": {
+		"zh-cn": "时间升序",
+		"en": "Time ascending order",
+		"ko": "시간 오름차순",
+		"ja": "上昇時間"
+	},
+	"dhnjts4": {
+		"zh-cn": "时间降序",
+		"en": "Time descending order",
+		"ko": "시간 내림차순",
+		"ja": "時間の下降順序"
+	},
+	"km6qkp4": {
+		"zh-cn": "默认排序",
+		"en": "default collation",
+		"ko": "기본 정렬",
+		"ja": "デフォルトソート"
+	},
+	"ecgjj2a": {
+		"zh-cn": "正在获取课程评价数据",
+		"en": "Obtaining course evaluation data",
+		"ko": "과정 평가 데이터 가져오기",
+		"ja": "コース評価データが取得されています"
+	},
+	"a3ksu26": {
+		"zh-cn": "课程评价查看",
+		"en": "View course evaluation",
+		"ko": "과정 평가 보기",
+		"ja": "コース評価ビュー"
+	},
+	"k9l47kf": {
+		"zh-cn": "查看您教授的课程获得的学生评价",
+		"en": "View the student evaluations obtained from your professor's courses",
+		"ko": "교수님의 수업에서 받은 학생 평가 보기",
+		"ja": "コースで得られた学生のレビューを表示します"
+	},
+	"dd1trf4": {
+		"zh-cn": "暂无课程",
+		"en": "No courses available at the moment",
+		"ko": "과정 없음",
+		"ja": "まだコースはありません"
+	},
+	"7nobx3": {
+		"zh-cn": "》统计",
+		"en": "》Statistics",
+		"ko": "\"통계",
+		"ja": "\"統計"
+	},
+	"cabbhy4": {
+		"zh-cn": "平均评分",
+		"en": "Average rating",
+		"ko": "평균 채점",
+		"ja": "平均評価"
+	},
+	"hyouaa4": {
+		"zh-cn": "评价数量",
+		"en": "Number of evaluations",
+		"ko": "평가 수량",
+		"ja": "評価の数"
+	},
+	"kf51": {
+		"zh-cn": "条",
+		"en": "strip",
+		"ko": "바",
+		"ja": "ストリップ"
+	},
+	"hz1drz4": {
+		"zh-cn": "评分分布",
+		"en": "Rating distribution",
+		"ko": "채점 분포",
+		"ja": "評価分布"
+	},
+	"k671": {
+		"zh-cn": "星",
+		"en": "star",
+		"ko": "별",
+		"ja": "星"
+	},
+	"7a926p5": {
+		"zh-cn": "》评价列表",
+		"en": "》Evaluation List",
+		"ko": "\"평가 목록",
+		"ja": "》評価リスト"
+	},
+	"y6tksxa": {
+		"zh-cn": "加载评价数据中...",
+		"en": "Load evaluation data ..",
+		"ko": "평가 데이터를 로드하는 중...",
+		"ja": "評価データの読み込み..."
+	},
+	"auqzdz4": {
+		"zh-cn": "匿名学生",
+		"en": "Anonymous student",
+		"ko": "익명의 학생",
+		"ja": "匿名の学生"
+	},
+	"dihss94": {
+		"zh-cn": "未知时间",
+		"en": "Unknown time",
+		"ko": "알 수 없는 시간",
+		"ja": "未知の時間"
+	},
+	"7imi8o9": {
+		"zh-cn": "该课程暂无评价记录",
+		"en": "There are currently no evaluation records for this course",
+		"ko": "이 과정은 평가 기록이 없습니다.",
+		"ja": "このコースの評価記録はありません"
+	},
+	"6pgntzn": {
+		"zh-cn": "学生尚未对此课程提交评价，请等待学生评价后查看",
+		"en": "The student has not yet submitted an evaluation for this course. Please wait for the student's evaluation before checking",
+		"ko": "학생들은 아직 이 과정에 대한 평가를 제출하지 않았으니, 학생 평가 후에 확인하시기 바랍니다.",
+		"ja": "学生はこのコースの評価をまだ提出していません。生徒の評価をお待ちしております。"
+	},
+	"otnwfd1u": {
+		"zh-cn": "D:/hjy/study/复杂软件系统实践学习/workspace/ChainEval/src/pages/Register.tsx",
+		"en": "D: /hjy/study/practical learning of complex software systems/workspace/ChainEval/src/pages/Registry. tsx",
+		"ko": "D:/hjy/study/복잡한 소프트웨어 시스템 실습 학습/workspace/ChainEval/src/pages/Register.tsx",
+		"ja": "D：/HJY/Study/Complex Software System Practical Learning/Workspace/Chaineval/Src/Pages/Register.tsx"
+	},
+	"mmpcn3": {
+		"zh-cn": "非常弱",
+		"en": "very weak",
+		"ko": "매우 약하다",
+		"ja": "非常に弱い"
+	},
+	"isx1": {
+		"zh-cn": "弱",
+		"en": "weak",
+		"ko": "약하다",
+		"ja": "弱い"
+	},
+	"dz242": {
+		"zh-cn": "中等",
+		"en": "medium",
+		"ko": "중간",
+		"ja": "中くらい"
+	},
+	"it61": {
+		"zh-cn": "强",
+		"en": "strong",
+		"ko": "강하다",
+		"ja": "強力"
+	},
+	"mmpcw3": {
+		"zh-cn": "非常强",
+		"en": "very strong",
+		"ko": "매우 강하다",
+		"ja": "とても強い"
+	},
+	"ccazqnk": {
+		"zh-cn": "密码强度不足，请确保至少满足3项安全条件",
+		"en": "The password strength is insufficient. Please ensure that at least 3 security conditions are met",
+		"ko": "비밀번호 강도 부족, 최소 3가지 보안 조건 충족",
+		"ja": "パスワードには不十分です。少なくとも3つのセキュリティ条件を満たしてください。"
+	},
+	"785btda": {
+		"zh-cn": "两次输入的密码不一致",
+		"en": "Entered passwords differ!",
+		"ko": "두 번 입력한 암호가 일치하지 않습니다.",
+		"ja": "2回入力されたパスワードは一貫性がありません"
+	},
+	"w1oudyf": {
+		"zh-cn": "注册失败：该学号/工号已被注册",
+		"en": "Registration failed: The student/employee ID has already been registered",
+		"ko": "등록 실패: 이 학번 / 공호는 이미 등록되었습니다.",
+		"ja": "登録が失敗しました：学生番号/仕事番号が登録されています"
+	},
+	"ts5ycld": {
+		"zh-cn": "注册失败，请确保已连接钱包",
+		"en": "Registration failed, please ensure that the wallet is connected",
+		"ko": "등록에 실패했습니다. 지갑이 연결되어 있는지 확인하십시오.",
+		"ja": "登録が失敗しました、ウォレットが接続されていることを確認してください"
+	},
+	"arei4w4": {
+		"zh-cn": "创建账户",
+		"en": "create an account",
+		"ko": "계정 만들기",
+		"ja": "アカウントを作成する"
+	},
+	"mzxkzse": {
+		"zh-cn": "选择您的角色，加入我们的系统",
+		"en": "Choose your role and join our system",
+		"ko": "귀하의 역할을 선택하여 저희 시스템에 가입하십시오.",
+		"ja": "役割を選択し、システムに参加してください"
+	},
+	"tuxac05": {
+		"zh-cn": "我是...",
+		"en": "I am. ..",
+		"ko": "저는요...",
+		"ja": "私は..."
+	},
+	"q9qqpac": {
+		"zh-cn": "注册为学生，进行课程评价",
+		"en": "Register as a student and conduct course evaluation",
+		"ko": "학생으로 등록하여 교과 과정 평가를 하다",
+		"ja": "コース評価の学生として登録します"
+	},
+	"b9px9wf": {
+		"zh-cn": "注册为教师，管理课程和查看评价",
+		"en": "Register as a teacher, manage courses, and view evaluations",
+		"ko": "교사로 등록, 커리큘럼 관리 및 평가 보기",
+		"ja": "教師として登録し、コースを管理し、レビューを表示します"
+	},
+	"e2tyrv4": {
+		"zh-cn": "注册优势",
+		"en": "Registration advantages",
+		"ko": "등록 이점",
+		"ja": "登録の利点"
+	},
+	"crabg6b": {
+		"zh-cn": "公正透明的课程评价体系",
+		"en": "A fair and transparent curriculum evaluation system",
+		"ko": "공정하고 투명한 과정 평가 체계",
+		"ja": "公正で透明なカリキュラム評価システム"
+	},
+	"o7jq8jc": {
+		"zh-cn": "基于区块链的数据安全保障",
+		"en": "Data Security Protection Based on Blockchain",
+		"ko": "블록체인 기반 데이터 보안",
+		"ja": "ブロックチェーンに基づくデータセキュリティ保証"
+	},
+	"e91vldb": {
+		"zh-cn": "支持匿名评价，保护隐私",
+		"en": "Support anonymous evaluation and protect privacy",
+		"ko": "익명 평가 지원, 개인 정보 보호",
+		"ja": "匿名のレビューをサポートし、プライバシーを保護します"
+	},
+	"bvy7j24": {
+		"zh-cn": "安全保障",
+		"en": "security guarantee",
+		"ko": "안전 보장",
+		"ja": "安全保証"
+	},
+	"f6rg5q4": {
+		"zh-cn": "用户协议",
+		"en": "User Agreement",
+		"ko": "사용자 프로토콜",
+		"ja": "ユーザー契約"
+	},
+	"f6vhf74": {
+		"zh-cn": "用户注册",
+		"en": "User Registration",
+		"ko": "사용자 등록",
+		"ja": "ユーザー登録"
+	},
+	"ddcfa9b": {
+		"zh-cn": "请填写以下信息完成注册",
+		"en": "Please fill in the following information to complete registration",
+		"ko": "다음 정보를 입력하여 등록을 완료하십시오.",
+		"ja": "登録を完了するには、次の情報を入力してください"
+	},
+	"g09d2": {
+		"zh-cn": "学号",
+		"en": "Student ID",
+		"ko": "학번",
+		"ja": "学生ID"
+	},
+	"gfjm2": {
+		"zh-cn": "工号",
+		"en": "work number",
+		"ko": "작업 번호",
+		"ja": "作業番号"
+	},
+	"2j91x75": {
+		"zh-cn": "请输入您的",
+		"en": "Please enter your",
+		"ko": "사용자 입력",
+		"ja": "入力してください"
+	},
+	"ku55ko7": {
+		"zh-cn": "请输入您的邮箱",
+		"en": "Please enter your email address",
+		"ko": "이메일을 입력하십시오.",
+		"ja": "メールアドレスを入力してください"
+	},
+	"2txixq5": {
+		"zh-cn": "请设置密码",
+		"en": "Please set password",
+		"ko": "암호를 설정하십시오.",
+		"ja": "パスワードを設定してください"
+	},
+	"j7oeur5": {
+		"zh-cn": "密码强度:",
+		"en": "Password strength:",
+		"ko": "암호 강도:",
+		"ja": "パスワード強度："
+	},
+	"cmk7z56": {
+		"zh-cn": "至少8个字符",
+		"en": "At least 8 characters",
+		"ko": "최소 8자",
+		"ja": "少なくとも8文字"
+	},
+	"ats4rx4": {
+		"zh-cn": "包含数字",
+		"en": "Contains numbers",
+		"ko": "숫자 포함",
+		"ja": "番号が含まれています"
+	},
+	"x9z4li6": {
+		"zh-cn": "包含小写字母",
+		"en": "Contains lowercase letters",
+		"ko": "소문자 포함",
+		"ja": "小文字を含めます"
+	},
+	"wws2cu6": {
+		"zh-cn": "包含大写字母",
+		"en": "Contains uppercase letters",
+		"ko": "대문자 포함",
+		"ja": "大文字が含まれています"
+	},
+	"8x8nkag": {
+		"zh-cn": "包含特殊字符(!@#$%^&*)",
+		"en": "Contains special characters (! @ # $% ^&*)",
+		"ko": "특수 문자 포함 (! @ # $% ^ & *)",
+		"ja": "特殊文字が含まれています（！@＃$％^＆*）"
+	},
+	"frqaup4": {
+		"zh-cn": "确认密码",
+		"en": "Confirm password",
+		"ko": "암호 확인",
+		"ja": "パスワードを認証する"
+	},
+	"pyymjc7": {
+		"zh-cn": "请再次输入密码",
+		"en": "Please enter your password again",
+		"ko": "암호를 다시 입력하십시오.",
+		"ja": "もう一度パスワードを入力してください"
+	},
+	"c2p84v4": {
+		"zh-cn": "密码匹配",
+		"en": "Password matching",
+		"ko": "암호 일치",
+		"ja": "パスワードマッチング"
+	},
+	"j54p465": {
+		"zh-cn": "密码不匹配",
+		"en": "Password mismatch",
+		"ko": "암호 불일치",
+		"ja": "パスワードの不一致"
+	},
+	"xa9gat6": {
+		"zh-cn": "注册中...",
+		"en": "Registering ..",
+		"ko": "등록 중...",
+		"ja": "登録..."
+	},
+	"iyzo2": {
+		"zh-cn": "注册",
+		"en": "register",
+		"ko": "등록",
+		"ja": "登録する"
+	},
+	"pr1zw75": {
+		"zh-cn": "已有账号？",
+		"en": "Do you already have an account?",
+		"ko": "계정이 있습니까?",
+		"ja": "すでにアカウントを持っていますか？"
+	},
+	"iid7444": {
+		"zh-cn": "返回登录",
+		"en": "Return to login",
+		"ko": "로그인으로 돌아가기",
+		"ja": "ログインに戻ります"
+	},
+	"apt4b91t": {
+		"zh-cn": "D:/hjy/study/复杂软件系统实践学习/workspace/ChainEval/src/pages/Profile.tsx",
+		"en": "D: /hjy/study/practical learning of complex software systems/workspace/ChainEval/src/pages/Profile.tsx",
+		"ko": "D:/hjy/study/복잡한 소프트웨어 시스템 실습 학습/workspace/ChainEval/src/pages/Profile.tsx",
+		"ja": "D：/HJY/Study/複雑なソフトウェアシステム/Workspace/Chaineval/Src/Pages/Profile.tsxの実用的な学習"
+	},
+	"40y77hh": {
+		"zh-cn": "获取用户信息失败，请确保已连接钱包",
+		"en": "Failed to obtain user information, please ensure that the wallet is connected",
+		"ko": "사용자 정보를 가져오지 못했습니다. 지갑이 연결되어 있는지 확인하십시오.",
+		"ja": "ユーザー情報の取得に失敗しました。ウォレットが接続されていることを確認してください"
+	},
+	"kgsv2": {
+		"zh-cn": "用户",
+		"en": "user",
+		"ko": "사용자",
+		"ja": "ユーザー"
+	},
+	"rb8p837": {
+		"zh-cn": "邮箱更新成功！",
+		"en": "Email updated successfully!",
+		"ko": "메일박스 업데이트 성공!",
+		"ja": "電子メールの更新は成功しました！"
+	},
+	"5lj84aa": {
+		"zh-cn": "更新邮箱失败，请重试",
+		"en": "Failed to update email, please try again",
+		"ko": "메일박스 업데이트에 실패했습니다. 다시 시도하십시오.",
+		"ja": "メールが失敗したことを更新してください。もう一度やり直してください"
+	},
+	"rfp9iz7": {
+		"zh-cn": "密码更新成功！",
+		"en": "Password updated successfully!",
+		"ko": "암호 업데이트 성공!",
+		"ja": "パスワードの更新が正常に更新されました！"
+	},
+	"2mbnqa6": {
+		"zh-cn": "原密码不正确",
+		"en": "The original password is incorrect",
+		"ko": "원래 암호가 잘못되었습니다.",
+		"ja": "元のパスワードが正しくありません"
+	},
+	"1r9qqqa": {
+		"zh-cn": "更新密码失败，请重试",
+		"en": "Password update failed, please try again",
+		"ko": "암호를 업데이트하지 못했습니다. 다시 시도하십시오.",
+		"ja": "パスワードの更新に失敗しました。もう一度やり直してください"
+	},
+	"riy5lt8": {
+		"zh-cn": "正在获取用户信息",
+		"en": "Obtaining user information",
+		"ko": "사용자 정보 가져오는 중",
+		"ja": "ユーザー情報の取得"
+	},
+	"xro7y76": {
+		"zh-cn": "获取信息失败",
+		"en": "getting information failure",
+		"ko": "정보 가져오기 실패",
+		"ja": "情報の取得に失敗しました"
+	},
+	"rkbrl6": {
+		"zh-cn": "我的个人信息",
+		"en": "My personal information",
+		"ko": "내 개인 정보",
+		"ja": "私の個人情報"
+	},
+	"wq0ln85": {
+		"zh-cn": "您的身份:",
+		"en": "Your identity:",
+		"ko": "귀하의 신분:",
+		"ja": "あなたのアイデンティティ："
+	},
+	"efw273": {
+		"zh-cn": "已认证",
+		"en": "Certified",
+		"ko": "인증",
+		"ja": "認定"
+	},
+	"fsi133": {
+		"zh-cn": "未认证",
+		"en": "Not certified",
+		"ko": "인증되지 않음",
+		"ja": "認証されていません"
+	},
+	"ctcb3k5": {
+		"zh-cn": "学号/工号",
+		"en": "Student ID/Employee ID",
+		"ko": "학번/공호",
+		"ja": "学生ID/作業ID"
+	},
+	"f69pdq4": {
+		"zh-cn": "电子邮箱",
+		"en": "E-mail",
+		"ko": "이메일",
+		"ja": "メール"
+	},
+	"3to0e95": {
+		"zh-cn": "输入新邮箱",
+		"en": "Enter a new email address",
+		"ko": "새 메일박스 입력",
+		"ja": "新しいメールアドレスを入力します"
+	},
+	"f70o4v4": {
+		"zh-cn": "用户角色",
+		"en": "ROLE",
+		"ko": "사용자 역할",
+		"ja": "ユーザーロール"
+	},
+	"c2yqp74": {
+		"zh-cn": "密码设置",
+		"en": "Password setting",
+		"ko": "암호 설정",
+		"ja": "パスワード設定"
+	},
+	"ai7i2u4": {
+		"zh-cn": "修改密码",
+		"en": "Change Password",
+		"ko": "암호 수정",
+		"ja": "パスワードを変更します"
+	},
+	"cdc5hx4": {
+		"zh-cn": "当前密码",
+		"en": "Current Password",
+		"ko": "현재 암호",
+		"ja": "現在のパスワード"
+	},
+	"okpm9l6": {
+		"zh-cn": "输入当前密码",
+		"en": "Enter the current password",
+		"ko": "현재 암호 입력",
+		"ja": "現在のパスワードを入力します"
+	},
+	"fcgq33": {
+		"zh-cn": "新密码",
+		"en": "Password",
+		"ko": "새 암호",
+		"ja": "新しいパスワード"
+	},
+	"3tezp55": {
+		"zh-cn": "输入新密码",
+		"en": "Enter new password",
+		"ko": "새 암호 입력",
+		"ja": "新しいパスワードを入力します"
+	},
+	"8aswln5": {
+		"zh-cn": "确认新密码",
+		"en": "Confirm new password",
+		"ko": "새 암호 확인",
+		"ja": "新しいパスワードを確認します"
+	},
+	"b1w6ez7": {
+		"zh-cn": "再次输入新密码",
+		"en": "Enter the new password again",
+		"ko": "새 암호 다시 입력",
+		"ja": "もう一度新しいパスワードを入力してください"
+	},
+	"ev022": {
+		"zh-cn": "取消",
+		"en": "cancel",
+		"ko": "취소",
+		"ja": "キャンセル"
+	},
+	"u5bstf6": {
+		"zh-cn": "处理中...",
+		"en": "Processing in progress ..",
+		"ko": "처리 중...",
+		"ja": "処理..."
+	},
+	"fro6m94": {
+		"zh-cn": "确认修改",
+		"en": "Confirm modification",
+		"ko": "수정 확인",
+		"ja": "変更を確認します"
+	},
+	"qispwoz": {
+		"zh-cn": "账户信息来自区块链，确保信息安全和不可篡改。您可以随时更新邮箱和密码。",
+		"en": "The account information comes from blockchain, ensuring information security and immutability. You can update your email and password at any time.",
+		"ko": "계정 정보는 블록체인에서 온 것으로 정보의 안전과 변조가 불가능하다.언제든지 사서함과 비밀번호를 업데이트할 수 있습니다.",
+		"ja": "アカウント情報は、ブロックチェーンからのものであり、情報セキュリティと改ざんのないことを保証します。いつでもメールとパスワードを更新できます。"
+	},
+	"flgud3": {
+		"zh-cn": "无记录",
+		"en": "No record",
+		"ko": "기록이 없습니다",
+		"ja": "記録はありません"
+	},
+	"480rsva": {
+		"zh-cn": "正在获取评价历史数据",
+		"en": "Obtaining historical evaluation data",
+		"ko": "역사적 평가 데이터 획득",
+		"ja": "履歴評価データの取得"
+	},
+	"8jbnzm6": {
+		"zh-cn": "我的评价历史",
+		"en": "My review history",
+		"ko": "내 리뷰 기록",
+		"ja": "私のレビュー履歴"
+	},
+	"vwoc9tk": {
+		"zh-cn": "查看您对课程提交的所有评价记录和统计数据",
+		"en": "View all review records and statistics you submit to your course",
+		"ko": "모든 검토 기록 및 코스에 제출 한 통계보기",
+		"ja": "コースに提出するすべてのレビューレコードと統計を表示する"
+	},
+	"ftbkk3": {
+		"zh-cn": "条评价",
+		"en": "Reviews",
+		"ko": "리뷰",
+		"ja": "レビュー"
+	},
+	"hyt4t14": {
+		"zh-cn": "评价统计",
+		"en": "Evaluation statistics",
+		"ko": "평가 통계",
+		"ja": "評価統計"
+	},
+	"autkkl4": {
+		"zh-cn": "匿名比例",
+		"en": "Anonymous ratio",
+		"ko": "익명 비율",
+		"ja": "匿名の比率"
+	},
+	"dlf5tw4": {
+		"zh-cn": "最近评价",
+		"en": "Recent reviews",
+		"ko": "최근 리뷰",
+		"ja": "最近のレビュー"
+	},
+	"hynpmw4": {
+		"zh-cn": "评价总数",
+		"en": "Total number of evaluations",
+		"ko": "총 평가 수",
+		"ja": "評価の総数"
+	},
+	"gs4qiq6": {
+		"zh-cn": "暂无统计数据",
+		"en": "No statistics yet",
+		"ko": "아직 통계가 없습니다",
+		"ja": "統計はまだありません"
+	},
+	"g5wsny4": {
+		"zh-cn": "筛选选项",
+		"en": "Filter options",
+		"ko": "필터 옵션",
+		"ja": "フィルターオプション"
+	},
+	"dehze94": {
+		"zh-cn": "显示条件",
+		"en": "Display conditions",
+		"ko": "표시 조건",
+		"ja": "表示条件"
+	},
+	"avj5834": {
+		"zh-cn": "全部评价",
+		"en": "All reviews",
+		"ko": "모든 리뷰",
+		"ja": "すべてのレビュー"
+	},
+	"yq21ba5": {
+		"zh-cn": "仅匿名评价",
+		"en": "Anonymous review only",
+		"ko": "익명 검토 만",
+		"ja": "匿名のレビューのみ"
+	},
+	"z91nrt5": {
+		"zh-cn": "仅实名评价",
+		"en": "Real-name evaluation only",
+		"ko": "실제 평가 전용",
+		"ja": "本名の評価のみ"
+	},
+	"cygf3n4": {
+		"zh-cn": "排序方式",
+		"en": "sort by",
+		"ko": "정렬",
+		"ja": "並べ替え"
+	},
+	"deypk04": {
+		"zh-cn": "最新优先",
+		"en": "Latest priority",
+		"ko": "최신 우선 순위",
+		"ja": "最新の優先事項"
+	},
+	"dezvtl4": {
+		"zh-cn": "最早优先",
+		"en": "First priority",
+		"ko": "첫 번째 우선 순위",
+		"ja": "最優先事項"
+	},
+	"jvhiou4": {
+		"zh-cn": "高分优先",
+		"en": "High score priority",
+		"ko": "높은 점수 우선 순위",
+		"ja": "高いスコアの優先順位"
+	},
+	"achqco4": {
+		"zh-cn": "低分优先",
+		"en": "Low score priority",
+		"ko": "낮은 점수 우선 순위",
+		"ja": "スコアの優先度が低い"
+	},
+	"10xdw6": {
+		"zh-cn": "评价历史记录",
+		"en": "Evaluation history",
+		"ko": "평가 기록",
+		"ja": "評価履歴"
+	},
+	"cdcv4q4": {
+		"zh-cn": "已筛选：",
+		"en": "Filtered:",
+		"ko": "거르는:",
+		"ja": "フィルタリング："
+	},
+	"bwzcwy4": {
+		"zh-cn": "实名评价",
+		"en": "Real-name evaluation",
+		"ko": "실제 평가",
+		"ja": "本名の評価"
+	},
+	"tyhpwl6": {
+		"zh-cn": "已选择此评价",
+		"en": "This review has been selected",
+		"ko": "이 검토가 선택되었습니다",
+		"ja": "このレビューが選択されました"
+	},
+	"fuy7mpo": {
+		"zh-cn": "未找到符合筛选条件的评价记录，请尝试更改筛选选项",
+		"en": "No evaluation record was found that matched the filter criteria. Please try changing the filter options",
+		"ko": "필터 기준과 일치하는 평가 기록은 발견되지 않았습니다. 필터 옵션을 변경해보십시오",
+		"ja": "フィルター基準と一致する評価記録は見つかりませんでした。フィルターオプションを変更してみてください"
+	},
+	"5qky6bo": {
+		"zh-cn": "您尚未对任何课程提交评价，完成课程后可以提交评价",
+		"en": "You have not submitted an evaluation for any courses yet, and you can submit an evaluation after completing the course.",
+		"ko": "아직 과정에 대한 평가를 제출하지 않았으며 과정을 마친 후 평가를 제출할 수 있습니다.",
+		"ja": "まだコースの評価を提出していないため、コースを完了した後に評価を提出できます。"
+	},
+	"hij5qa6": {
+		"zh-cn": "清除筛选条件",
+		"en": "Clear filter criteria",
+		"ko": "명확한 필터 기준",
+		"ja": "クリアフィルター基準"
+	},
+	"efkth3": {
+		"zh-cn": "已评价",
+		"en": "Rated",
+		"ko": "평가",
+		"ja": "定格"
+	},
+	"cvbkio4": {
+		"zh-cn": "我的课程",
+		"en": "My course",
+		"ko": "내 코스",
+		"ja": "私のコース"
+	},
+	"c0kvbo4": {
+		"zh-cn": "学生反馈",
+		"en": "Student Feedback",
+		"ko": "학생 피드백",
+		"ja": "学生のフィードバック"
+	},
+	"cq1jjc4": {
+		"zh-cn": "总课程数",
+		"en": "Total number of courses",
+		"ko": "총 코스 수",
+		"ja": "コースの総数"
+	},
+	"d6cah14": {
+		"zh-cn": "教师人数",
+		"en": "Number of teachers",
+		"ko": "교사 수",
+		"ja": "教師の数"
+	},
+	"gan1oz4": {
+		"zh-cn": "系统用户",
+		"en": "System User",
+		"ko": "시스템 사용자",
+		"ja": "システムユーザー"
+	},
+	"p0xwou8": {
+		"zh-cn": "正在获取您的数据",
+		"en": "Getting your data",
+		"ko": "데이터를 얻습니다",
+		"ja": "データを取得します"
+	},
+	"ikkerh4": {
+		"zh-cn": "连接错误",
+		"en": "Connection error",
+		"ko": "연결 오류",
+		"ja": "接続エラー"
+	},
+	"b7gq495": {
+		"zh-cn": "欢迎回来，",
+		"en": "Welcome back,",
+		"ko": "다시 오신 것을 환영합니다.",
+		"ja": "おかえり、"
+	},
+	"cn15mg4": {
+		"zh-cn": "您正在以",
+		"en": "You are",
+		"ko": "당신은",
+		"ja": "あなたは"
+	},
+	"444i116": {
+		"zh-cn": "身份访问系统",
+		"en": "Identity access system",
+		"ko": "신원 액세스 시스템",
+		"ja": "アイデンティティアクセスシステム"
+	},
+	"p9hursc": {
+		"zh-cn": "您可以对已修课程进行评价",
+		"en": "You can evaluate courses you have taken",
+		"ko": "수강 한 과정을 평가할 수 있습니다",
+		"ja": "撮影したコースを評価できます"
+	},
+	"ibc4mac": {
+		"zh-cn": "查看您教授课程的评价结果",
+		"en": "View the evaluation results of your courses",
+		"ko": "코스의 평가 결과를보십시오",
+		"ja": "コースの評価結果を表示します"
+	},
+	"l0lgv49": {
+		"zh-cn": "管理所有课程和用户",
+		"en": "Manage all courses and users",
+		"ko": "모든 과정과 사용자를 관리합니다",
+		"ja": "すべてのコースとユーザーを管理します"
+	},
+	"9ryav58": {
+		"zh-cn": "已选课程学分分布",
+		"en": "Distribution of credits for selected courses",
+		"ko": "선택된 과정에 대한 크레딧 배포",
+		"ja": "選択したコースのクレジットの配布"
+	},
+	"cn6wdb5": {
+		"zh-cn": "2学分课程",
+		"en": "2 credits course",
+		"ko": "2 학점 코스",
+		"ja": "2クレジットコース"
+	},
+	"cnqoyo5": {
+		"zh-cn": "3学分课程",
+		"en": "3 credits course",
+		"ko": "3 학점 코스",
+		"ja": "3クレジットコース"
+	},
+	"coahk15": {
+		"zh-cn": "4学分课程",
+		"en": "4 credits course",
+		"ko": "4 학점 코스",
+		"ja": "4クレジットコース"
+	},
+	"coua5e5": {
+		"zh-cn": "5学分课程",
+		"en": "5 credits course",
+		"ko": "5 학점 코스",
+		"ja": "5クレジットコース"
+	},
+	"yznl6": {
+		"zh-cn": "评价历史统计",
+		"en": "Evaluation historical statistics",
+		"ko": "평가 과거 통계",
+		"ja": "評価履歴統計を評価します"
+	},
+	"pzzx9q6": {
+		"zh-cn": "您的平均评分",
+		"en": "Your average rating",
+		"ko": "평균 등급",
+		"ja": "あなたの平均評価"
+	},
+	"p3i4xl5": {
+		"zh-cn": "已提交评价",
+		"en": "Reviews submitted",
+		"ko": "검토 제출",
+		"ja": "提出されたレビュー"
+	},
+	"4qplwo6": {
+		"zh-cn": "匿名评价比例",
+		"en": "Anonymous evaluation ratio",
+		"ko": "익명 평가 비율",
+		"ja": "匿名の評価率"
+	},
+	"4ukzr36": {
+		"zh-cn": "最近评价分布",
+		"en": "Recent evaluation distribution",
+		"ko": "최근 평가 분포",
+		"ja": "最近の評価分布"
+	},
+	"lfu2": {
+		"zh-cn": "5星",
+		"en": "5 stars",
+		"ko": "별 5 개",
+		"ja": "5つ星"
+	},
+	"lez2": {
+		"zh-cn": "4星",
+		"en": "4 stars",
+		"ko": "별 4 개",
+		"ja": "4つ星"
+	},
+	"le42": {
+		"zh-cn": "3星",
+		"en": "3 stars",
+		"ko": "별 3 개",
+		"ja": "3つ星"
+	},
+	"ld92": {
+		"zh-cn": "2星",
+		"en": "2 stars",
+		"ko": "별 2 개",
+		"ja": "2つ星"
+	},
+	"lce2": {
+		"zh-cn": "1星",
+		"en": "1 star",
+		"ko": "별 1 개",
+		"ja": "1つ星"
+	},
+	"fegui96": {
+		"zh-cn": "暂无评价数据",
+		"en": "No evaluation data yet",
+		"ko": "아직 평가 데이터가 없습니다",
+		"ja": "まだ評価データはありません"
+	},
+	"a3kqbx6": {
+		"zh-cn": "课程评价概况",
+		"en": "Course evaluation overview",
+		"ko": "과정 평가 개요",
+		"ja": "コース評価の概要"
+	},
+	"cpt0qq4": {
+		"zh-cn": "总评价数",
+		"en": "Total number of reviews",
+		"ko": "총 검토 수",
+		"ja": "レビューの総数"
+	},
+	"ds9z43": {
+		"zh-cn": "好评率",
+		"en": "Positive review rate",
+		"ko": "긍정적 인 검토 속도",
+		"ja": "正のレビュー率"
+	},
+	"a36rg66": {
+		"zh-cn": "课程评分对比",
+		"en": "Course rating comparison",
+		"ko": "코스 등급 비교",
+		"ja": "コース評価の比較"
+	},
+	"d7rmvj4": {
+		"zh-cn": "数据结构",
+		"en": "Data structure",
+		"ko": "데이터 구조",
+		"ja": "データ構造"
+	},
+	"g1inzc4": {
+		"zh-cn": "算法分析",
+		"en": "Algorithm Analysis",
+		"ko": "알고리즘 분석",
+		"ja": "アルゴリズム分析"
+	},
+	"69xo4x5": {
+		"zh-cn": "计算机网络",
+		"en": "Computer network",
+		"ko": "컴퓨터 네트워크",
+		"ja": "コンピューターネットワーク"
+	},
+	"4uaxig6": {
+		"zh-cn": "最近评价趋势",
+		"en": "Recent review trends",
+		"ko": "최근 검토 트렌드",
+		"ja": "最近のレビューの傾向"
+	},
+	"dtzc2": {
+		"zh-cn": "一月",
+		"en": "January",
+		"ko": "1월",
+		"ja": "1月"
+	},
+	"dxbw2": {
+		"zh-cn": "二月",
+		"en": "February",
+		"ko": "2월",
+		"ja": "2月"
+	},
+	"du732": {
+		"zh-cn": "三月",
+		"en": "March",
+		"ko": "3월",
+		"ja": "行進"
+	},
+	"fc7h2": {
+		"zh-cn": "四月",
+		"en": "April",
+		"ko": "4월",
+		"ja": "4月"
+	},
+	"dxis2": {
+		"zh-cn": "五月",
+		"en": "May",
+		"ko": "5월",
+		"ja": "5月"
+	},
+	"eeyj2": {
+		"zh-cn": "六月",
+		"en": "June",
+		"ko": "6월",
+		"ja": "6月"
+	},
+	"df90mb4": {
+		"zh-cn": "最新评价",
+		"en": "Latest reviews",
+		"ko": "최신 리뷰",
+		"ja": "最新のレビュー"
+	},
+	"dw2n2": {
+		"zh-cn": "今天",
+		"en": "today",
+		"ko": "오늘",
+		"ja": "今日"
+	},
+	"kpn2tuu": {
+		"zh-cn": "\"课程内容丰富，老师讲解非常清晰，对我的学习帮助很大...\"",
+		"en": "\"The course is rich in content, the teacher's explanation is very clear, which is very helpful to my study...\"",
+		"ko": "\"이 과정에는 내용이 풍부하고 교사의 설명은 매우 분명하며, 이는 내 공부에 매우 도움이됩니다 ...\"",
+		"ja": "「コースにはコンテンツが豊富で、教師の説明は非常に明確で、私の研究に非常に役立ちます...」"
+	},
+	"ls5e718": {
+		"zh-cn": "暂无评价趋势数据",
+		"en": "No evaluation trend data yet",
+		"ko": "아직 평가 트렌드 데이터가 없습니다",
+		"ja": "まだ評価の傾向データはありません"
+	},
+	"x8ulw06": {
+		"zh-cn": "系统用户分布",
+		"en": "System user distribution",
+		"ko": "시스템 사용자 배포",
+		"ja": "システムユーザー配布"
+	},
+	"cml2qu4": {
+		"zh-cn": "总用户数",
+		"en": "Total number of users",
+		"ko": "총 사용자 수",
+		"ja": "ユーザーの総数"
+	},
+	"dozb286": {
+		"zh-cn": "课程活跃状态",
+		"en": "Course active status",
+		"ko": "코스 활성 상태",
+		"ja": "コースアクティブステータス"
+	},
+	"edf1rp4": {
+		"zh-cn": "活跃课程",
+		"en": "Active courses",
+		"ko": "활성 코스",
+		"ja": "アクティブコース"
+	},
+	"89ak3y5": {
+		"zh-cn": "未激活课程",
+		"en": "Course not activated",
+		"ko": "과정이 활성화되지 않았습니다",
+		"ja": "コースはアクティブ化されていません"
+	},
+	"qxbgb35": {
+		"zh-cn": "按学科分布",
+		"en": "Distribution by subject",
+		"ko": "주제 별 분포",
+		"ja": "被験者による分布"
+	},
+	"69ystj5": {
+		"zh-cn": "计算机科学",
+		"en": "computer Science",
+		"ko": "컴퓨터 과학",
+		"ja": "コンピュータサイエンス"
+	},
+	"hr7a2": {
+		"zh-cn": "数学",
+		"en": "math",
+		"ko": "수학",
+		"ja": "数学"
+	},
+	"k3i52": {
+		"zh-cn": "物理",
+		"en": "physics",
+		"ko": "물리학",
+		"ja": "物理"
+	},
+	"eae82": {
+		"zh-cn": "其他",
+		"en": "other",
+		"ko": "다른",
+		"ja": "他の"
+	},
+	"cii7fu4": {
+		"zh-cn": "快捷功能",
+		"en": "Quick features",
+		"ko": "빠른 기능",
+		"ja": "クイック機能"
+	},
+	"hylgdb4": {
+		"zh-cn": "评价历史",
+		"en": "Evaluation history",
+		"ko": "평가 기록",
+		"ja": "評価履歴"
+	},
+	"ayedxw4": {
+		"zh-cn": "分配课程",
+		"en": "Assign courses",
+		"ko": "과정을 할당하십시오",
+		"ja": "コースを割り当てます"
+	},
+	"gu3rwya": {
+		"zh-cn": "评价提交失败，请重试",
+		"en": "The evaluation failed, please try again",
+		"ko": "평가가 실패했습니다. 다시 시도하십시오",
+		"ja": "評価に失敗しました。もう一度やり直してください"
+	},
+	"i676f44": {
+		"zh-cn": "课程评价",
+		"en": "Course evaluation",
+		"ko": "과정 평가",
+		"ja": "コース評価"
+	},
+	"7aolw57": {
+		"zh-cn": "评价提交成功！",
+		"en": "The evaluation was submitted successfully!",
+		"ko": "평가는 성공적으로 제출되었습니다!",
+		"ja": "評価は正常に提出されました！"
+	},
+	"faedn3": {
+		"zh-cn": "教师:",
+		"en": "teacher:",
+		"ko": "선생님:",
+		"ja": "教師："
+	},
+	"cowsym4": {
+		"zh-cn": "您的评分",
+		"en": "Your rating",
+		"ko": "당신의 등급",
+		"ja": "あなたの評価"
+	},
+	"grja2": {
+		"zh-cn": "很差",
+		"en": "Very bad",
+		"ko": "아주 나쁜",
+		"ja": "非常に悪い"
+	},
+	"oxcb2": {
+		"zh-cn": "较差",
+		"en": "Poor",
+		"ko": "가난한",
+		"ja": "貧しい"
+	},
+	"dzcc2": {
+		"zh-cn": "一般",
+		"en": "generally",
+		"ko": "일반적으로",
+		"ja": "一般的に"
+	},
+	"modq2": {
+		"zh-cn": "良好",
+		"en": "good",
+		"ko": "좋은",
+		"ja": "良い"
+	},
+	"mmo833": {
+		"zh-cn": "非常好",
+		"en": "very good",
+		"ko": "매우 좋은",
+		"ja": "とても良い"
+	},
+	"hyl5mv4": {
+		"zh-cn": "评价内容",
+		"en": "Evaluation content",
+		"ko": "평가 내용",
+		"ja": "評価コンテンツ"
+	},
+	"7w70cve": {
+		"zh-cn": "请输入您对该课程的评价...",
+		"en": "Please enter your review of this course...",
+		"ko": "이 과정에 대한 리뷰를 입력하십시오 ...",
+		"ja": "このコースのレビューを入力してください..."
+	},
+	"b2jst37": {
+		"zh-cn": "不显示您的身份",
+		"en": "Your identity is not displayed",
+		"ko": "귀하의 신원은 표시되지 않습니다",
+		"ja": "あなたの身元は表示されません"
+	},
+	"ev0tfv6": {
+		"zh-cn": "提交中...",
+		"en": "Submitting...",
+		"ko": "제출 ...",
+		"ja": "提出..."
+	},
+	"cxegef4": {
+		"zh-cn": "提交评价",
+		"en": "Submit a review",
+		"ko": "리뷰를 제출하십시오",
+		"ja": "レビューを送信します"
+	},
+	"qylb2": {
+		"zh-cn": "首页",
+		"en": "front page",
+		"ko": "첫 페이지",
+		"ja": "フロントページ"
+	},
+	"cvbame4": {
+		"zh-cn": "我的评价",
+		"en": "My review",
+		"ko": "내 리뷰",
+		"ja": "私のレビュー"
+	},
+	"a74l2d4": {
+		"zh-cn": "个人资料",
+		"en": "Personal Profile",
+		"ko": "개인 프로필",
+		"ja": "個人的なプロフィール"
+	},
+	"iifi5w4": {
+		"zh-cn": "退出登录",
+		"en": "Log out",
+		"ko": "로그 아웃하십시오",
+		"ja": "ログアウト"
+	},
+	"rru28w8": {
+		"zh-cn": "课程名称不能为空",
+		"en": "Course name cannot be empty",
+		"ko": "코스 이름은 비어있을 수 없습니다",
+		"ja": "コース名を空にすることはできません"
+	},
+	"d53c22b": {
+		"zh-cn": "学分必须在1-10之间",
+		"en": "Credits must be between 1-10",
+		"ko": "크레딧은 1-10이어야합니다",
+		"ja": "クレジットは1〜10でなければなりません"
+	},
+	"ea50kba": {
+		"zh-cn": "请输入有效的教师地址",
+		"en": "Please enter a valid teacher address",
+		"ko": "유효한 교사 주소를 입력하십시오",
+		"ja": "有効な教師の住所を入力してください"
+	},
+	"wpp669a": {
+		"zh-cn": "修改课程失败，请重试",
+		"en": "The course modification failed, please try again",
+		"ko": "과정 수정이 실패했습니다. 다시 시도하십시오",
+		"ja": "コースの変更に失敗しました。もう一度やり直してください"
+	},
+	"fd53477": {
+		"zh-cn": "请输入课程名称",
+		"en": "Please enter the course name",
+		"ko": "코스 이름을 입력하십시오",
+		"ja": "コース名を入力してください"
+	},
+	"agefs64": {
+		"zh-cn": "保存修改",
+		"en": "Save Modify",
+		"ko": "수정을 저장하십시오",
+		"ja": "修正を保存します"
+	},
+	"eott945": {
+		"zh-cn": "添加新课程",
+		"en": "Add a new course",
+		"ko": "새 코스를 추가하십시오",
+		"ja": "新しいコースを追加します"
+	},
+	"vti131x": {
+		"zh-cn": "D:/hjy/study/复杂软件系统实践学习/workspace/ChainEval/src/pages/Evaluations.tsx",
+		"en": "D:/hjy/study/Complex software system practical learning/workspace/ChainEval/src/pages/Evaluations.tsx",
+		"ko": "D :/HJY/Study/Complex Software System 실제 학습/작업 공간/ChaineVal/Src/Pages/Evaluations.tsx",
+		"ja": "D：/HJY/Study/Complex Software System実践的な学習/ワークスペース/Chaineval/Src/Pages/evaluations.tsx"
+	}
+}
