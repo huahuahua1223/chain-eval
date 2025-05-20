@@ -14,6 +14,7 @@ import {
   faShieldAlt
 } from '@fortawesome/free-solid-svg-icons';
 import { getCurrentUserInfo } from '../utils/contract';
+import LanguageSwitcher from './LanguageSwitcher';
 
 // 定义用户结构体类型
 interface User {
@@ -206,7 +207,10 @@ export default function Navbar() {
           </div>
 
           {/* 用户头像和下拉菜单 */}
-          <div className="hidden sm:flex items-center" ref={dropdownRef}>
+          <div className="hidden sm:flex items-center space-x-4" ref={dropdownRef}>
+            {/* 语言切换器 */}
+            <LanguageSwitcher />
+            
             <div className="relative">
               <button
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
@@ -267,6 +271,10 @@ export default function Navbar() {
           <div className="px-2 pt-2 pb-3 space-y-1">
             {renderNavLinks()}
             <div className="border-t border-gray-100 mt-2 pt-2">
+              <div className="flex items-center px-3 py-2 mb-1">
+                <span className="text-sm font-medium text-gray-600 mr-2">语言设置:</span>
+                <LanguageSwitcher />
+              </div>
               <Link
                 to="/profile"
                 className="flex items-center px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-indigo-600 hover:bg-indigo-50"

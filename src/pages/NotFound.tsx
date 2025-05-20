@@ -1,7 +1,4 @@
-import { useNavigate } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faExclamationTriangle, faHome, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
-import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';import { faExclamationTriangle, faHome, faArrowLeft } from '@fortawesome/free-solid-svg-icons';import { useEffect, useState } from 'react';import SimpleLanguageSwitcherDark from '../components/SimpleLanguageSwitcherDark';
 
 export default function NotFound() {
   const navigate = useNavigate();
@@ -13,6 +10,13 @@ export default function NotFound() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-blue-50 flex items-center justify-center p-4 relative">
+      {/* 语言切换器 */}
+      <div className="absolute top-4 right-4 z-20">
+        <div className="bg-white p-2 rounded-lg shadow-md">
+          <SimpleLanguageSwitcherDark />
+        </div>
+      </div>
+      
       {/* 背景装饰 */}
       <div className="fixed top-0 right-0 w-96 h-96 bg-yellow-100 rounded-full mix-blend-multiply filter blur-3xl opacity-20 -z-10"></div>
       <div className="fixed bottom-0 left-0 w-96 h-96 bg-indigo-100 rounded-full mix-blend-multiply filter blur-3xl opacity-20 -z-10"></div>

@@ -11,16 +11,17 @@ import {
   faChalkboardTeacher, 
   faCheck, 
   faTimes,
-  faBook,
-  faComment,
-  faAward,
-  faUniversity,
-  faShield,
+  // faBook,
+  // faComment,
+  // faAward,
+  // faUniversity,
+  // faShield,
   faUserGraduate,
   faChevronRight,
   faCertificate,
   faHandshake
 } from '@fortawesome/free-solid-svg-icons';
+import SimpleLanguageSwitcher from '../components/SimpleLanguageSwitcher';
 
 export default function Register() {
   const navigate = useNavigate();
@@ -116,6 +117,11 @@ export default function Register() {
           <div className="absolute bottom-0 left-0 bg-white w-96 h-96 rounded-full -ml-40 -mb-40 opacity-10"></div>
           <div className="absolute top-1/3 left-20 w-20 h-20 bg-white rounded-full opacity-10"></div>
           <div className="absolute bottom-1/3 right-20 w-24 h-24 bg-white rounded-full opacity-10"></div>
+        </div>
+        
+        {/* 语言切换器 */}
+        <div className="absolute top-4 right-4 z-20">
+          <SimpleLanguageSwitcher />
         </div>
         
         {/* 内容区域 */}

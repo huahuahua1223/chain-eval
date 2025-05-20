@@ -8,17 +8,18 @@ import {
   faExclamationCircle, 
   faInfoCircle, 
   faGraduationCap,
-  faChalkboardTeacher,
-  faBook,
+  // faChalkboardTeacher,
+  // faBook,
   faComment,
-  faAward,
-  faUniversity,
+  // faAward,
+  // faUniversity,
   faCheckCircle,
   faChartLine,
   faShieldAlt,
   faIdCard
 } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
+import SimpleLanguageSwitcher from '../components/SimpleLanguageSwitcher';
 
 export default function Login() {
   const navigate = useNavigate();
@@ -61,6 +62,11 @@ export default function Login() {
           <div className="absolute bottom-0 left-0 bg-white w-96 h-96 rounded-full -ml-40 -mb-40 opacity-10"></div>
           <div className="absolute top-1/4 left-10 w-16 h-16 bg-white rounded-full opacity-10"></div>
           <div className="absolute top-1/3 right-10 w-24 h-24 bg-white rounded-full opacity-10"></div>
+        </div>
+        
+        {/* 语言切换器 */}
+        <div className="absolute top-4 right-4 z-20">
+          <SimpleLanguageSwitcher />
         </div>
         
         {/* 内容区域 */}
