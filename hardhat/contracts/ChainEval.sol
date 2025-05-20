@@ -29,6 +29,7 @@ contract ChainEval is Ownable, ReentrancyGuard {
     
     // 评价结构体
     struct Evaluation {
+        uint256 courseId;   // 课程ID
         uint8 score;        // 评分(1-5)
         string comment;     // 评论
         uint256 timestamp;  // 评价时间
@@ -42,7 +43,6 @@ contract ChainEval is Ownable, ReentrancyGuard {
     Course[] public courses; // 改为数组存储课程
     mapping(uint256 => mapping(address => bool)) public studentCourses; // 学生是否修过某门课
     mapping(uint256 => Evaluation[]) public courseEvaluations; // 课程评价列表
-    mapping(address => uint256[]) public studentEvaluationIds; // 学生的评价ID列表
     mapping(string => bool) public usedUserIds; // 记录已使用的学号/工号
     
     // 事件
@@ -188,6 +188,7 @@ contract ChainEval is Ownable, ReentrancyGuard {
         require(_score >= 1 && _score <= 5, "Score must be between 1 and 5");
         
         Evaluation memory newEvaluation = Evaluation({
+            courseId: _courseId,
             score: _score,
             comment: _comment,
             timestamp: block.timestamp,
@@ -196,7 +197,6 @@ contract ChainEval is Ownable, ReentrancyGuard {
         });
         
         courseEvaluations[_courseId].push(newEvaluation);
-        studentEvaluationIds[msg.sender].push(_courseId);
         
         emit EvaluationSubmitted(_courseId, msg.sender, _score);
     }
@@ -211,16 +211,15 @@ contract ChainEval is Ownable, ReentrancyGuard {
     function getStudentEvaluations() external view returns (Evaluation[] memory) {
         require(users[msg.sender].role == Role.Student, "Not a student");
         
-        uint256[] memory evaluationIds = studentEvaluationIds[msg.sender];
         uint256 totalEvaluations = 0;
         
         // 计算学生所有课程评价的总数
-        for (uint256 i = 0; i < evaluationIds.length; i++) {
-            uint256 courseId = evaluationIds[i];
-            for (uint256 j = 0; j < courseEvaluations[courseId].length; j++) {
-                if (courseEvaluations[courseId][j].student == msg.sender || 
-                    (courseEvaluations[courseId][j].isAnonymous && courseEvaluations[courseId][j].student == address(0))) {
-                    totalEvaluations++;
+        for (uint256 courseId = 0; courseId < courses.length; courseId++) {
+            if (studentCourses[courseId][msg.sender]) { // 只检查学生修过的课程
+                for (uint256 j = 0; j < courseEvaluations[courseId].length; j++) {
+                    if (courseEvaluations[courseId][j].student == msg.sender) {
+                        totalEvaluations++;
+                    }
                 }
             }
         }
@@ -230,13 +229,13 @@ contract ChainEval is Ownable, ReentrancyGuard {
         uint256 resultIndex = 0;
         
         // 填充结果数组
-        for (uint256 i = 0; i < evaluationIds.length; i++) {
-            uint256 courseId = evaluationIds[i];
-            for (uint256 j = 0; j < courseEvaluations[courseId].length; j++) {
-                if (courseEvaluations[courseId][j].student == msg.sender || 
-                    (courseEvaluations[courseId][j].isAnonymous && courseEvaluations[courseId][j].student == address(0))) {
-                    result[resultIndex] = courseEvaluations[courseId][j];
-                    resultIndex++;
+        for (uint256 courseId = 0; courseId < courses.length; courseId++) {
+            if (studentCourses[courseId][msg.sender]) { // 只检查学生修过的课程
+                for (uint256 j = 0; j < courseEvaluations[courseId].length; j++) {
+                    if (courseEvaluations[courseId][j].student == msg.sender) {
+                        result[resultIndex] = courseEvaluations[courseId][j];
+                        resultIndex++;
+                    }
                 }
             }
         }
