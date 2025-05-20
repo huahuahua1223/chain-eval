@@ -26,6 +26,7 @@ const Users: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
+  const [selectedRole, setSelectedRole] = useState<number | null>(null);
   const [showAnimation, setShowAnimation] = useState(false);
 
   useEffect(() => {
@@ -86,10 +87,17 @@ const Users: React.FC = () => {
   };
 
   // 筛选用户
-  const filteredUsers = users.filter(user => 
-    user.id.toLowerCase().includes(searchTerm.toLowerCase()) || 
-    user.email.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredUsers = users.filter((user: User) => {
+    // 搜索条件筛选
+    const matchesSearch = 
+      user.id.toLowerCase().includes(searchTerm.toLowerCase()) || 
+      user.email.toLowerCase().includes(searchTerm.toLowerCase());
+    
+    // 角色筛选
+    const matchesRole = selectedRole === null || Number(user.role) === selectedRole;
+    
+    return matchesSearch && matchesRole;
+  });
 
   if (loading) {
     return (
@@ -149,20 +157,86 @@ const Users: React.FC = () => {
         </div>
       </div>
 
-      {/* 搜索卡片 */}
+      {/* 搜索和筛选卡片 */}
       <div className="bg-white rounded-2xl shadow-md p-6 border border-gray-100">
-        <div className="relative">
-          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-            <FontAwesomeIcon icon={faSearch} className="h-5 w-5 text-gray-400" />
+        <div className="flex flex-col md:flex-row gap-4">
+          {/* 搜索框 */}
+          <div className="relative flex-1">
+            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <FontAwesomeIcon icon={faSearch} className="h-5 w-5 text-gray-400" />
+            </div>
+            <input
+              type="text"
+              className="bg-gray-50 border border-gray-200 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-10 p-3"
+              placeholder="搜索用户ID或邮箱..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
           </div>
-          <input
-            type="text"
-            className="bg-gray-50 border border-gray-200 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-10 p-3"
-            placeholder="搜索用户ID或邮箱..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
+          
+          {/* 角色筛选 */}
+          <div className="flex flex-wrap gap-2">
+            <button
+              onClick={() => setSelectedRole(null)}
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors border ${
+                selectedRole === null
+                  ? 'bg-indigo-500 text-white border-indigo-600'
+                  : 'bg-white text-gray-700 border-gray-200 hover:bg-gray-50'
+              }`}
+            >
+              全部
+            </button>
+            <button
+              onClick={() => setSelectedRole(0)}
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors border flex items-center ${
+                selectedRole === 0
+                  ? 'bg-blue-500 text-white border-blue-600'
+                  : 'bg-white text-gray-700 border-gray-200 hover:bg-gray-50'
+              }`}
+            >
+              <FontAwesomeIcon icon={faGraduationCap} className={`h-4 w-4 mr-2 ${selectedRole === 0 ? 'text-white' : 'text-blue-500'}`} />
+              学生
+            </button>
+            <button
+              onClick={() => setSelectedRole(1)}
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors border flex items-center ${
+                selectedRole === 1
+                  ? 'bg-green-500 text-white border-green-600'
+                  : 'bg-white text-gray-700 border-gray-200 hover:bg-gray-50'
+              }`}
+            >
+              <FontAwesomeIcon icon={faChalkboardTeacher} className={`h-4 w-4 mr-2 ${selectedRole === 1 ? 'text-white' : 'text-green-500'}`} />
+              教师
+            </button>
+            <button
+              onClick={() => setSelectedRole(2)}
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors border flex items-center ${
+                selectedRole === 2
+                  ? 'bg-red-500 text-white border-red-600'
+                  : 'bg-white text-gray-700 border-gray-200 hover:bg-gray-50'
+              }`}
+            >
+              <FontAwesomeIcon icon={faShieldAlt} className={`h-4 w-4 mr-2 ${selectedRole === 2 ? 'text-white' : 'text-red-500'}`} />
+              管理员
+            </button>
+          </div>
         </div>
+        
+        {/* 清除筛选按钮 - 当有搜索词或选择了角色时显示 */}
+        {(searchTerm || selectedRole !== null) && (
+          <div className="mt-4 flex justify-end">
+            <button
+              onClick={() => {
+                setSearchTerm('');
+                setSelectedRole(null);
+              }}
+              className="text-sm text-indigo-600 hover:text-indigo-800 flex items-center"
+            >
+              <FontAwesomeIcon icon={faTimes} className="h-3 w-3 mr-1" />
+              清除筛选
+            </button>
+          </div>
+        )}
       </div>
 
       {/* 用户列表卡片 */}
