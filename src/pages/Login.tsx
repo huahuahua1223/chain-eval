@@ -170,7 +170,7 @@ export default function Login() {
               <div className="space-y-4">
                 <div className="group">
                   <label htmlFor="userId" className="block text-sm font-medium text-gray-700 mb-1">
-                    用户ID
+                    学号/工号
                   </label>
                   <div className="mt-1 relative rounded-lg shadow-sm">
                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -182,7 +182,7 @@ export default function Login() {
                       type="text"
                       required
                       className="form-input h-10 text-sm pl-10 rounded-lg border border-gray-300 focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 block w-full"
-                      placeholder="请输入用户ID"
+                      placeholder="请输入学号或工号"
                       value={id}
                       onChange={(e) => setId(e.target.value)}
                     />

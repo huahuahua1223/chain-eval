@@ -2206,5 +2206,77 @@
 		"en": "D:/hjy/study/Complex software system practical learning/workspace/ChainEval/src/pages/Evaluations.tsx",
 		"ko": "D :/HJY/Study/Complex Software System 실제 학습/작업 공간/ChaineVal/Src/Pages/Evaluations.tsx",
 		"ja": "D：/HJY/Study/Complex Software System実践的な学習/ワークスペース/Chaineval/Src/Pages/evaluations.tsx"
+	},
+	"vscfaq8": {
+		"zh-cn": "请输入学号或工号",
+		"en": "Please enter your student number or work number",
+		"ko": "학생 번호 또는 직장 번호를 입력하십시오",
+		"ja": "学生番号または作業番号を入力してください"
+	},
+	"ny655i1v": {
+		"zh-cn": "D:/hjy/study/复杂软件系统实践学习/workspace/ChainEval/src/pages/Dashboard.tsx",
+		"en": "D:/hjy/study/Complex software system practical learning/workspace/ChainEval/src/pages/Dashboard.tsx",
+		"ko": "D :/HJY/Study/Complex Software System 실제 학습/작업 공간/ChaineVal/Src/Pages/Dashboard.tsx",
+		"ja": "D：/HJY/Study/Complex Software System実践的な学習/ワークスペース/Chaineval/Src/Pages/DashBoard.tsx"
+	},
+	"jeeuly1x": {
+		"zh-cn": "D:/hjy/study/复杂软件系统实践学习/workspace/ChainEval/src/components/Navbar.tsx",
+		"en": "D:/hjy/study/Practical Learning of Complex Software Systems/workspace/ChainEval/src/components/Navbar.tsx",
+		"ko": "D :/HJY/연구/복잡한 소프트웨어 시스템/작업 공간/ChaineVal/Src/Components/Navbar.tsx의 실용 학습",
+		"ja": "D：/HJY/Study/複雑なソフトウェアシステム/Workspace/Chaineval/SRC/Components/navbar.tsxの実用的な学習"
+	},
+	"35dx3d5": {
+		"zh-cn": "语言设置:",
+		"en": "Language settings:",
+		"ko": "언어 설정 :",
+		"ja": "言語設定："
+	},
+	"7a0y3r2h": {
+		"zh-cn": "D:/hjy/study/复杂软件系统实践学习/workspace/ChainEval/src/components/SimpleLanguageSwitcherDark.tsx",
+		"en": "D:/hjy/study/Complex Software System Practical Learning/workspace/ChainEval/src/components/SimpleLanguageSwitcherDark.tsx",
+		"ko": "D :/HJY/Study/Study/Complex Software System 실제 학습/작업 공간/ChaineVal/SRC/구성 요소/SimplelAnguagesWitcherdark.tsx",
+		"ja": "D：/HJY/Study/Complex Software System実践的な学習/ワークスペース/ChainEval/SRC/Components/SimplelanguagesWitcherDark.tsx"
+	},
+	"dure2": {
+		"zh-cn": "中文",
+		"en": "Chinese",
+		"ko": "중국인",
+		"ja": "中国語"
+	},
+	"7opgbz2d": {
+		"zh-cn": "D:/hjy/study/复杂软件系统实践学习/workspace/ChainEval/src/components/SimpleLanguageSwitcher.tsx",
+		"en": "D:/hjy/study/Complex Software System Practical Learning/workspace/ChainEval/src/components/SimpleLanguageSwitcher.tsx",
+		"ko": "D :/HJY/Study/Study/Complex Software System 실제 학습/작업 공간/ChaineVal/Src/Components/SimplelanguagesWitcher.tsx",
+		"ja": "D：/HJY/Study/Complex Software System実践的な学習/ワークスペース/ChainEval/SRC/Components/SimplelanguagesWitcher.tsx"
+	},
+	"vsi6h426": {
+		"zh-cn": "D:/hjy/study/复杂软件系统实践学习/workspace/ChainEval/src/components/EditCourseModal.tsx",
+		"en": "D:/hjy/study/Practical Learning of Complex Software Systems/workspace/ChainEval/src/components/EditCourseModal.tsx",
+		"ko": "D :/HJY/연구/복잡한 소프트웨어 시스템/작업 공간/ChaineVal/Src/Components/editCoursemodal.tsx의 실용 학습",
+		"ja": "D：/HJY/Study/複雑なソフトウェアシステム/Workspace/ChainEval/SRC/Components/EditCoursemodal.tsxの実用的な学習"
+	},
+	"8qofmx25": {
+		"zh-cn": "D:/hjy/study/复杂软件系统实践学习/workspace/ChainEval/src/components/AddCourseModal.tsx",
+		"en": "D:/hjy/study/Practical Learning of Complex Software Systems/workspace/ChainEval/src/components/AddCourseModal.tsx",
+		"ko": "D :/HJY/연구/복잡한 소프트웨어 시스템/작업 공간/ChainEval/Src/Components/AddCoursemodal.tsx의 실용 학습",
+		"ja": "D：/HJY/Study/複雑なソフトウェアシステム/Workspace/ChainEval/SRC/Components/AddCourseModal.tsxの実用的な学習"
+	},
+	"4dp7oh26": {
+		"zh-cn": "D:/hjy/study/复杂软件系统实践学习/workspace/ChainEval/src/components/EvaluationModal.tsx",
+		"en": "D:/hjy/study/Practical Learning of Complex Software Systems/workspace/ChainEval/src/components/EvaluationModal.tsx",
+		"ko": "D :/HJY/연구/복잡한 소프트웨어 시스템/작업 공간/ChaineVal/Src/Components/EvaluationModal.tsx의 실용 학습",
+		"ja": "d：/hjy/勉強/複雑なソフトウェアシステム/workspace/chaineval/src/components/evaluationmodal.tsxの実用的な学習"
+	},
+	"sdmrup27": {
+		"zh-cn": "D:/hjy/study/复杂软件系统实践学习/workspace/ChainEval/src/components/LanguageSwitcher.tsx",
+		"en": "D:/hjy/study/Complex Software System Practical Learning/workspace/ChainEval/src/components/LanguageSwitcher.tsx",
+		"ko": "D :/HJY/Study/Complex Software System 실제 학습/작업 공간/ChaineVal/Src/Components/LanguagesWitcher.tsx",
+		"ja": "D：/HJY/Study/Complex Software System Practical Learning/Workspace/Chaineval/Src/Components/LanguagesWitcher.tsx"
+	},
+	"fflhz3": {
+		"zh-cn": "日本語",
+		"en": "Japanese",
+		"ko": "일본어",
+		"ja": "日本語"
 	}
 }
