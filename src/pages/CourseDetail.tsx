@@ -212,6 +212,13 @@ export default function CourseDetail() {
     return null;
   }
 
+  // 计算平均评分
+  const getAverageRating = () => {
+    if (!evaluations || evaluations.length === 0) return 0;
+    const sum = evaluations.reduce((acc, evaluation) => acc + evaluation.rating, 0);
+    return (sum / evaluations.length).toFixed(1);
+  };
+
   return (
     <div className={`space-y-8 transition-opacity duration-700 ${showAnimation ? 'opacity-100' : 'opacity-0'}`}>
       {/* 返回按钮 */}
@@ -287,6 +294,55 @@ export default function CourseDetail() {
               </div>
               <p className="text-2xl font-bold text-gray-700">{students.length}</p>
             </div>
+          </div>
+
+          {/* 课程综合评分区域 */}
+          <div className="mt-6 bg-gradient-to-br from-amber-50 to-orange-50 p-5 rounded-xl border border-amber-100 shadow-sm">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-3">
+                <div className="bg-amber-100 p-3 rounded-lg">
+                  <FontAwesomeIcon icon={faStar} className="text-amber-500 h-5 w-5" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-800">课程综合评分</h3>
+                  <p className="text-sm text-gray-500">基于 {evaluations.length} 条评价</p>
+                </div>
+              </div>
+              
+              <div className="flex items-end">
+                <span className="text-3xl font-bold text-amber-600">{getAverageRating()}</span>
+                <span className="text-lg text-amber-500 ml-1">/5</span>
+              </div>
+            </div>
+            
+            {evaluations.length > 0 && (
+              <div className="mt-4">
+                <div className="w-full bg-gray-200 h-2 rounded-full overflow-hidden">
+                  <div 
+                    className="bg-gradient-to-r from-amber-400 to-amber-500 h-full rounded-full" 
+                    style={{ width: `${(Number(getAverageRating()) / 5) * 100}%` }}
+                  ></div>
+                </div>
+                <div className="flex justify-between mt-1">
+                  <div className="flex space-x-1">
+                    {[1, 2, 3, 4, 5].map((_, i) => (
+                      <FontAwesomeIcon 
+                        key={i} 
+                        icon={faStar} 
+                        className={`h-3 w-3 ${i < Number(getAverageRating()) ? 'text-amber-400' : 'text-gray-300'}`} 
+                      />
+                    ))}
+                  </div>
+                  <span className="text-xs text-gray-500">{evaluations.length} 人评价</span>
+                </div>
+              </div>
+            )}
+            
+            {evaluations.length === 0 && (
+              <div className="mt-2 text-sm text-gray-500 italic">
+                暂无评价，课程评分将在收到学生评价后显示
+              </div>
+            )}
           </div>
         </div>
       </div>
