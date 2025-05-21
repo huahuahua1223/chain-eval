@@ -143,6 +143,11 @@ export default function Navbar() {
           to: '/mark-student-courses',
           text: '标记学生课程',
           icon: faGraduationCap
+        },
+        {
+          to: '/course-evaluations',
+          text: '课程评价',
+          icon: faClipboardList
         }
       ]
     };

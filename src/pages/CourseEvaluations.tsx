@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getCurrentUserInfo, getTeacherCourses, getCourseEvaluations } from '../utils/contract';
+import { getCurrentUserInfo, getTeacherCourses, getCourseEvaluations, getAllCourses } from '../utils/contract';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
   faClipboardList, 
@@ -68,21 +68,29 @@ export default function CourseEvaluations() {
         console.log("用户信息:", userInfo);
         setUser(userInfo);
 
-        // 检查用户角色是否为教师
-        if (Number(userInfo.role) !== 1) {
-          setError('只有教师可以访问此页面');
+        // 检查用户角色是否为教师或管理员
+        if (Number(userInfo.role) !== 1 && Number(userInfo.role) !== 2) {
+          setError('只有教师或管理员可以访问此页面');
           setLoading(false);
           return;
         }
 
-        // 获取教师课程列表
-        const teacherCourses = await getTeacherCourses() as unknown as Course[];
-        console.log("教师课程:", teacherCourses);
-        setCourses(teacherCourses);
+        let courseList: Course[] = [];
+        
+        // 根据角色获取课程列表
+        if (Number(userInfo.role) === 1) { // 教师
+          courseList = await getTeacherCourses() as unknown as Course[];
+          console.log("教师课程:", courseList);
+        } else { // 管理员
+          courseList = await getAllCourses() as unknown as Course[];
+          console.log("所有课程:", courseList);
+        }
+        
+        setCourses(courseList);
 
         // 如果有课程，默认选中第一个
-        if (teacherCourses && teacherCourses.length > 0) {
-          setSelectedCourseId(teacherCourses[0].id);
+        if (courseList && courseList.length > 0) {
+          setSelectedCourseId(courseList[0].id);
         }
 
         setLoading(false);
@@ -289,7 +297,11 @@ export default function CourseEvaluations() {
             </div>
             <div>
               <h1 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-indigo-600">课程评价查看</h1>
-              <p className="text-gray-500">查看您教授的课程获得的学生评价</p>
+              <p className="text-gray-500">
+                {Number(user?.role) === 1 
+                  ? "查看您教授的课程获得的学生评价" 
+                  : "查看所有课程的学生评价情况"}
+              </p>
             </div>
           </div>
           <div className="bg-indigo-50 px-4 py-2 rounded-full border border-indigo-100 text-sm font-medium text-indigo-700 shadow-sm">
@@ -340,6 +352,11 @@ export default function CourseEvaluations() {
                           <span className="bg-yellow-50 text-yellow-700 px-2 py-0.5 rounded-full text-xs font-medium border border-yellow-100">
                             {String(course.credits)} 学分
                           </span>
+                          {Number(user?.role) === 2 && ( // 只有管理员才显示教师信息
+                            <span className="bg-green-50 text-green-700 px-2 py-0.5 rounded-full text-xs font-medium border border-green-100">
+                              教师: {course.teacher.substr(0, 6)}...{course.teacher.substr(-4)}
+                            </span>
+                          )}
                         </div>
                       </div>
                     </div>

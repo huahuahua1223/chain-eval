@@ -793,6 +793,15 @@ export default function Dashboard() {
                 </div>
                 <p className="text-sm font-medium text-gray-800">分配课程</p>
               </div>
+              <div 
+                className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-4 border border-blue-100 hover:shadow-md transition-all cursor-pointer flex flex-col items-center justify-center"
+                onClick={() => navigate('/course-evaluations')}
+              >
+                <div className="bg-gradient-to-r from-blue-400 to-indigo-500 p-3 rounded-lg shadow-sm mb-2">
+                  <FontAwesomeIcon icon={faClipboardList} className="h-5 w-5 text-white" />
+                </div>
+                <p className="text-sm font-medium text-gray-800">课程评价</p>
+              </div>
             </>
           )}
         </div>
