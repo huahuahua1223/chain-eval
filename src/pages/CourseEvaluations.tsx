@@ -16,6 +16,7 @@ import {
   faSortAmountUp,
   faSort
 } from '@fortawesome/free-solid-svg-icons';
+import EvaluationWordCloud from '../components/EvaluationWordCloud';
 
 // 定义用户结构体类型
 interface User {
@@ -534,6 +535,16 @@ export default function CourseEvaluations() {
           </div>
         </div>
       </div>
+
+      {/* 词频统计与PDF生成 */}
+      {evaluations.length > 0 && (
+        <div className="mt-8">
+          <EvaluationWordCloud 
+            evaluations={evaluations}
+            courseName={getSelectedCourseName()}
+          />
+        </div>
+      )}
     </div>
   );
 } 
