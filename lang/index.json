@@ -2284,5 +2284,533 @@
 		"en": "",
 		"ko": "",
 		"ja": ""
+	},
+	"bopftx6": {
+		"zh-cn": "课程综合评分",
+		"en": "Comprehensive course rating",
+		"ko": "포괄적 인 코스 등급",
+		"ja": "包括的なコース評価"
+	},
+	"fe8k2": {
+		"zh-cn": "基于",
+		"en": "based on",
+		"ko": "기반",
+		"ja": "に基づく"
+	},
+	"c7bvx3": {
+		"zh-cn": "人评价",
+		"en": "People's evaluation",
+		"ko": "사람들의 평가",
+		"ja": "人々の評価"
+	},
+	"jnqjtkk": {
+		"zh-cn": "暂无评价，课程评分将在收到学生评价后显示",
+		"en": "No reviews yet, course scores will be displayed after receiving student reviews",
+		"ko": "아직 리뷰가 없으며, 학생 리뷰를받은 후 코스 점수가 표시됩니다.",
+		"ja": "レビューはまだありません、学生のレビューを受け取った後、コーススコアが表示されます"
+	},
+	"zibym9f": {
+		"zh-cn": "只有教师或管理员可以访问此页面",
+		"en": "Only teachers or administrators can access this page",
+		"ko": "교사 나 관리자만이 페이지에 액세스 할 수 있습니다",
+		"ja": "このページにアクセスできる教師または管理者のみがアクセスできます"
+	},
+	"epb4sd": {
+		"zh-cn": "查看所有课程的学生评价情况",
+		"en": "View student evaluations for all courses",
+		"ko": "모든 과정에 대한 학생 평가를보십시오",
+		"ja": "すべてのコースの学生評価を表示します"
+	},
+	"rliyw77": {
+		"zh-cn": "获取课程ID ",
+		"en": "Get course ID",
+		"ko": "코스 ID를 얻으십시오",
+		"ja": "コースIDを取得します"
+	},
+	"j8lanx7": {
+		"zh-cn": " 的详情失败:",
+		"en": "Details failed:",
+		"ko": "세부 사항 실패 :",
+		"ja": "詳細が失敗しました："
+	},
+	"l2xo33": {
+		"zh-cn": "课程 ",
+		"en": "course",
+		"ko": "강의",
+		"ja": "コース"
+	},
+	"fezfi3": {
+		"zh-cn": "无数据",
+		"en": "No data",
+		"ko": "데이터가 없습니다",
+		"ja": "データなし"
+	},
+	"i65bfz4": {
+		"zh-cn": "课程统计",
+		"en": "Course statistics",
+		"ko": "코스 통계",
+		"ja": "コース統計"
+	},
+	"avnawu6": {
+		"zh-cn": "已评价课程数",
+		"en": "Number of courses evaluated",
+		"ko": "평가 된 과정 수",
+		"ja": "評価されたコースの数"
+	},
+	"wqrpjt6": {
+		"zh-cn": "最高评分课程",
+		"en": "Highest rated course",
+		"ko": "최고 등급의 과정",
+		"ja": "最高評価のコース"
+	},
+	"1nqfn39": {
+		"zh-cn": "当前筛选课程的统计",
+		"en": "Statistics for current filtered courses",
+		"ko": "현재 필터링 코스에 대한 통계",
+		"ja": "現在のフィルタリングコースの統計"
+	},
+	"bv0q9j4": {
+		"zh-cn": "学分 ·",
+		"en": "Credits ·",
+		"ko": "크레딧 ·",
+		"ja": "クレジット・"
+	},
+	"lq5q43": {
+		"zh-cn": "进行中",
+		"en": "in progress",
+		"ko": "진행 중",
+		"ja": "進行中"
+	},
+	"edie63": {
+		"zh-cn": "已结束",
+		"en": "Ended",
+		"ko": "끝났다",
+		"ja": "終了しました"
+	},
+	"e9bo23": {
+		"zh-cn": "平均分",
+		"en": "Average score",
+		"ko": "평균 점수",
+		"ja": "平均スコア"
+	},
+	"kuyvx3": {
+		"zh-cn": "评价数",
+		"en": "Number of evaluations",
+		"ko": "평가 수",
+		"ja": "評価の数"
+	},
+	"i64qsb4": {
+		"zh-cn": "课程筛选",
+		"en": "Course Filter",
+		"ko": "코스 필터",
+		"ja": "コースフィルター"
+	},
+	"avjf4d4": {
+		"zh-cn": "全部课程",
+		"en": "All courses",
+		"ko": "모든 과정",
+		"ja": "すべてのコース"
+	},
+	"jiyfbu6": {
+		"zh-cn": "清除课程筛选",
+		"en": "Clear course filter",
+		"ko": "클리어 코스 필터",
+		"ja": "クリアコースフィルター"
+	},
+	"ko4x4fb": {
+		"zh-cn": "正在加载课程信息...",
+		"en": "Loading course information...",
+		"ko": "코스 정보로드 ...",
+		"ja": "コース情報の読み込み..."
+	},
+	"l2xo53": {
+		"zh-cn": "课程\"",
+		"en": "course\"",
+		"ko": "강의\"",
+		"ja": "コース\""
+	},
+	"c8ae4t6": {
+		"zh-cn": "清除全部筛选",
+		"en": "Clear all filters",
+		"ko": "모든 필터를 지우십시오",
+		"ja": "すべてのフィルターをクリアします"
+	},
+	"gbfhzra": {
+		"zh-cn": "学分 · 课程ID:",
+		"en": "Credits · Course ID:",
+		"ko": "크레딧 · 코스 ID :",
+		"ja": "クレジット・コースID："
+	},
+	"a1pyp65": {
+		"zh-cn": "未找到在\"",
+		"en": "Not found in \"",
+		"ko": "\"찾기 없음\"",
+		"ja": "で見つかりません」"
+	},
+	"enbt3": {
+		"zh-cn": "\"中的",
+		"en": "\"The one in the middle",
+		"ko": "\"중간",
+		"ja": "「真ん中のもの"
+	},
+	"emcu2": {
+		"zh-cn": "匿名",
+		"en": "anonymous",
+		"ko": "익명의",
+		"ja": "匿名"
+	},
+	"g1m72": {
+		"zh-cn": "实名",
+		"en": "Real name",
+		"ko": "진짜 이름",
+		"ja": "本名"
+	},
+	"r4lbjb6": {
+		"zh-cn": "未找到课程\"",
+		"en": "No course found\"",
+		"ko": "코스가 발견되지 않았다 \"",
+		"ja": "コースは見つかりません」"
+	},
+	"8rosa6": {
+		"zh-cn": "\"的评价记录",
+		"en": "\"Evaluation record",
+		"ko": "\"평가 기록",
+		"ja": "「評価記録"
+	},
+	"fl6os3": {
+		"zh-cn": "未找到",
+		"en": "not found",
+		"ko": "찾을 수 없습니다",
+		"ja": "見つかりません"
+	},
+	"nes1": {
+		"zh-cn": "的",
+		"en": "of",
+		"ko": "~의",
+		"ja": "の"
+	},
+	"fie1": {
+		"zh-cn": "了",
+		"en": "It's",
+		"ko": "그것은",
+		"ja": "その"
+	},
+	"gp81": {
+		"zh-cn": "和",
+		"en": "and",
+		"ko": "그리고",
+		"ja": "そして"
+	},
+	"k6n1": {
+		"zh-cn": "是",
+		"en": "yes",
+		"ko": "예",
+		"ja": "はい"
+	},
+	"i7l1": {
+		"zh-cn": "就",
+		"en": "At once",
+		"ko": "한 번에",
+		"ja": "すぐに"
+	},
+	"sn11": {
+		"zh-cn": "都",
+		"en": "All",
+		"ko": "모두",
+		"ja": "全て"
+	},
+	"pak1": {
+		"zh-cn": "而",
+		"en": "and",
+		"ko": "그리고",
+		"ja": "そして"
+	},
+	"gju1": {
+		"zh-cn": "及",
+		"en": "and",
+		"ko": "그리고",
+		"ja": "そして"
+	},
+	"ff21": {
+		"zh-cn": "与",
+		"en": "and",
+		"ko": "그리고",
+		"ja": "そして"
+	},
+	"nk01": {
+		"zh-cn": "着",
+		"en": "Put",
+		"ko": "놓다",
+		"ja": "置く"
+	},
+	"jdi1": {
+		"zh-cn": "或",
+		"en": "or",
+		"ko": "또는",
+		"ja": "または"
+	},
+	"dp2i2": {
+		"zh-cn": "一个",
+		"en": "one",
+		"ko": "하나",
+		"ja": "1つ"
+	},
+	"j1jc2": {
+		"zh-cn": "没有",
+		"en": "No",
+		"ko": "아니요",
+		"ja": "いいえ"
+	},
+	"h43f2": {
+		"zh-cn": "我们",
+		"en": "us",
+		"ko": "우리를",
+		"ja": "私たち"
+	},
+	"dxn02": {
+		"zh-cn": "你们",
+		"en": "you",
+		"ko": "너",
+		"ja": "あなた"
+	},
+	"duc62": {
+		"zh-cn": "他们",
+		"en": "them",
+		"ko": "그들을",
+		"ja": "彼ら"
+	},
+	"ivc1": {
+		"zh-cn": "很",
+		"en": "very",
+		"ko": "매우",
+		"ja": "とても"
+	},
+	"hod1": {
+		"zh-cn": "好",
+		"en": "good",
+		"ko": "좋은",
+		"ja": "良い"
+	},
+	"h7s1": {
+		"zh-cn": "在",
+		"en": "exist",
+		"ko": "존재하다",
+		"ja": "存在する"
+	},
+	"kcp1": {
+		"zh-cn": "有",
+		"en": "have",
+		"ko": "가지다",
+		"ja": "持っている"
+	},
+	"sex1": {
+		"zh-cn": "这",
+		"en": "this",
+		"ko": "이것",
+		"ja": "これ"
+	},
+	"skj1": {
+		"zh-cn": "那",
+		"en": "That",
+		"ko": "저것",
+		"ja": "それ"
+	},
+	"fhb1": {
+		"zh-cn": "也",
+		"en": "also",
+		"ko": "또한",
+		"ja": "また"
+	},
+	"sew1": {
+		"zh-cn": "还",
+		"en": "return",
+		"ko": "반품",
+		"ja": "戻る"
+	},
+	"fnq1": {
+		"zh-cn": "但",
+		"en": "but",
+		"ko": "하지만",
+		"ja": "しかし"
+	},
+	"fska2": {
+		"zh-cn": "如果",
+		"en": "if",
+		"ko": "만약에",
+		"ja": "もし"
+	},
+	"f7fe2": {
+		"zh-cn": "因为",
+		"en": "because",
+		"ko": "왜냐하면",
+		"ja": "なぜなら"
+	},
+	"h57p2": {
+		"zh-cn": "所以",
+		"en": "so",
+		"ko": "그래서",
+		"ja": "それで"
+	},
+	"kd4t2": {
+		"zh-cn": "由于",
+		"en": "because",
+		"ko": "왜냐하면",
+		"ja": "なぜなら"
+	},
+	"jpug2": {
+		"zh-cn": "然后",
+		"en": "Then",
+		"ko": "그 다음에",
+		"ja": "それから"
+	},
+	"epjq2": {
+		"zh-cn": "可以",
+		"en": "Can",
+		"ko": "할 수 있다",
+		"ja": "できる"
+	},
+	"ff11": {
+		"zh-cn": "不",
+		"en": "No",
+		"ko": "아니요",
+		"ja": "いいえ"
+	},
+	"owa92": {
+		"zh-cn": "这个",
+		"en": "this",
+		"ko": "이것",
+		"ja": "これ"
+	},
+	"dp5n2": {
+		"zh-cn": "一些",
+		"en": "Some",
+		"ko": "일부",
+		"ja": "いくつかの"
+	},
+	"owde2": {
+		"zh-cn": "这些",
+		"en": "These",
+		"ko": "이것들",
+		"ja": "これら"
+	},
+	"p17c2": {
+		"zh-cn": "那些",
+		"en": "Those ones",
+		"ko": "그 사람들",
+		"ja": "それらです"
+	},
+	"dtoo2": {
+		"zh-cn": "什么",
+		"en": "What",
+		"ko": "무엇",
+		"ja": "何"
+	},
+	"bub7m3": {
+		"zh-cn": "为什么",
+		"en": "Why",
+		"ko": "왜",
+		"ja": "なぜ"
+	},
+	"8vhrxn8": {
+		"zh-cn": "生成词频统计失败",
+		"en": "Failed to generate word frequency statistics",
+		"ko": "단어 주파수 통계를 생성하지 못했습니다",
+		"ja": "単語周波数統計を生成できませんでした"
+	},
+	"q9fi5r9": {
+		"zh-cn": "》课程评价词频统计",
+		"en": "》 Course evaluation word frequency statistics",
+		"ko": "course 코스 평가 단어 빈도 통계",
+		"ja": "courseコース評価単語周波数統計"
+	},
+	"niy4zi8": {
+		"zh-cn": "统计信息：基于 ",
+		"en": "Statistics: Based on",
+		"ko": "통계 : 기준",
+		"ja": "統計：に基づいています"
+	},
+	"574nfx6": {
+		"zh-cn": " 条学生评价",
+		"en": "Student evaluation",
+		"ko": "학생 평가",
+		"ja": "学生の評価"
+	},
+	"qgz0ph5": {
+		"zh-cn": "生成时间：",
+		"en": "Generation time:",
+		"ko": "생성 시간 :",
+		"ja": "生成時間："
+	},
+	"ctujacj": {
+		"zh-cn": "课链智评 - 基于区块链的课程评价系统",
+		"en": "Course Chain Intelligent Evaluation - A Blockchain-based Course Evaluation System",
+		"ko": "코스 체인 지능형 평가 - 블록 체인 기반 과정 평가 시스템",
+		"ja": "コースチェーンインテリジェント評価 - ブロックチェーンベースのコース評価システム"
+	},
+	"y7lkorb": {
+		"zh-cn": "导出PDF失败，请重试",
+		"en": "Export PDF failed, please try again",
+		"ko": "PDF 내보내기 실패, 다시 시도하십시오",
+		"ja": "PDFのエクスポートに失敗しました。もう一度やり直してください"
+	},
+	"ipfe3bf": {
+		"zh-cn": "暂无评价数据，无法生成词频统计",
+		"en": "No evaluation data yet, no word frequency statistics can be generated",
+		"ko": "아직 평가 데이터가 없으며 단어 주파수 통계를 생성 할 수 없습니다.",
+		"ja": "まだ評価データがなく、単語頻度統計を生成することはできません"
+	},
+	"7ek1tl6": {
+		"zh-cn": "评价词频统计",
+		"en": "Evaluation word frequency statistics",
+		"ko": "평가 단어 빈도 통계",
+		"ja": "評価ワード周波数統計"
+	},
+	"s41ylu6": {
+		"zh-cn": "生成中...",
+		"en": "Generating...",
+		"ko": "생성 ...",
+		"ja": "生成..."
+	},
+	"eucqdw5": {
+		"zh-cn": "导出PDF",
+		"en": "Export PDF",
+		"ko": "수출 PDF",
+		"ja": "PDFをエクスポートします"
+	},
+	"owvrv07": {
+		"zh-cn": "- 评价关键词",
+		"en": "- Evaluation keywords",
+		"ko": "- 평가 키워드",
+		"ja": "- 評価キーワード"
+	},
+	"ekty2": {
+		"zh-cn": "出现",
+		"en": "Appear",
+		"ko": "나타나다",
+		"ja": "現れる"
+	},
+	"l5t1": {
+		"zh-cn": "次",
+		"en": "Second-rate",
+		"ko": "2 차",
+		"ja": "二流"
+	},
+	"dpyq396": {
+		"zh-cn": "分析中...",
+		"en": "Analysis...",
+		"ko": "분석...",
+		"ja": "分析..."
+	},
+	"8hgd78d": {
+		"zh-cn": "条学生评价 | 生成时间:",
+		"en": "Student evaluation | Generation time:",
+		"ko": "학생 평가 | 생성 시간 :",
+		"ja": "学生の評価|生成時間："
+	},
+	"tr1d1b2a": {
+		"zh-cn": "D:/hjy/study/复杂软件系统实践学习/workspace/ChainEval/src/components/EvaluationWordCloud.tsx",
+		"en": "D:/hjy/study/Complex Software System Practical Learning/workspace/ChainEval/src/components/EvaluationWordCloud.tsx",
+		"ko": "D :/HJY/Study/Study/Complex Software System 실제 학습/작업 공간/ChaineVal/Src/Components/EvaluationWordCloud.tsx",
+		"ja": "D：/HJY/Study/Complex Software System Practical Learning/Workspace/Chaineval/Src/Components/evaluationWordcloud.tsx"
 	}
 }

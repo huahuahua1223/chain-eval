@@ -1,6 +1,8 @@
 import Web3 from 'web3';
 import abijson from '../assets/ChainEval.json';
 import addressjson from '../assets/sepolia-address.json';
+// import addressjson from '../assets/geth-address.json';
+
 interface CourseData {
   id: string;
   name: string;
